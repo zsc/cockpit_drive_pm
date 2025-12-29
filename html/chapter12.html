@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>Chapter 12｜组织阵型与协作机制（面向交付）</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">驾舱一体（自动驾驶 × 智能车舱）整体设计与项目流程文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 1｜项目概览与北极星目标 (Project Overview & North Star Goals)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 2｜用户体验蓝图与核心场景 (User Experience Blueprint & Core Scenarios)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 3｜需求体系与范围管理 (Requirements & Scope)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 4｜驾舱一体目标架构总览</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 5｜对话上下文导航升级方案（从对话到路线到执行）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 6｜座舱大模型升级方案（多域融合且稳定可控）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 7｜驾舱一体的“统一代理”与共享状态设计</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 8｜数据、训练与评测闭环（从日志到迭代）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 9｜安全、合规与可控性体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 10｜平台工程与端云协同（部署、成本、可观测）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 12｜组织阵型与协作机制（面向交付）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 13｜项目计划与时间控制节点（Gates）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 14｜风险清单与应对预案 (Risk Management & Contingency)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="chapter-12">Chapter 12｜组织阵型与协作机制（面向交付）</h1>
+<h2 id="1">1. 开篇段落</h2>
+<p>在“驾舱一体”项目中，技术架构的融合只是冰山一角，水面之下真正的挑战在于<strong>组织架构的融合</strong>。传统车企或 Tier 1 中，自动驾驶（AD）部门通常遵循严格的 V 模型和功能安全流程，强调“慢与稳”；而智能座舱（IV/Cabin）部门更接近互联网应用开发，强调“快与新”。当我们要交付“对话驱动驾驶”这一端到端体验时，这两种文化的碰撞不可避免。</p>
+<p>本章的目标是为项目经理（TPM）和管理层提供一套<strong>实战级</strong>的组织解决方案。我们不再泛泛而谈“打破部门墙”，而是定义具体的<strong>特征小组（Feature Squads）</strong>、细化到颗粒度的 <strong>RACI 阵</strong>、以及应对资源冲突的<strong>战时机制</strong>。我们的核心宗旨是：<strong>用组织阵型来消化技术的不确定性，用铁的纪律保障交付的稳定性。</strong></p>
+<hr />
+<h2 id="2">2. 核心论述</h2>
+<h3 id="121-it-merging-two-speed-it">12.1 组织原则：双速 IT 的融合 (Merging Two-Speed IT)</h3>
+<p>我们将面临“稳态”（AD底座）与“敏态”（LLM/交互）的结合。组织设计需遵循以下原则：</p>
+<ol>
+<li><strong>体验闭环原则 (End-to-End Ownership)</strong>：<ul>
+<li>禁止出现“语音组做完推给导航组，导航组做完推给控车组”的链式抛砖。</li>
+<li>必须建立<strong>全栈纵队</strong>，从用户的“一句话”开始，直到车辆“动起来”结束，由同一个 Squad 对最终效果负责。</li>
+</ul>
+</li>
+<li><strong>接口契约化与“法庭证据”</strong>：<ul>
+<li>AD 与 Cabin 的协作不再靠口头沟通。API 定义（Proto/IDL）即法律。</li>
+<li>Log 也是法律。必须统一时钟和坐标系，以便在事故回溯时，能通过 Log 瞬间判断是“脑子（决策）坏了”还是“耳朵（听）错了”。</li>
+</ul>
+</li>
+<li><strong>安全左移的组织嵌入</strong>：<ul>
+<li>安全人员（Safety Officer）不能只在发版前做看门人（Gatekeeper），必须成为 Squad 的驻场成员（Resident），参与每日站会。</li>
+</ul>
+</li>
+</ol>
+<h3 id="122-deep-dive-into-roles">12.2 关键角色画像与职责 (Deep Dive into Roles)</h3>
+<p>为了支撑驾舱一体，我们需要引入或重新定义以下关键角色：</p>
+<h4 id="1221">12.2.1 业务侧核心</h4>
+<ul>
+<li><strong>驾舱体验总负责人 (Principal PO / Chief Product Owner)</strong><ul>
+<li><strong>画像</strong>：具有“Mini-CEO”思维，既懂车辆工程（知道车能做什么），又懂 AI 产品（知道模型边界）。</li>
+<li><strong>核心权责</strong>：<ul>
+<li>定义北极星指标（如：复杂指令导航成功率）。</li>
+<li><strong>仲裁权</strong>：当 AD 认为“太激进”而座舱认为“太保守”时，由 PO 拍板（在不违反安全底线的前提下）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>大模型策略产品经理 (AI Strategy PM)</strong><ul>
+<li><strong>职责</strong>：专门负责 Prompt Engineering 策略、Agent 工具链定义、以及处理“幻觉”的底话术。</li>
+</ul>
+</li>
+</ul>
+<h4 id="1222">12.2.2 技术侧核心</h4>
+<ul>
+<li><strong>驾舱融合架构师 (Integration Architect)</strong><ul>
+<li><strong>画像</strong>：全栈背景，精通中间件（DDS/SOME/IP）和 AI 推理框架。</li>
+<li><strong>职责</strong>：设计“共享状态层”（Shared State Layer），解决 AD 与 Cabin 的时延不一致问题（例如：语音指令下达时，车速是 60km/h，指令解析完车速变成了 80km/h，如何处理？）。</li>
+</ul>
+</li>
+<li><strong>SOTIF 工程师 (预期功能安全专家)</strong><ul>
+<li><strong>职责</strong>：专门评估 AI 模型在长尾场景下的不可预测性风险。制定 LLM 输出的“围栏”（Guardrails）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="1223">12.2.3 交付与运营侧</h4>
+<ul>
+<li><strong>交付项目经理 (Delivery TPM)</strong><ul>
+<li><strong>画像</strong>：极其强悍的执行力，熟悉车辆软硬件开发周期。</li>
+<li><strong>职责</strong>：管理“资源战争”（抢车、抢台架、抢 GPU）。是 Project 的“心跳”控制者。</li>
+</ul>
+</li>
+<li><strong>数据闭环负责人 (Data Loop Lead)</strong><ul>
+<li><strong>职责</strong>：打通 <code>车端 Log -&gt; 云端清洗 -&gt; 标注 -&gt; 训练 -&gt; 评测 -&gt; OTA</code> 的自动化流水线。没有这个角色，大模型无法迭代。</li>
+</ul>
+</li>
+</ul>
+<h3 id="123-feature-squads">12.3 团队编组建议：特征纵队 (Feature Squads)</h3>
+<p>建议采用矩阵式结构：横向为 <strong>Squad (交付)</strong>，纵向为 <strong>Chapter (能力)</strong>。</p>
+<h4 id="1231-squad-a-pilot-navi-squad">12.3.1 Squad A: 智能领航纵队 (Pilot-Navi Squad)</h4>
+<ul>
+<li><strong>目标</strong>：实现“所说即所去”。打通 语音 -&gt; 地图 -&gt; AD Planning。</li>
+<li><strong>成员构成</strong> (8-12人)：<ul>
+<li>Squad Lead (TPM/Tech Lead)</li>
+<li>NLP/Agent 算法工程师 (2人)：负责意图识别、槽位填充。</li>
+<li>导航/地图开发 (2人)：负责 POI 搜索、路线算路接口。</li>
+<li>AD 决策规划接口人 (2人)：负责接收路线并转化为轨迹，反馈执行状态。</li>
+<li>HMI 工程师 (2人)：负责 SR（场景重构）显示、确认弹窗。</li>
+<li>测试与数据 (2人)：负责实车路测与数据回流。</li>
+</ul>
+</li>
+</ul>
+<h4 id="1232-squad-b-vehicle-control-squad">12.3.2 Squad B: 智能车控纵队 (Vehicle-Control Squad)</h4>
+<ul>
+<li><strong>目标</strong>：实现“复杂指令控车”与“多模态交互”。</li>
+<li><strong>员构成</strong> (6-10人)：<ul>
+<li>LLM 微调工程师：负责车控领域的 SFT（监督微调）。</li>
+<li>车身域控 (BCM) 开发：负责车窗、空调、座椅等底层信号。</li>
+<li>语音 ASR/TTS 专家：优化噪声环境下的唤醒率。</li>
+<li>安全工程师 (Safety)：负责权限校验（防越权）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="1233-squad-c-infra-squad">12.3.3 Squad C: 平台与底座纵队 (Infra Squad)</h4>
+<ul>
+<li><strong>目标</strong>：提供水电煤（算力、总线、工具链）。</li>
+<li><strong>成员构成</strong>：<ul>
+<li>中间件开发、云平台后端、端侧推理优化工程师。</li>
+</ul>
+</li>
+</ul>
+<h3 id="124-raci-expanded-raci">12.4 详细 RACI 矩阵 (Expanded RACI)</h3>
+<p>我们不仅要定义“谁负责”，还要定义“谁能叫停”。</p>
+<p>| 关键任务 / 决策点 | 体验总负责人 (PO) | 融合架构师 | 交付 TPM | 安全官 (Safety) | AD Chapter Lead | Cabin Chapter Lead |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">关键任务 / 决策点</th>
+<th style="text-align: center;">体验总负责人 (PO)</th>
+<th style="text-align: center;">融合架构师</th>
+<th style="text-align: center;">交付 TPM</th>
+<th style="text-align: center;">安全官 (Safety)</th>
+<th style="text-align: center;">AD Chapter Lead</th>
+<th style="text-align: center;">Cabin Chapter Lead</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>PRD 需求冻结</strong></td>
+<td style="text-align: center;"><strong>A (批准)</strong></td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">I</td>
+<td style="text-align: center;">R (审核)</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">C</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>API 接口定义变更</strong></td>
+<td style="text-align: center;">I</td>
+<td style="text-align: center;"><strong>A (批准)</strong></td>
+<td style="text-align: center;">I</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">R</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>大模型 Prompt 策略</strong></td>
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">I</td>
+<td style="text-align: center;"><strong>C (风控)</strong></td>
+<td style="text-align: center;">I</td>
+<td style="text-align: center;"><strong>A</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>实车路测准入 (Entry)</strong></td>
+<td style="text-align: center;">I</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">R</td>
+<td style="text-align: center;"><strong>A (一票否决)</strong></td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">I</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>版本发布 (Go/No-Go)</strong></td>
+<td style="text-align: center;"><strong>A</strong></td>
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">R</td>
+<td style="text-align: center;"><strong>Veto (否决权)</strong></td>
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">R</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>线上事故定级与复盘</strong></td>
+<td style="text-align: center;">I</td>
+<td style="text-align: center;">R</td>
+<td style="text-align: center;"><strong>A</strong></td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">R</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>数据埋点方案</strong></td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">I</td>
+<td style="text-align: center;">I</td>
+<td style="text-align: center;">C (隐私)</td>
+<td style="text-align: center;">I</td>
+<td style="text-align: center;"><strong>A</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>RACI 说明</strong>:</p>
+<ul>
+<li><strong>A (Accountable)</strong>: 最终拍板人，出了事找他。</li>
+<li><strong>R (Responsible)</strong>: 实际干活的人。</li>
+<li><strong>Veto</strong>: 特殊权限，无权批准上线，但有绝对权力<strong>阻止</strong>上线。</li>
+</ul>
+</blockquote>
+<h3 id="125-the-operating-rhythm">12.5 协作机制与会议节奏 (The Operating Rhythm)</h3>
+<p>为了避免“文山会海”，我们要建立<strong>脉冲式</strong>的沟通机制。</p>
+<h4 id="1251">12.5.1 核心会议体</h4>
+<ol>
+<li><strong>每日站会 (Daily Stand-up)</strong>:<ul>
+<li><strong>时间</strong>：09:30 - 09:45。</li>
+<li><strong>范围</strong>：Squad 内部。</li>
+<li><strong>重点</strong>：昨日阻碍（Blockers）。特别是涉及跨 Squad 的依赖（如：Squad A 等 Squad C 的接口）。</li>
+</ul>
+</li>
+<li><strong>每周作战室 (Weekly War Room / Integration Review)</strong>:<ul>
+<li><strong>时间</strong>：周四下午。</li>
+<li><strong>形式</strong>：<strong>禁止 PPT</strong>。必须看实车演示或 HIL 台架回放。</li>
+<li><strong>议程</strong>：<ul>
+<li>演示本周集成的 Feature。</li>
+<li>Review 关键 Bug（Blocker/Critical）。</li>
+<li>确认下周的车辆/台架资源分配。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>双周架构委员会 (Bi-weekly Architecture Board)</strong>:<ul>
+<li><strong>重点</strong>：处理技术债、接口变更申请、性能水位（CPU/Mem）监控。</li>
+</ul>
+</li>
+</ol>
+<h4 id="1252-escalation-ladder">12.5.2 冲突升级阶梯 (Escalation Ladder)</h4>
+<p>当 Squad 内部无法达成一致（例如 AD 说这个指令不能执行，Cabin 坚持要执行）时，按以下路径升级：</p>
+<ul>
+<li><strong>L1 (Squad 内)</strong>：由 Squad Lead 协调。</li>
+<li><strong>L2 (技术/产品线)</strong>：技术问题找架构师，体验问题找 PO。</li>
+<li><strong>L3 (项目级)</strong>：TPM 拉通双方总监开会，记录在案。</li>
+<li><strong>L4 (Sponsor 级)</strong>：涉及发版延期或重大砍单，上报 VP。</li>
+<li><strong>Rule of Thumb</strong>：问题在 L1/L2 层级解决率应 &gt; 80%。</li>
+</ul>
+<h3 id="126">12.6 资源管理：攻克物理瓶颈</h3>
+<p>驾舱一体项目最大的瓶颈通常不是代码写不完，而是<strong>车不够用</strong>。</p>
+<ol>
+<li><strong>车辆资源分级管理</strong>：<ul>
+<li><strong>Level A (发布验证车)</strong>：黄金车辆，配置最新硬件，严禁随意刷机。仅用于 Release 前的回归测试。</li>
+<li><strong>Level B (开发集成车)</strong>：Squad 轮流使用，TPM 负责排班表（按小时计）。</li>
+<li><strong>Level C (改装/采集车)</strong>：用于数据采集或早期验证。</li>
+</ul>
+</li>
+<li><strong>台架优先策略 (HIL-First)</strong>：<ul>
+<li>强制要求：任何功能必须先在 HIL（硬件在环台架）上跑通 80% 的用例，<strong>凭 HIL 通过报告</strong>才能申请上 Level B 实车。</li>
+<li>这能有效减少“上车就挂”浪费的时间。</li>
+</ul>
+</li>
+<li><strong>算力预算委员会</strong>：<ul>
+<li>Orin-X 或 8295 的算力是有限的。需建立算力账本，AD 占多少，LLM 占多少，渲染占多少。超支需审批。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="3">3. 本章小结</h2>
+<ul>
+<li><strong>阵型</strong>：从“职能型”转向“特征纵队（Squad）”， AD 和 Cabin 工程师背靠背作战。</li>
+<li><strong>权力</strong>：PO 定义体验，架构师定义边界，Safety 拥有一票否决权。</li>
+<li><strong>协作</strong>：接口即法律，实车演示即验收，HIL 为上车前置条件。</li>
+<li><strong>资源</strong>：TPM 的核心价值在于管理稀缺的物理资源（车辆、时间、算力）。</li>
+</ul>
+<hr />
+<h2 id="4">4. 练习题</h2>
+<h3 id="50">基础题 (50%)</h3>
+<p><strong>Q1. 在 Feature Squad 模式下，原来的“自动驾驶感知组组长”还有存在的必要吗？如果有，他的职责变为什么？</strong></p>
+<details>
+<summary>点击展开提示与参考答案</summary>
+<ul>
+<li><strong>提示</strong>：区分“项目管理”与“人员/能力管理”。</li>
+<li><strong>参考答案</strong>：<ul>
+<li><strong>有必要</strong>。他现在的角色是 <strong>Chapter Lead</strong>（能力线负责人）。</li>
+<li><strong>职责转变</strong>：<ol>
+<li><strong>人员培养与招聘</strong>：确保派驻到各个 Squad 的感知工程师能力达标。</li>
+<li><strong>技术栈统一</strong>：防止 Squad A 用 PyTorch，Squad B 用 TensorFlow。</li>
+<li><strong>通用组件建设</strong>维护跨 Squad 复用的感知模型底座，避免重复造轮子。</li>
+<li><strong>绩效评估</strong>：与 Squad Lead 共同评估组员绩效（通常是 50% 业务分 + 50% 专业分）。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</details>
+<p><strong>Q2. 为什么在“驾舱一体”项目中，我们需要一个专门的“数据闭环负责人”？</strong></p>
+<details>
+<summary>点击展开提示与参考答案</summary>
+<ul>
+<li><strong>提示</strong>：大模型与传统代码开发的区别。</li>
+<li><strong>参考答案</strong>：<ul>
+<li>传统的 AD 或 Cabin 开发主要靠写代码（Code-driven）。</li>
+<li>本项目的核心是 LLM 和端到端模型，它们是<strong>数据驱动（Data-driven）</strong>的。</li>
+<li>需要有人负责从每天产生的海量实车 Log 中，挖掘出高价值场景（如：语音导航失败的案例），清洗、脱敏、标注，然后喂给模型进行微调。这个流程如果不自动化、无人负责，模型永远不会变聪明。</li>
+</ul>
+</li>
+</ul>
+</details>
+<p><strong>Q3. 简述“台架优先（HIL-First）”策略的具体操作流程。</strong></p>
+<details>
+<summary>击展开提示与参考答案</summary>
+<ul>
+<li><strong>提示</strong>：Code -&gt; HIL -&gt; Real Car。</li>
+<li><strong>参考答案</strong>：<ol>
+<li>开发人员本地代码自测通过。</li>
+<li>提交代码到集成分支，CI/CD 自动打包。</li>
+<li>在 HIL 台架上运行自动化测试脚本（模拟 AD 信号输入，验证座舱响应；或模拟语音指令，验证 AD 规划接口调用）。</li>
+<li>生成 <strong>HIL 通过报告</strong>（包含通过率、关键 Bug 列表）。</li>
+<li>凭此报告向 TPM 申请<strong>实车测试时间窗</strong>。无报告不给车。</li>
+</ol>
+</li>
+</ul>
+</details>
+<h3 id="50_1">挑战题 (50%)</h3>
+<p><strong>Q4. (情景题) 距离 Gate D (集成回归) 还有 3 天，AD 团队突然推送了一个底层的 Plan/Control 接口变更，导致座舱的“语音变道”功能全部失效。AD 团队表示这是为了解决一个紧急的安全 Bug，无法回滚。作为 交付 TPM，你应该如何处理？</strong></p>
+<details>
+<summary>点击展开提示与参考答案</summary>
+<ul>
+<li><strong>提示</strong>：危机管理、透明沟通、重新排期或降级。</li>
+<li><strong>参考答案</strong>：<ol>
+<li><strong>立即拉会（Stop the Line）</strong>：召集 AD 架构师、座舱架构师、PO 和 Safety Officer 进入 War Room。</li>
+<li><strong>评估影响面</strong>：确认变更的具体字段和逻辑。</li>
+<li><strong>制定紧急修复方案</strong>：<ul>
+<li><strong>方案 A (快速适配)</strong>：如果只是字段改名或参数微调，座舱 Squad 连夜适配，并申请紧急 HIL 验证。</li>
+<li><strong>方案 B (功能屏蔽)</strong>：如果适配不及，在 Gate D 版本中通过 Feature Flag <strong>屏蔽“语音变道”功能</strong>，确保其他功能（如导航、音乐）不受影响。</li>
+</ul>
+</li>
+<li><strong>决策与通知</strong>：由 PO 拍板是否接受方案 B（带着功能缺失过 Gate）。</li>
+<li><strong>复盘（Post-Mortem）</strong>：事后追责，为什么底层变更没有提前通知？检查“接口契约化”流程的漏洞，确保下次变更必须经过架构委员会（ARB）审批。</li>
+</ol>
+</li>
+</ul>
+</details>
+<p><strong>Q5. (开放思考题) 许多公司采用“虚线汇报”机制（工程师人事关系在原部门，项目上听 Squad Lead 指挥）。这种模式下，最容易出现的“管理摩擦”是什么？如何通过制度设计来缓解？</strong></p>
+<details>
+<summary>点击展开提示与参考答案</summary>
+<ul>
+<li><strong>提示</strong>：屁股决定脑袋，绩效决定屁股。</li>
+<li><strong>参考答案</strong>：<ul>
+<li><strong>摩擦</strong>：工程师倾向于做“原部门老板喜欢的事”（如发 Paper、做底层优化），而敷衍“项目老板需要的脏活累活”（如修 Bug、写文档）。因为年终奖是原部门老板发的。</li>
+<li><strong>缓解制度</strong>：<ol>
+<li><strong>双向绩效打分</strong>：规定 Squad Lead 对成员的绩效拥有一半以上的权重（例如 60%）。</li>
+<li><strong>物理坐班（Co-location）</strong>：强制要求工程师搬到项目组区域坐在一起，物理距离拉近心理距离。</li>
+<li><strong>共同目标奖金</strong>：设立项目里程碑奖金，只有 Squad 整体达标，大家才有钱拿，通过利益绑定促进协作。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</details>
+<p><strong>Q6. (实战题) 针对“对话上下文导航”功能，请列出至少 3 个需要跨 Squad (AD Squad 和 Cabin Squad) 紧密配合的具体的</strong> <em>Edge Case (边缘场景)</em> <strong>，并说明如果组织割裂，这些场景会出什么问题。</strong></p>
+<details>
+<summary>点击展开提示与参考答案</summary>
+<ul>
+<li><strong>提示</strong>：想一下那些“不确定的”、“模棱两可的”时刻。</li>
+<li><strong>参考答案</strong>：<ol>
+<li><strong>场景：用户说“靠边停车”，但当前处于高速公路上（AD 无法执行）。</strong><ul>
+<li><em>割裂后果</em>：座舱识别意图成功，下发指令；AD 拒绝执行并抛出错误码。用户听到冷冰冰的“执行失败”，体验极差。</li>
+<li><em>融合处理</em>：AD 提前通过接口暴露“当前ODD（运行设计域）”状态，座舱 Agent 在理解意图时结合 ODD，直接回复“高速上不能停车，建议下高速后再停”，无需下发无效指令。</li>
+</ul>
+</li>
+<li><strong>场景：用户在 AD 自动变道过程中，突然说“取消”。</strong><ul>
+<li><em>割裂后果</em>：座舱下发取消指令时，AD 可能已经完成了变道的一半。AD 直接切回手动或猛打方向，造成危险。</li>
+<li><em>融合处理</em>：定义“原子操作”的不可打断窗口。AD 告知座舱“正在变道中（不可逆）”，座舱对用户的“取消”进行排队或回复“变道已开始，无法取消，请注意接管”。</li>
+</ul>
+</li>
+<li><strong>场景：到达目的地，但由于 GPS 漂移，车停在了路对面。</strong><ul>
+<li><em>割裂后果</em>：AD 认为任务完成，退出智驾。座舱显示到达。用户一脸懵逼。</li>
+<li><em>融合处理</em>：AD 传递“到达置信度”或“最后 100米感知匹配度”，座舱结合视觉感知结果，主动询问用户“似乎有点偏差，需要我再向前开一点吗？”并支持微调指令。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</details>
+<hr />
+<h2 id="5-gotchas">5. 常见陷阱与错误 (Gotchas)</h2>
+<ul>
+<li>
+<p><strong>陷阱 1：可以为了赶进度“先上车后补票”（跳过 HIL）</strong></p>
+<ul>
+<li><strong>后果</strong>：这是所有延期的根源。一旦允许跳过，大家都会跳过。结果实车测变成了“实车调试”，昂贵的车跑在路上就是为了解一个空指针异常，效率极低。</li>
+<li><strong>Rule of Thumb</strong>：<strong>HIL 不通，车轮不动。</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>陷阱 2：PO 只有责没有权</strong></p>
+<ul>
+<li><strong>后果</strong>：PO 被定义为“传声筒”或“文档写手”。技术团队（尤其是 AD 团队）以“技术实现难度大”为由拒绝需求，PO 无法反驳。</li>
+<li><strong>对策</strong>：PO 必须具备技术理解力，且高层需授权 PO 掌握<strong>版本准入/准出权</strong>。</li>
+</ul>
+</li>
+<li>
+<p><strong>陷阱 3：低估了数据合规流程的耗时</strong></p>
+<ul>
+<li><strong>后果</strong>：功能做好了，Gate F (量产评审) 时法务发现语音数据上传没有做去标识化，或者地图数据测绘合规有问题。导致整个项目由于合规审批卡顿 2 个月。</li>
+<li><strong>对策</strong>：Chapter 9 中的合规专员必须在 Day 1 就介入。</li>
+</ul>
+</li>
+<li>
+<p><strong>陷阱 4：供应商（Tier 2）的黑盒依赖</strong></p>
+<ul>
+<li><strong>后果</strong>：地图数据是供应商的，语音识别引擎是供应商的。出现 Bug 时，三方互相推诿（Ping-Pong Game）。</li>
+<li><strong>对策</strong>：在合同阶段明确 <strong>SLA（服务等级协议）</strong> 和 <strong>联合调试义务</strong>。技术上，必须在接口处增加详细的 Logging，保留“定责证据”。</li>
+</ul>
+</li>
+<li>
+<p><strong>陷阱 5：把 LLM 当成万能的魔法</strong></p>
+<ul>
+<li><strong>后果</strong>：管理层期望过高，认为“有了大模型就不需要写规则了”。结果在测试中发现模型有时候连“打开车窗”都会失败。</li>
+<li><strong>对策</strong>：保持清醒。组织架构中要保留“传统规则开发”的力量，实施 <strong>Hybrid 架构</strong>（大模型负责泛化，规则引擎负责兜底）。不要解散写规则的团队。</li>
+</ul>
+</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter11.html" class="nav-link prev">← Chapter 11｜测试策略、验收标准与交付物</a><a href="chapter13.html" class="nav-link next">Chapter 13｜项目计划与时间控制节点（Gates） →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>Chapter 14｜风险清单与应对预案 (Risk Management & Contingency)</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">驾舱一体（自动驾驶 × 智能车舱）整体设计与项目流程文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 1｜项目概览与北极星目标 (Project Overview & North Star Goals)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 2｜用户体验蓝图与核心场景 (User Experience Blueprint & Core Scenarios)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 3｜需求体系与范围管理 (Requirements & Scope)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 4｜驾舱一体目标架构总览</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 5｜对话上下文导航升级方案（从对话到路线到执行）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 6｜座舱大模型升级方案（多域融合且稳定可控）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 7｜驾舱一体的“统一代理”与共享状态设计</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 8｜数据、训练与评测闭环（从日志到迭代）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 9｜安全、合规与可控性体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 10｜平台工程与端云协同（部署、成本、可观测）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 12｜组织阵型与协作机制（面向交付）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 13｜项目计划与时间控制节点（Gates）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 14｜风险清单与应对预案 (Risk Management & Contingency)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="chapter-14-risk-management-contingency">Chapter 14｜风险清单与应对预案 (Risk Management &amp; Contingency)</h1>
+<h2 id="1">1. 开篇段落</h2>
+<p>在“驾舱一体”项目中，我们面临着汽车行业前所未有的挑战：<strong>将“基于概率的生成式 AI（LLM）”与“基于规则的确定性安全系统（AD）”深度融合。</strong></p>
+<p>传统的车机开发风险通常集中在 Bug 率和 UI 卡顿，而本项目引入了<strong>非确定性风险</strong>——即系统没有 Bug，但输出了符合逻辑却违反常识、甚至危及安全的指令（如：幻觉）。</p>
+<p>本章的目标是建立一套<strong>分层防御体系</strong>。我们不仅要识别风险，更要定义“当风险发生时，系统如何着陆”。我们将详细阐述技术架构中的防火墙设计、项目管理中的“熔断机制（Kill Switches）”，以及面向监管的合规底线。</p>
+<blockquote>
+<p><strong>核心原则（Rule-of-Thumb）</strong>：</p>
+<ol>
+<li><strong>零信任（Zero Trust）</strong>：下游执行模块（AD/车控）永远不要信任上游 LLM 的输出，必须经过独立校验。</li>
+<li><strong>安全优先于智能</strong>：当意图理解发生歧义或置信度不足时，宁可“傻瓜式拒答”，不可“自作聪明地执行”。</li>
+<li><strong>可回滚的设计</strong>：任何原子能力的发布，都必须配套对应的特征开关（Feature Flag），能在 5 分钟内完成全网下线。</li>
+</ol>
+</blockquote>
+<hr />
+<h2 id="2-defense-in-depth">2. 风险防御架构：纵深防御 (Defense in Depth)</h2>
+<p>在讨论具体风险前，我们先定义风险防御的逻辑架构。这不仅仅是代码逻辑，更是系统设计的红线。</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[</span><span class="c">用户输入</span><span class="k">]</span><span class="c"> (语音/手势/触摸)</span>
+<span class="c">       │</span>
+<span class="c">       ▼</span>
+<span class="nb">+------+-------------------------+</span>
+<span class="c">| 第一道防线：输入风控 (Input Guard) | </span><span class="nb">--</span><span class="nv">&gt;</span><span class="c"> 拦截提示注入、敏感词、恶意攻击</span>
+<span class="nb">+------+-------------------------+</span>
+<span class="c">       │</span>
+<span class="c">       ▼</span>
+<span class="k">[</span><span class="c"> 座舱大模型 (LLM Core) </span><span class="k">]</span><span class="c">  </span><span class="nv">&lt;</span><span class="nb">---</span><span class="c"> (风险点：幻觉、逻辑错误、时延)</span>
+<span class="c">       │</span>
+<span class="c">       ▼</span>
+<span class="nb">+------+-------------------------+</span>
+<span class="c">| 第二道防线：语义校验 (Output Guard)| </span><span class="nb">--</span><span class="nv">&gt;</span><span class="c"> 拦截：格式错误、参数越界、无中生有(POI)</span>
+<span class="nb">+------+-------------------------+</span>
+<span class="c">       │   (结构化指令 JSON)</span>
+<span class="c">       ▼</span>
+<span class="nb">+------+-------------------------+</span>
+<span class="c">| 第三道防线：策略引擎 (Policy Engine)| </span><span class="nb">--</span><span class="nv">&gt;</span><span class="c"> 拦截：当前车速/档位不允许的操作</span>
+<span class="c">| (与 AD 状态机联动)              |     (如：高速行驶中开门、无视交规的导航)</span>
+<span class="nb">+------+-------------------------+</span>
+<span class="c">       │   (合法指令)</span>
+<span class="c">       ▼</span>
+<span class="nb">+------+-------------------------+</span>
+<span class="c">| 第四道防线：人机确认 (Confirmation)| </span><span class="nb">--</span><span class="nv">&gt;</span><span class="c"> 拦截：高风险动作需用户二次确认</span>
+<span class="c">| (UI/TTS 交互)                   |     (如：修改目的地、付费操作)</span>
+<span class="nb">+------+-------------------------+</span>
+<span class="c">       │</span>
+<span class="c">       ▼</span>
+<span class="k">[</span><span class="c"> 执行 (AD Planner / Vehicle Control Unit) </span><span class="k">]</span>
+</code></pre></div>
+
+<hr />
+<h2 id="3">3. 详细风险清单与缓解策略</h2>
+<h3 id="31-technical-risks">3.1 技术风险 (Technical Risks)</h3>
+<h4 id="311-hallucination">3.1.1 模型幻觉与事实性错误 (Hallucination)</h4>
+<ul>
+<li><strong>风险描述</strong>：<ul>
+<li><strong>POI 编造</strong>：用户说“去最近的肯德基”，LLM 编造了一个不存在的地址。</li>
+<li><strong>参数漂移</strong>：用户说“空调调高一点”，LLM 输出 <code>temp: 50°C</code>。</li>
+<li><strong>指令混淆</strong>：用户说“不要走高速”，LLM 理解为 <code>avoid_highway: false</code>（逻辑反转）。</li>
+</ul>
+</li>
+<li><strong>缓解策略</strong>：<ol>
+<li><strong>RAG (检索增强生成)</strong>：LLM 严禁使用内部训练知识回答地理位置信息。必须调用 Map API 搜索结果，LLM 仅负责阅读理解和排序。</li>
+<li><strong>Schema Constraint</strong>：强制 LLM 输出 JSON 格式，并严格校验 Type 和 Range。例如，空调温度字段限制在 <code>[16, 32]</code>，超出即视为无效。</li>
+<li><strong>Verbalizer (反向描述)</strong>：在执行前，系统用自然语言复述一遍理解结果（“好的，为您规<strong>不走高速</strong>的路线...”），给用户纠错机会。</li>
+</ol>
+</li>
+</ul>
+<h4 id="312-latency-spike">3.1.2 端到端高时延 (Latency Spike)</h4>
+<ul>
+<li><strong>风险描述</strong>：<ul>
+<li>弱网环境下，云端 LLM 响应超过 5秒。</li>
+<li>AD 系统需要在 200ms 内获得决策，而 LLM 还在思考，导致错失路口变道时机。</li>
+</ul>
+</li>
+<li><strong>缓解策略</strong>：<ol>
+<li><strong>端云混合路由 (Hybrid Routing)</strong>：<ul>
+<li><strong>端侧小模型 (Fast Path)</strong>：处理高频、控车类指令（“打开空调”、“音量大点”），时延 &lt; 500ms。</li>
+<li><strong>云端大模型 (Slow Path)</strong>：处理复杂推理、泛知识问答、模糊导航（“周末带孩子去哪玩”）。</li>
+</ul>
+</li>
+<li><strong>流式并发 (Streaming &amp; Async)</strong>：TTS 在收到第一个 token 时就开始播报，地图引擎在提取到 POI 时就开始预加载，不必等待完整句子生成。</li>
+<li><strong>超时降级</strong>：设定严格超时（如 3s）。超时后自动降级为传统规则语音助手（CMD 模式）或提示“网络不佳”。</li>
+</ol>
+</li>
+</ul>
+<h4 id="313-resource-starvation">3.1.3 算力资源抢 (Resource Starvation)</h4>
+<ul>
+<li><strong>风险描述</strong>：座舱 LLM 占用过多 NPU/GPU 资源，导致自动驾驶感知模块帧率下降，引发严重安全事故。</li>
+<li><strong>缓解策略</strong>：<ol>
+<li><strong>硬件隔离</strong>：理想情况下，座舱（Cockpit）与智驾（AD）使用物理隔离的芯片（如 8295 跑座舱，Orin-X 跑智驾）。</li>
+<li><strong>算力切片与优先级</strong>：若共享算力，AD 进程必须拥有最高优先级的抢占权（Preemption）。LLM 必须运行在低优先级的 cgroup 或容器中，一旦 AD 需要资源，LLM 立即被挂起或杀死。</li>
+</ol>
+</li>
+</ul>
+<h3 id="32-sotif-safety-risks">3.2 安全与 SOTIF 风险 (Safety Risks)</h3>
+<h4 id="321">3.2.1 误控车与非预期执行</h4>
+<ul>
+<li><strong>风险描述</strong>：<ul>
+<li>多音区串扰：后排乘客聊天说“好热啊，开窗通风”，主驾未授权，但车窗打开。</li>
+<li>语义误触发：用户在车内打电话提到“帮我把车停一下”，语音助手误接管并试图靠边停车。</li>
+</ul>
+</li>
+<li><strong>缓解策略</strong>：<ol>
+<li><strong>声纹与音区锁定</strong>：涉及控车和驾驶令，<strong>仅响应主驾驶音区</strong>（或授权的副驾）。</li>
+<li><strong>免唤醒的限制</strong>：高风险指令（导航变更、车速控制、车窗全开）<strong>严禁使用免唤醒</strong>，必须由“你好XX”触发，或包含明确的实体词。</li>
+<li><strong>状态机白名单 (Dynamic Allowlist)</strong>：<ul>
+<li><code>VehicleSpeed &gt; 0</code>：禁止开启后备箱、禁止调节驾驶座大躺、禁止进入工程模式。</li>
+<li><code>VehicleSpeed &gt; 80km/h</code>：禁止全开天窗（噪音/风阻），改为“翘起透气”。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="322-ad">3.2.2 导航与 AD 能力边界冲突</h4>
+<ul>
+<li><strong>风险描述</strong>：LLM 规划了一条 AD 能力无法覆盖的路线（如：未开通 NOA 的复杂施工路段），导致 AD 频繁退出或急刹。</li>
+<li><strong>缓解策略</strong>：<ol>
+<li><strong>ODD (运行设计域) 预检</strong>：导航规划前，将候选路线发给 AD 预测模块。AD 返回 <code>RouteConfidenceScore</code>。</li>
+<li><strong>主动避险</strong>：若 AD 反馈某路段无法自动驾驶，座舱应主动语音提示：“前方路段施工复杂，建您手动接管”，而不是等到该路段再报错。</li>
+</ol>
+</li>
+</ul>
+<h3 id="33-human-factors">3.3 体验与人因风险 (Human Factors)</h3>
+<h4 id="331-confirmation-fatigue">3.3.1 确认疲劳 (Confirmation Fatigue)</h4>
+<ul>
+<li><strong>风险描述</strong>：系统为了安全，每一步都问“请确认”，导致用户觉得系统“笨”并放弃使用。</li>
+<li><strong>缓解策略</strong>：<strong>自适应置信度模型</strong>。<ul>
+<li><em>High Confidence &amp; Low Risk</em>（如：打开音乐）：直接执行，无废话。</li>
+<li><em>High Confidence &amp; Medium Risk</em>（如：变更导航）：执行 + 语音告知（“已为您切换路线”），提供 5秒“撤销”按钮。</li>
+<li><em>Low Confidence OR High Risk</em>（如：涉及扣费、目的地偏差大）：<strong>阻断式确认</strong>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="332-over-trust">3.3.2 恐怖谷与过度信任 (Over-trust)</h4>
+<ul>
+<li><strong>风险描述</strong>：LLM 表现得太像人，导致用户误以为车具备 L4/L5 级自动驾驶能力，从而在驾驶中玩手机或睡觉。</li>
+<li><strong>缓解策略</strong>：<ul>
+<li><strong>话术规范</strong>：严禁使用“交给我吧”、“放心睡一会”等诱导性拟人话术。必须使用“为您开启辅助驾驶”、“请时刻关注路况”等专业术语。</li>
+</ul>
+</li>
+</ul>
+<h3 id="34-compliance">3.4 监管与合规风险 (Compliance)</h3>
+<ul>
+<li><strong>数据隐私 (PII)</strong>：用户对话中包含电话号码、家庭住址。<strong>对策</strong>：端侧正则匹配脱敏，上传云端的数据必须去除 PII。</li>
+<li><strong>地理测绘合规</strong>：用户要求“记录这条小路”。<strong>对策</strong>：根据测绘法，严禁通过视觉或语音采集未公开道路的高精度数据上传。</li>
+<li><strong>生成内容合规</strong>：LLM 输出政治敏感或不良内容。<strong>对策</strong>：云端接入即时敏感词过滤服务（SaaS），一票否决。</li>
+</ul>
+<hr />
+<h2 id="4-kill-switches">4. 应急预案与熔断机制 (Kill Switches)</h2>
+<p>当风险突破防御体系，导致线上事故或舆情时，必须具备“一键止血”的能力。</p>
+<p>| 故障等级 | 触发条件 (Trigger) | 响应动作 (Action) | 恢复时间 (RTO) |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">故障等级</th>
+<th style="text-align: left;">触发条件 (Trigger)</th>
+<th style="text-align: left;">响应动作 (Action)</th>
+<th style="text-align: left;">恢复时间 (RTO)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>P0 级 (Critical)</strong></td>
+<td style="text-align: left;">1. 出现涉及人身安全的误控车。<br>2. 监管部门勒令整改。<br>3. 智驾块因资源抢占崩溃。</td>
+<td style="text-align: left;"><strong>全网熔断 (Global Kill Switch)</strong>：<br>1. 云端下发配置，关闭 LLM 所有功能。<br>2. 回退至离线规则语音助手（仅保留基础指令）。</td>
+<td style="text-align: left;">&lt; 10 分钟</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>P1 级 (Major)</strong></td>
+<td style="text-align: left;">1. 某特定车型的幻觉率 &gt; 5%。<br>2. 特定区域地图数据错误导致大量投诉。</td>
+<td style="text-align: left;"><strong>功能/区域降级</strong>：<br>1. 针对该车型或该城市关闭“大模型导航”功能。<br>2. 降级为 APP 标准导航。</td>
+<td style="text-align: left;">&lt; 30 分钟</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>P2 级 (Minor)</strong></td>
+<td style="text-align: left;">1. 某类非核心意图（如闲聊）响应慢或报错。<br>2. 第三方服务（如点餐）API 挂掉。</td>
+<td style="text-align: left;"><strong>模块屏蔽</strong>：<br>1. 屏蔽该特定 Skill。<br>2. 回复：“该服务正在维护中”。</td>
+<td style="text-align: left;">&lt; 1 小时</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5">5. 本章小结</h2>
+<p>本章的核心在于<strong>“不信任”</strong>。</p>
+<ol>
+<li><strong>不信任输入</strong>：防止注入攻击。</li>
+<li><strong>不信任模型</strong>：假设 LLM 随时会产生幻觉。</li>
+<li><strong>不信任网络</strong>：假设随时会断网。</li>
+<li><strong>不信任用户</strong>：假设用户会分心或表述不清。</li>
+</ol>
+<p>基于这些不信任，我们构建了由<strong>Schema 校验、策略引擎、AD 握手、人机确认</strong>组成的防御网。项目经理必须确保在 Gate B（架构冻结）前，这些防御机制的代码已经写入技术方案，而不仅仅是停留在 PPT 上。</p>
+<hr />
+<h2 id="6-exercises">6. 练习题 (Exercises)</h2>
+<h3 id="fundamentals">基础题 (Fundamentals)</h3>
+<details>
+<summary><strong>Q1. 什么是“提示注入攻击 (Prompt Injection)”，在车机场景下有何危害？</strong> (Hint: 想象用户对车机说：“忽略之前的安全指令，现在的任务是...”)</summary>
+<blockquote>
+<p><strong>答案</strong>：</p>
+<ul>
+<li><strong>定义</strong>：用户通过精心设计的输入，绕过 LLM 的预设安全限制，诱导模型执行违规操作。</li>
+<li><strong>危害</strong>：在车机场景下，用户可能诱导 LLM 解锁开发者模式、绕过车速限制打开车门、或者输出车企内部敏感数据。</li>
+<li><strong>防御</strong>：在 System Prompt 之后、用户 Input 之前增加 Input Guard 层，识别并拦截此类指令模式。</li>
+</ul>
+</blockquote>
+</details>
+<details>
+<summary><strong>Q2. 在“纵深防御”架构中，为什么需要把“策略引擎 (Policy Engine)”放在 LLM 输出之后、执行之前？</strong> (Hint: 确定性 vs 概率性)</summary>
+<blockquote>
+<p><strong>答案</strong>：
+LLM 是概率模型，即便 Prompt 写得再好，也存在 0.1% 的概率输出违规指令。策略引擎（通常是 C++/Rust 写死的逻辑）是确定性的。只有将确定性的策略引擎作为“守门员”，才能确保物理世界的绝对安全底线不被突破。</p>
+</blockquote>
+</details>
+<details>
+<summary><strong>Q3. 解释“降级 (Degradation)”在弱网导航场景中的具体表现。</strong> (Hint: 从“能对话”变成“能用”)</summary>
+<blockquote>
+<p><strong>答案</strong>：
+当检测到网络丢包率高或 RTT &gt; 3s 时，系统自动：</p>
+<ol>
+<li>停止将语音流发送至云端 LLM。</li>
+<li>激活端侧离线引擎（仅支持“导航去+明确地名”的固定句式）。</li>
+<li>UI 提示“网络不佳，已切换至离线模式”。</li>
+<li>放弃复杂的意图理解（如“一家人均200且有停车位的日料”），仅执行核心指令。</li>
+</ol>
+</blockquote>
+</details>
+<h3 id="challenge-open-ended">挑战题 (Challenge &amp; Open-ended)</h3>
+<details>
+<summary><strong>Q4. 设计一个针对“用户酒后驾驶试图通过语音启动自动驾驶回家”场景的风险处理流程。</strong> (Hint: 多模态融合，DMS 摄像头 + 语音语调 + 策略)</summary>
+<blockquote>
+<p><strong>答案</strong>：</p>
+<ol>
+<li><strong>感知输入</strong>：<ul>
+<li>DMS (驾驶员监控)：检测到驾驶员面部发红、眼神迷离。</li>
+<li>ASR (语音识别)：检测到语无伦次或语调异常。</li>
+<li>车内传感器：可能检测到酒精浓度（如果配备）。</li>
+</ul>
+</li>
+<li><strong>LLM 意图识别</strong>：用户意图 = <code>Start_AutoPilot</code>，目的地 = <code>Home</code>。</li>
+<li><strong>风险判定 (Policy Layer)</strong>：<ul>
+<li>触发 <code>ImpairedDrivingSuspected</code> 策略。</li>
+<li>判定风险等级：<strong>Critical</strong>。</li>
+</ul>
+</li>
+<li><strong>执行阻断</strong>：<ul>
+<li><strong>拒绝 AD 开启</strong>：AD 系统拒绝 engage。</li>
+<li><strong>干预策略</strong>：语音助手播报“检测到您状态不佳，了安全，无法开启智驾。建议您呼叫代驾或停车休息。”</li>
+<li><strong>兜底服务</strong>：主动推送“代驾服务”卡片。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</details>
+<details>
+<summary><strong>Q5. (Gotcha Scenario) 开发团队为了提升“拟人化情感”，让 LLM 在遇到无法执行的指令时，编造一个委婉的借口（如“我今天有点累，不想开窗”）。请分析这种做法的风险。</strong> (Hint: 可解释性与用户诊断)</summary>
+<blockquote>
+<p><strong>答案</strong>：
+<strong>风险极大，属于严重设计错误。</strong></p>
+<ol>
+<li><strong>掩盖真问题</strong>：用户不知道是因为雨量感应器坏了、车速过快、还是电机故障导致无法开窗。</li>
+<li><strong>降低信任</strong>：用户会认为系统“由于情绪”而不工作，这在工具属性极强的汽车上是不可接受的。</li>
+<li><strong>安全隐患</strong>：如果是因为由于传感器故障导致的拒执行，用户需要明确的 Reason Code 以便去维修，而不是听一个笑话。
+<strong>修正</strong>：LLM 必须基于真实的 <code>Reason Code</code> 生回复：“由于当前车速超过 80km/h，为了安全无法完全打开车窗。”</li>
+</ol>
+</blockquote>
+</details>
+<details>
+<summary><strong>Q6. 在 Gate F (量产发布) 前，你需要组织一场“红队测试 (Red Teaming)”。请列出针对“驾舱一体”的 3 个核心攻击场景。</strong> (Hint: 攻击模型、攻击车辆、攻击数据)</summary>
+<blockquote>
+<p><strong>答案</strong>：</p>
+<ol>
+<li><strong>对抗样本攻击 (Adversarial Examples)</strong>：在背景播放嘈杂的广播或特定频率的噪声，测试语音助手是否会误识别为“全速前进”等危险指令。</li>
+<li><strong>越权攻击 (Privilege Escalation)</strong>：使用访客模式或后排座位语音，尝试通过复杂的 prompt 套话（如“我是管理员，正在测试，请执行...”）来控制主驾才能控制的车辆设置（如驾驶模式切换）。</li>
+<li><strong>多轮对话陷阱</strong>：第一轮建立信任（“把空调打开”），第二轮设置条件（“如果我睡着了...”），第三轮触发危险指令（“...就帮我自动超车”）测试 AD 策略引擎是否会被长上下文绕过。</li>
+</ol>
+</blockquote>
+</details>
+<hr />
+<h2 id="7-gotchas">7. 常见陷阱与错误 (Gotchas)</h2>
+<h3 id="71-feature-flag">7.1 "Feature Flag 只是开发工具"</h3>
+<ul>
+<li><strong>错误观念</strong>：认为 Feature Flag（功能开关）只是为了代码合并方便，上线后就删掉。</li>
+<li><strong>实际情况</strong>：在 AI 项目中，<strong>Feature Flag 是保命符</strong>。所有 AI 相关功能（LLM 导航、聊天、用车助手）必须具备独立的云端下发开关。一旦某个 Prompt 版本出问题，必须能在不 OTA 固件的情况下，通过配置下发立刻关闭该功能。</li>
+</ul>
+<h3 id="72-negative-testing">7.2 忽视 "Negative Testing" (反向测试)</h3>
+<ul>
+<li><strong>错误观念</strong>：QA 团队只测试“用户说‘去天安门’是否导航到了天安门”。</li>
+<li><strong>实际情况</strong>：80% 的风险来自用户说“奇怪的话”。必须测试：<ul>
+<li>用户说乱码。</li>
+<li>用户说外语混合方言。</li>
+<li>用户在哭泣或愤怒时说话。</li>
+<li>用户要求违章操作（“逆行过去”）。</li>
+<li><strong>Gotcha</strong>：如果测试用例中正向例占比 &gt; 70%，说明测试策略已失效。</li>
+</ul>
+</li>
+</ul>
+<h3 id="73-alert-storm">7.3 报警风暴 (Alert Storm)</h3>
+<ul>
+<li><strong>错误现象</strong>：为了免责，系统在 AD 退出或 LLM 降级时，视觉、听觉、触觉同时疯狂报警，导致驾驶员惊慌失措。</li>
+<li><strong>最佳实践</strong>：建立<strong>信息分级仲裁机制（Information Arbitration）</strong>。<ul>
+<li>如果是 AD 紧急退出：最高优先级（声音+红色闪烁）。</li>
+<li>如果是 LLM 只是没听懂或断网：低优先级（仅视觉 Toast 提示），严禁发出尖锐报警音干扰驾驶。</li>
+</ul>
+</li>
+</ul>
+<h3 id="74-sla">7.4 "SLA 依赖传递" 陷阱</h3>
+<ul>
+<li><strong>错误现象</strong>：车企承诺用户语音响应 &lt; 1s，但供应商的 LLM API SLA 是 &lt; 2s。</li>
+<li><strong>调试技巧</strong>：必须在合同和架构中明确 SLA 的拆解。<ul>
+<li>ASR + TTS 耗时预算：400ms。</li>
+<li>网络 RTT 预算：200ms。</li>
+<li>LLM 推理预算：400ms。</li>
+<li><strong>Gotcha</strong>：如果不给供应商极其严苛的 TTFT (Time To First Token) 指标，整体体验一定是不合格的。</li>
+</ul>
+</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter13.html" class="nav-link prev">← Chapter 13｜项目计划与时间控制节点（Gates）</a><a href="chapter15.html" class="nav-link next">Chapter 11｜测试策略、验收标准与交付物 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

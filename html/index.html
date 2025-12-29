@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>驾舱一体（自动驾驶 × 智能车舱）整体设计与项目流程文档</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item active" >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">驾舱一体（自动驾驶 × 智能车舱）整体设计与项目流程文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 1｜项目概览与北极星目标 (Project Overview & North Star Goals)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 2｜用户体验蓝图与核心场景 (User Experience Blueprint & Core Scenarios)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 3｜需求体系与范围管理 (Requirements & Scope)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 4｜驾舱一体目标架构总览</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 5｜对话上下文导航升级方案（从对话到路线到执行）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 6｜座舱大模型升级方案（多域融合且稳定可控）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 7｜驾舱一体的“统一代理”与共享状态设计</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 8｜数据、训练与评测闭环（从日志到迭代）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 9｜安全、合规与可控性体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 10｜平台工程与端云协同（部署、成本、可观测）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 12｜组织阵型与协作机制（面向交付）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 13｜项目计划与时间控制节点（Gates）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 14｜风险清单与应对预案 (Risk Management & Contingency)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="_1">驾舱一体（自动驾驶 × 智能车舱）整体设计与项目流程文档</h1>
+<blockquote>
+<p>面向：产品经理（PM）/ 项目经理（TPM/PMO）/ 研发负责人（TL/架构）/ 测试与安全团队<br />
+起点现状：  </p>
+<ul>
+<li><strong>自驾</strong>：已跑通 <em>Vision → Action</em> 端到端，能够按 <strong>App 导航</strong>实现（计划升级为 <strong>基于对话上下文的导航</strong>，且 <strong>对话最后有确认</strong>）。  </li>
+<li><strong>车舱</strong>：已有语音对话能力，但按规则划域（聊天域/控车域/音乐点播/中控互动如点餐），计划升级为 <strong>大模型驱动</strong>（尽量减少规则，但仍保持 <strong>稳定可控</strong>）。  </li>
+</ul>
+<p>文档目标：给出“驾舱一体”的<strong>总体设计</strong>与<strong>端到端项目流程</strong>，明确组织阵型、协作机制与时间控制节点（Gates），可直接落地执行。</p>
+</blockquote>
+<hr />
+<h2 id="_2">文件结构与约定</h2>
+<ul>
+<li><code>index.md</code>：目录与阅读指南（本文件）</li>
+<li><code>chapter1.md</code> ~ <code>chapter16.md</code>：各章节正文  </li>
+<li>约定：</li>
+<li>每章包含：目标/范围/关键决策/输入输物（Deliverables）/验收标准（DoD）</li>
+<li>关键里程碑用 <strong>Gate</strong> 表达：Gate 入口条件（Entry）+ 出口条件（Exit）</li>
+<li>“稳定可控”优先采用：<strong>权限/策略引擎/工具调用约束/可观测与可回放/降级兜底</strong></li>
+</ul>
+<hr />
+<h2 id="_3">阅读指南（按角色快速路径）</h2>
+<ul>
+<li><strong>产品经理（PM）</strong>：Chapter 1 → 2 → 3 → 5 → 6 → 15（体验与范围、核心机制、发布迭代）</li>
+<li><strong>项目经理（TPM/PMO）</strong>：Chapter 1 → 3 → 12 → 13 → 11 → 14（组织/计划/Gate/风险/验收）</li>
+<li><strong>架构/技术负责人</strong>：Chapter 4 → 7 → 8 → 9 → 10（架构、共享状态、数据闭环、安全、平台工程）</li>
+<li><strong>测试/安全</strong>：Chapter 9 → 11 → 8 → 14（安全合规、测试验收、评测闭环、风险预案）</li>
+</ul>
+<hr />
+<h2 id="_4">章节目录</h2>
+<blockquote>
+<p>说明：以下为 <strong>chapter list + 每章详细 section list</strong>（用于生成 <code>chapterX.md</code> 正文时直接展开）。</p>
+</blockquote>
+<hr />
+<h2 id="chapter-1"><a href="chapter1.html">Chapter 1｜项目概览与北极星目标</a></h2>
+<ul>
+<li>1.1 背景与现盘点（自驾E2E、App导航链路、座舱规则域能力）</li>
+<li>1.2 本期升级愿景（对话上下文导航 + 座舱大模型化 + 驾舱一体体验）</li>
+<li>1.3 业务目标与成功标准（北极星指标 + 交付指标 + 安全指标）</li>
+<li>1.3.1 体验类指标（任务完成率/用户满意度/对话轮次与时长）</li>
+<li>1.3.2 工程类指标（时延/稳定性/资源/成本）</li>
+<li>1.3.3 安全合规类指标（越权率/误执行率/可追溯覆盖率）</li>
+<li>1.4 范围定义（In Scope / Out of Scope）与版本边界</li>
+<li>1.5 关键约束（车端算力/弱网离线/法规隐私/供应商依赖/车型差异）</li>
+<li>1.6 核心决策清单（需在Gate前冻结的关键选择）</li>
+<li>1.7 总体交付物清单（PRD/架构/接口/测试报告/安全证据/上线方案）</li>
+<li>1.8 项目里程碑总览（P0~P5 + Gate地图）</li>
+</ul>
+<hr />
+<h2 id="chapter-2"><a href="chapter2.html">Chapter 2｜用户体验蓝图与核心场景</a></h2>
+<ul>
+<li>2.1 用户与角色（驾驶员/副驾/后排/访客/车队管理员）</li>
+<li>2.2 场景地图（从“上车—出发—途中—到达—离车”全链路）</li>
+<li>2.3 核心体验原则（少打扰、可确认、可撤销、可解释、可降级）</li>
+<li>2.4 <strong>对话上下文导航</strong>关键场景</li>
+<li>2.4.1 “去公司/回家/去上次那家店”等指代与记忆</li>
+<li>2.4.2 途经点与偏好（避开高速/有充电桩/更省时/更省钱）</li>
+<li>2.4.3 变更路线（途中改目的地/加停/绕路避堵）</li>
+<li>2.4.4 <strong>最终确认</strong>（语音确认 + 屏幕确认 + 撤销入口）</li>
+<li>2.5 <strong>座舱多域融合</strong>关键场景（聊天/控车/媒体/服务）</li>
+<li>2.5.1 一句话多意图（“有点冷，放点轻音乐”）</li>
+<li>2.5.2 跨域连续（点餐→地址确认→导航→预计到达→提醒）</li>
+<li>2.6 驾驶状态感知交互（手动/辅助/自动/泊车）与分心控制</li>
+<li>2.7 多模态呈现规范（语音 + 卡片 + 列表 + 按钮 + HUD/仪表）</li>
+<li>2.8 失败与兜底体验（听不清/不确定/无网/不可执行/权限不足）</li>
+<li>2.9 指标口径与埋点需求（体验漏斗定义）</li>
+<li>2.10 国际化/无障碍/方言与噪声适配</li>
+</ul>
+<hr />
+<h2 id="chapter-3"><a href="chapter3.html">Chapter 3｜需求体系与范围管理</a></h2>
+<ul>
+<li>3.1 需求分层（战略→MRD→PRD→User Story→验收用例）</li>
+<li>3.2 Epic/Feature 拆分（自驾对话导航、座舱LLM、多模态、一体化共享）</li>
+<li>3.3 版本规划（MVP/Beta/量产SOP）与每版能力边界</li>
+<li>3.4 非功能需求（NFR）：时延/可用性/资源/成本/隐私</li>
+<li>3.5 依赖与接口清单（地图/语音/云模型/支付/点餐等）</li>
+<li>3.6 需求追踪矩阵（RTM：需求→设计→实现→测试→上线指标）</li>
+<li>3.7 变更控制流程（CR提交、影响评估、冻结点、版本策略）</li>
+<li>3.8 DoR/DoD（Ready/Done）定义：进入开发与完成验收的门槛</li>
+</ul>
+<hr />
+<h2 id="chapter-4"><a href="chapter4.html">Chapter 4｜驾舱一体目标架构总览</a></h2>
+<ul>
+<li>4.1 总体架构：车端-云端-移动端协同（逻辑图/部署图/数据流）</li>
+<li>4.2 分层架构</li>
+<li>4.2.1 交互层（语音/屏幕/HUD）</li>
+<li>4.2.2 Agent编排层（对话理解/计划/工具调用）</li>
+<li>4.2.3 工具执行层（导航/车控/媒/服务）</li>
+<li>4.2.4 共享状态层（Trip/Vehicle/User/Conversation）</li>
+<li>4.2.5 安全与策略层（Policy/权限/风控/审计）</li>
+<li>4.3 关键数据对象（统一状态模型）</li>
+<li>4.3.1 Trip State（目的地/路线/途经点/偏好/确认状态）</li>
+<li>4.3.2 Vehicle State（车速/挡位/驾驶模式/座椅占用等）</li>
+<li>4.3.3 User &amp; Role（驾驶员/乘客权限、个人偏好、访客模式）</li>
+<li>4.3.4 Conversation State（会话记忆、摘要、上下文窗口策略）</li>
+<li>4.4 端侧 vs 云侧能力划分（时延/成本/隐私/可用性）</li>
+<li>4.5 与自动驾驶栈的边界与接口（Route/Action/Mode/Handover）</li>
+<li>4.6 可观测性与回放（对话-决策-执行全链路Trace）</li>
+<li>4.7 配置与灰度（Feature Flag、车型/地区/人群分层）</li>
+<li>4.8 故障与降级策略（离线/弱网/服务异常/模型不可用）</li>
+</ul>
+<hr />
+<h2 id="chapter-5"><a href="chapter5.html">Chapter 5｜对话上下文导航升级方案（从对话到路线到执行）</a></h2>
+<ul>
+<li>5.1 现状链路（App导航→车端→E2E Vision→Action）与点</li>
+<li>5.2 目标链路（对话→意图→地点→路线→<strong>确认</strong>→执行）概览</li>
+<li>5.3 对话理解（意图/槽位/约束）与上下文策略</li>
+<li>5.3.1 会话记忆（短期）与行程记忆（中期）</li>
+<li>5.3.2 消歧与澄清（何时问、问什么、问几次）</li>
+<li>5.4 地点解析能力（POI/模糊地点/联系人地址/历史足迹）</li>
+<li>5.5 路线偏好与约束（时间最短/费用最低/避开高速/充电规划等）</li>
+<li>5.6 <strong>确认机制设计</strong></li>
+<li>5.6.1 必须确认的触发条件（高风险/高成本/歧义/多候选）</li>
+<li>5.6.2 确认话术与屏幕确认卡片规范</li>
+<li>5.6.3 确认后撤销/回滚与“重新规划”入口</li>
+<li>5.7 与地图/导航引擎接口（Route Plan API、ETA、路况事件）</li>
+<li>5.8 与自动驾驶执行接口（Action API、模式切换、HMI提示）</li>
+<li>5.9 异常处理与兜底（无网、地图失败、无法到达、定位漂移）</li>
+<li>5.10 评测与指标（目的地命中率/路线接受率/确认后变更率/误导航率）</li>
+<li>5.11 逐步放量策（先小流量→内部车队→城市分层→全量）</li>
+</ul>
+<hr />
+<h2 id="chapter-6"><a href="chapter6.html">Chapter 6｜座舱大模型升级方案（多域融合且稳定可控）</a></h2>
+<ul>
+<li>6.1 现状：规则划域体系与问题（扩展性/维护成本/体验割裂）</li>
+<li>6.2 目标：减少规则但仍可控（“大模型主导 + 最小规则保底”）</li>
+<li>6.3 核心架构：LLM Agent + Tool Calling + Policy Engine + Executors</li>
+<li>6.4 工具与能力清单（函数Schema）</li>
+<li>6.4.1 控车（空调/车窗/座椅/灯光/驾驶设置等）</li>
+<li>6.4.2 媒体（音乐/播客/电台/音量/设备切换）</li>
+<li>6.4.3 通讯（日程/电话/消息）——如纳入本期则定义边界</li>
+<li>6.4.4 服务（点餐/加油/充电/停车/洗车等）</li>
+<li>6.5 稳定可控机制（重点）</li>
+<li>6.5.1 权限与角色（驾驶员/乘客/访客）与能力白名单</li>
+<li>6.5.2 高风险动作二次确认（与Chapter 5一致的确认范式）</li>
+<li>6.5.3 参数校验与幂等（防重复执行、防越界）</li>
+<li>6.5.4 策略引擎（速度/挡位/驾驶模式的交互限制）</li>
+<li>6.5.5 输出约束（结构化输出、reason code、拒答模板）</li>
+<li>6.6 对话管理：打断/并发/恢复/摘要压缩/长期记忆策略</li>
+<li>6.7 多模态呈现：卡片、列表、选择器、可撤销提示</li>
+<li>6.8 模型侧策略（RAG/微调/指令对齐/多模型路由）</li>
+<li>6.9 降级与兜底（规则引擎回退、FAQ、离线指令集）</li>
+<li>6.10 评测体系（任务完成率/误执行率/越权率/幻觉率/时延/稳定性）</li>
+</ul>
+<hr />
+<h2 id="chapter-7"><a href="chapter7.html">Chapter 7｜驾舱一体的“统一代理”与共享状态设计</a></h2>
+<ul>
+<li>7.1 一体化边界：统一哪些、解耦哪些（避免“巨石系统”）</li>
+<li>7.2 统一 Trip Agent 责任划分（导航、行程、跨域联动）</li>
+<li>7.3 共享状态同步机制（事件总线/状态机/一致性策略）</li>
+<li>7.4 冲突与仲裁（手机导航 vs 车机对话；多人意见不一致）</li>
+<li>7.5 “驾驶状态”驱动交互策略（分心控制、提示级别、静默策略）</li>
+<li>7.6 跨域联动模板（点餐→目的地→导航→到达醒→取餐码）</li>
+<li>7.7 隐私与账号体系（多用户、访客模式、共享车辆）</li>
+<li>7.8 性能与可用性（弱网/离线/端云切换/缓存）</li>
+<li>7.9 全链路可追溯（对话→工具调用→执行→结果→用户反馈）</li>
+</ul>
+<hr />
+<h2 id="chapter-8"><a href="chapter8.html">Chapter 8｜数据、训练与评测闭环（从日志到迭代）</a></h2>
+<ul>
+<li>8.1 数据范围与数据分级（对话/路线/车辆状态/执行结果）</li>
+<li>8.2 埋点与事件字典（口径统一、跨域一致）</li>
+<li>8.3 隐私与合规（脱敏、存储周期、授权与提示）</li>
+<li>8.4 标注体系（意图/槽位/工具调用/确认/安全标签）</li>
+<li>8.5 合成数据与仿真（覆盖长尾/对抗样本/城市差异）</li>
+<li>8.6 模型迭代策略（Prompt→RAG→SFT→偏好对齐）</li>
+<li>8.7 离线评测（基准集、回放集、场景覆盖率）</li>
+<li>8.8 在线评测（灰度、A/B、金丝雀、回滚阈值）</li>
+<li>8.9 失败归因闭环（分类→定位→修复→回归→放量）</li>
+<li>8.10 供应商/第三方数据接口与SLA</li>
+</ul>
+<hr />
+<h2 id="chapter-9"><a href="chapter9.html">Chapter 9｜安、合规与可控性体系</a></h2>
+<ul>
+<li>9.1 安全目标与Hazard分析（驾/舱分别 + 联动风险）</li>
+<li>9.2 ISO 26262 / SOTIF 对齐策略（如适用：证据链与审计点）</li>
+<li>9.3 对话安全（幻觉、提示注入、敏感内容、越权请求）</li>
+<li>9.4 执行安全（Action Guard、参数范围、幂等、撤销）</li>
+<li>9.5 确认与审计（高风险动作、费用相关动作、隐私相关动作）</li>
+<li>9.6 可解释与可诊断（reason code、失败原因、用户可理解提示）</li>
+<li>9.7 运行时监控与拉闸（异常检测、降级、开关与回滚）</li>
+<li>9.8 合规清单（录音提示、数据出境、第三方服务）</li>
+<li>9.9 红队与安全测试计划（对抗样本库、渗透测试、演练）</li>
+<li>9.10 事故/舆情应急流程（分级、SLA、复盘与改进）</li>
+</ul>
+<hr />
+<h2 id="chapter-10"><a href="chapter10.html">Chapter 10｜平台工程与端云协同（部署、成本、可观测）</a></h2>
+<ul>
+<li>10.1 车端软件形态（进程/容器/安全域隔离）</li>
+<li>10.2 云端能力（模型服务、检索、配置、实验平台）</li>
+<li>10.3 端云路由策略（低时延优先/隐私优先/成本优先）</li>
+<li>10.4 算力与性能预算（端侧推理、量化、缓存、并发）</li>
+<li>10.5 OTA与版本管理（灰度、回滚、兼容矩阵）</li>
+<li>10.6 Feature Flag 与配置中心（车型/地区/人群策略）</li>
+<li>10.7 可观测性（Metrics/Logs/Trace、告警与SLO）</li>
+<li>10.8 成本治理（token成本、地图调用成本、带宽与存储）</li>
+<li>10.9 第三方集成与稳定性（音乐/点餐/支付/地图）SLA与熔断</li>
+</ul>
+<hr />
+<h2 id="chapter-11"><a href="chapter11.html">Chapter 11｜测试策略、验收标准与交付物</a></h2>
+<ul>
+<li>11.1 测试金字塔与分工（单测/组件/集成/系统/道路）</li>
+<li>11.2 场景库建设方法（对话-行动链路场景、长尾覆盖）</li>
+<li>11.3 回归策略（核心路径、风险模块、基准集）</li>
+<li>11.4 回放与仿真（对话回放、路线回放、车辆回放）</li>
+<li>11.5 性能与稳定性测试（时延、CPU/GPU、内存、温升、崩溃率）</li>
+<li>11.6 安全与越权测试（注入、误触发、权限边界、敏感动）</li>
+<li>11.7 Gate验收标准（每Gate必过项、可放行项、例外机制）</li>
+<li>11.8 交付物清单（PRD/架构/接口/测试报告/安全报告/上线方案）</li>
+<li>11.9 质量看板（缺陷趋势、覆盖率、线上指标、回滚触发）</li>
+</ul>
+<hr />
+<h2 id="chapter-12"><a href="chapter12.html">Chapter 12｜组织阵型与协作机制（面向交付）</a></h2>
+<ul>
+<li>12.1 组织原则（体验一体化Owner、平台复用、接口清晰）</li>
+<li>12.2 关键角色定义</li>
+<li>12.2.1 业务Owner（总PO/体验Owner）</li>
+<li>12.2.2 技术Owner（系统架构/车端/云端/算法）</li>
+<li>12.2.3 项目Owner（TPM/PMO：计划、风险、资源、发布）</li>
+<li>12.2.4 安全合规Owner（安全官/法务/隐私）</li>
+<li>12.3 团队编组建议（Squad/Stream）</li>
+<li>12.3.1 对话导航Squad（NLP/地图/AD接口/前端HMI）</li>
+<li>12.3.2 座舱LLM Squad（ASR/TTS/Agent/工具/车控）</li>
+<li>12.3.3 共享状态与平台Squad（事件总线、配置、可观测）</li>
+<li>12.3.4 数据评测与安全Squad（数据闭环、评测、红队）</li>
+<li>12.4 RACI矩阵（需求、计、接口、上线、回滚、事故）</li>
+<li>12.5 决策与评审机制（PRD Review / Arch Review / Safety Review）</li>
+<li>12.6 会议节奏（站会/周会/双周迭代评审/月度里程碑）</li>
+<li>12.7 跨部门协作（售后、运营、市场、客服、供应商）接口人机制</li>
+<li>12.8 文档与流程工具（需求、缺陷、里程碑、指标）统一规范</li>
+<li>12.9 资源曲线与关键资源（测试车、道路资源、标注产能、算力）</li>
+</ul>
+<hr />
+<h2 id="chapter-13gates"><a href="chapter13.html">Chapter 13｜项目计划与时间控制节点（Gates）</a></h2>
+<ul>
+<li>13.1 项目分期方法（里程碑驱动 + 双周迭代 + 月度集成）</li>
+<li>13.2 阶段定义（建议）</li>
+<li>13.2.1 P0 探索：需求与可行性</li>
+<li>13.2.2 P1 方案：架构冻结、接口冻结</li>
+<li>13.2.3 P2 原型：端到端可演示（Demo）</li>
+<li>13.2.4 P3 集成：车端/云端/地图/AD全链路</li>
+<li>13.2.5 P4 试点：城市/车队灰度与A/B</li>
+<li>13.2.6 P5 量产：SOP与运营闭环</li>
+<li>13.3 Gate 设计（每个Gate：Entry/Exit/交付物/风险清单）</li>
+<li>13.3.1 Gate A：PRD冻结（范围与指标冻结）</li>
+<li>13.3.2 Gate B：架构与接口冻结（含安全评审通过）</li>
+<li>13.3.3 Gate C：关键场景MVP打通（含确认机制）</li>
+<li>13.3.4 Gate D：集成回归通过（含降级兜底）</li>
+<li>13.3.5 Gate E：试点指标达标（含回滚阈值）</li>
+<li>13.3.6 Gate F：量产发布评审（含证据链完备）</li>
+<li>13.4 关键路径与依赖（数据/地图/供应商/车端版本/OTA窗口）</li>
+<li>13.5 风险缓冲与Cut Line（砍需求规则、优先级与延期策略）</li>
+<li>13.6 进度管理方法（燃尽图/EVM/里程碑风险雷达）</li>
+<li>13.7 集成节奏与冻结点（代码冻结/配置冻结/发布冻结）</li>
+<li>13.8 发布窗口与回滚演练（预案与演练要求）</li>
+<li>13.9 里程碑复盘（每Gate复盘模板与行动项管理）</li>
+</ul>
+<hr />
+<h2 id="chapter-14"><a href="chapter14.html">Chapter 14｜风险清单与应对预案</a></h2>
+<ul>
+<li>14.1 技术风险（LLM幻觉、端侧性能、弱网、地图质量、长尾）</li>
+<li>14.2 安全风险（误导航、误控车、越权、多乘员冲突）</li>
+<li>14.3 项目风险（供应商延期、接口变更、车型碎片化、资源冲突）</li>
+<li>14.4 体验风险（确认过多打扰、误唤醒、对话中断、不可解释）</li>
+<li>14.5 合规风险（录音提示、隐私、数据出境、第三方服务）</li>
+<li>14.6 风险量化与监测（概率×影响、触发器、阈值、看板）</li>
+<li>14.7 缓解策略（技术/流程/运营/灰度）与Owner</li>
+<li>14.8 降级/拉闸/回滚策略（触发条件、执行步骤、对外话术）</li>
+<li>14.9 停止条件（Kill Criteria）与重规划机制</li>
+</ul>
+<hr />
+<h2 id="chapter-15"><a href="chapter15.html">Chapter 15｜发布、运营与持续迭代</a></h2>
+<ul>
+<li>15.1 发布分层（内部车队→种子用户→城市灰度→全量）</li>
+<li>15.2 指标体系（北极星指标、漏斗、质量与安全指标）</li>
+<li>15.3 运营工具（配置开关、热修复、策略更新、内容管理）</li>
+<li>15.4 反馈闭环（用户反馈/客服工单/埋点数据/回放→迭代）</li>
+<li>15.5 线上异常与事故处理（分级、SLA、复盘、对外沟通）</li>
+<li>15.6 模型迭代治理（版本管理、回归集更新、灰度策略）</li>
+<li>15.7 长期路线图（个性化、跨设备、多车队、多模态增强）</li>
+</ul>
+<hr />
+<h2 id="chapter-16"><a href="chapter16.html">Chapter 16｜附录：模板、清单与术语</a></h2>
+<ul>
+<li>16.1 术语表与缩写（E2E/Trip Agent/RAG/SOTIF/Gate等）</li>
+<li>16.2 PRD模板（含：目标-范围-指标-场景-验收）</li>
+<li>16.3 技术方案模板（含：架构-接口-数据-安全-降级）</li>
+<li>16.4 工具调用Schema模板（函数定义、参数校验、权限声明）</li>
+<li>16.5 Gate评审检查清单（体验/技术/测试/安全/合规/运营）</li>
+<li>16.6 RACI模板（需求/开发/测试/发布/事故）</li>
+<li>16.7 场景用例模板（对话→意图→工具→确认→执行→回放字段）</li>
+<li>16.8 指标口径与埋点字典样例</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter1.html" class="nav-link next">Chapter 1｜项目概览与北极星目标 (Project Overview & North Star Goals) →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

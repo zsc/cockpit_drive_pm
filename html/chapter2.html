@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>Chapter 2｜用户体验蓝图与核心场景 (User Experience Blueprint & Core Scenarios)</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">驾舱一体（自动驾驶 × 智能车舱）整体设计与项目流程文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 1｜项目概览与北极星目标 (Project Overview & North Star Goals)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 2｜用户体验蓝图与核心场景 (User Experience Blueprint & Core Scenarios)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 3｜需求体系与范围管理 (Requirements & Scope)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 4｜驾舱一体目标架构总览</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 5｜对话上下文导航升级方案（从对话到路线到执行）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 6｜座舱大模型升级方案（多域融合且稳定可控）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 7｜驾舱一体的“统一代理”与共享状态设计</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 8｜数据、训练与评测闭环（从日志到迭代）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 9｜安全、合规与可控性体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 10｜平台工程与端云协同（部署、成本、可观测）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 12｜组织阵型与协作机制（面向交付）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 13｜项目计划与时间控制节点（Gates）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 14｜风险清单与应对预案 (Risk Management & Contingency)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="chapter-2-user-experience-blueprint-core-scenarios">Chapter 2｜用户体验蓝图与核心场景 (User Experience Blueprint &amp; Core Scenarios)</h1>
+<h2 id="1">1. 开篇段落</h2>
+<p>本章是“驾舱一体”项目的灵魂所在。我们将从用户视角出发，定义从“自然语言对话”到“自动驾驶行为”的完整交互逻辑。在将端到端（E2E）自动驾驶与大模型（LLM）结合时，产品设计的核心矛盾在于：<strong>LLM 的“概率性/创造性”与自动驾驶的“确定性/安全性”之间的张力</strong>。</p>
+<p>本章的目标不是罗列功能，而是建立一套<strong>可信赖的协作机制</strong>。学习本章后，你将能够：</p>
+<ol>
+<li>构建分级的用户权限体系，明确“谁能控制方向盘”。</li>
+<li>绘制“对话→意图→确认→执行”的闭环时序图。</li>
+<li>定义在不同自动驾驶等级（L2/L2+/L3）下的 HMI（人机交互）适配规范。</li>
+<li>设计出优雅的“兜底体验”，处理幻觉和失败场景。</li>
+</ol>
+<hr />
+<h2 id="2">2. 文字论述</h2>
+<h3 id="21-user-roles-permission-matrix">2.1 用户角色与权限矩阵 (User Roles &amp; Permission Matrix)</h3>
+<p>在传统车机中，语音助手往往不区分说话人。但在“驾舱一体”中，语音指令可能改变车辆物理轨迹，因此<strong>声纹识别（Voiceprint ID）</strong>与<strong>座位感知</strong>是前置条件。</p>
+<p>我们需要在 PRD 中定义如下权限矩阵（Rule-of-Thumb: <strong>安全归主驾，娱乐归全员</strong>）：</p>
+<p>| 权限维度 | 驾驶员 (Driver) | 副驾 (Co-pilot) | 后排乘客 (Passenger) | 访客/未知 (Guest) |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">权限维度</th>
+<th style="text-align: left;">驾驶员 (Driver)</th>
+<th style="text-align: left;">副驾 (Co-pilot)</th>
+<th style="text-align: left;">后排乘客 (Passenger)</th>
+<th style="text-align: left;">访客/未知 (Guest)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>导航-目的地修改</strong></td>
+<td style="text-align: left;">✅ 直接执行/确认</td>
+<td style="text-align: left;">⚠️ 需主驾确认/仅推荐</td>
+<td style="text-align: left;">❌ 仅能推荐 POI 到屏幕</td>
+<td style="text-align: left;">❌ 无权</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>导航-添加途经点</strong></td>
+<td style="text-align: left;">✅ 直接执行</td>
+<td style="text-align: left;">✅ 直接执行</td>
+<td style="text-align: left;">⚠️ 需授权</td>
+<td style="text-align: left;">❌ 无权</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>驾驶模 (运动/舒适)</strong></td>
+<td style="text-align: left;">✅ 直接执行</td>
+<td style="text-align: left;">❌ 无权</td>
+<td style="text-align: left;">❌ 无权</td>
+<td style="text-align: left;">❌ 无权</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>智驾控制 (开启/接管)</strong></td>
+<td style="text-align: left;">✅ <strong>最高优先级</strong></td>
+<td style="text-align: left;">❌ 严禁触碰</td>
+<td style="text-align: left;">❌ 严禁触碰</td>
+<td style="text-align: left;">❌ 严禁触碰</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>车控-全局 (车窗/门锁)</strong></td>
+<td style="text-align: left;">✅ 直接执行</td>
+<td style="text-align: left;">⚠️ 仅控副驾侧</td>
+<td style="text-align: left;">❌ 仅控本侧</td>
+<td style="text-align: left;">❌ 仅控本侧</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>多媒体 (切歌/音量)</strong></td>
+<td style="text-align: left;">✅ 直接执行</td>
+<td style="text-align: left;">✅ 直接执行</td>
+<td style="text-align: left;">✅ 区域音区隔离</td>
+<td style="text-align: left;">⚠️ 受限</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>关键决策点</strong>：当后排乘客说“我要去机场”时，系统不应直接导航，而应回复：“已找到机场路线，请驾驶员确认出发。”</p>
+</blockquote>
+<h3 id="22-detailed-scenario-map">2.2 全链路场景地图 (Detailed Scenario Map)</h3>
+<p>我们将用户旅程细化为 <strong>Intent (意图)</strong> -&gt; <strong>Processing (编排)</strong> -&gt; <strong>Interaction (交互)</strong> -&gt; <strong>Execution (执行)</strong> 四个泳道。</p>
+<h4 id="the-departure-">核心场景：出发 (The Departure) - 模糊意图处理</h4>
+<ul>
+<li><strong>User</strong>: "带我去个评价好的日料店，稍微远点没关系，要在海边。"</li>
+<li><strong>LLM Analysis</strong>:<ul>
+<li><em>Main Intent</em>: Navigation.</li>
+<li><em>Constraints</em>: Category="Japanese", Rating="High", Location="Seaside", Distance="&gt;5km".</li>
+</ul>
+</li>
+<li><strong>Strategy</strong>: LLM 无法通过一次 API 命中唯一结果，需进入<strong>“推荐与选择”模式</strong>。</li>
+</ul>
+<h4 id="en-route-">核心场景：途中 (En-route) - 动态变更与确认</h4>
+<ul>
+<li><strong>User</strong>: "前面好像堵车了，换条路吧。"</li>
+<li><strong>Context</strong>: 结合当前车辆位置、前方路况数据。</li>
+<li><strong>Action</strong>: 触发 Re-routing 工具。</li>
+<li><strong>Risk</strong>: 此时车辆正在运动，交互必须<strong>极简</strong>。</li>
+</ul>
+<h3 id="23-the-safe-principles">2.3 核心体验原则 (The "SAFE" Principles)</h3>
+<ol>
+<li><strong>S - Safety First (安全优先)</strong>：任何对话弹窗不得遮挡 SR（环境感知）界面的核心警示区（如盲区报警）。AD 接管请求（Takeover Request）拥有最高打断级。</li>
+<li><strong>A - Attention Management (注意力管理)</strong>：车速越快，屏幕字越大，选项越少，语音播报越简洁。</li>
+<li><strong>F - Feedback Loop (闭环反馈)</strong>：指令接收 -&gt; 思考中 -&gt; 准备就绪 -&gt; 倒计时 -&gt; 执行。每个状态都需有明确馈（声/光/图）。</li>
+<li><strong>E - Explainability (可解释性)</strong>：如果车辆突然减速或变道（由 LLM 建议），屏幕必须显示原因（例：“正在为您驶向右侧出口”）。</li>
+</ol>
+<h3 id="24">2.4 深度解析：对话上下文导航升级方案</h3>
+<p>这是本项目将“App导航”升级为“智能导航”的关键。</p>
+<h4 id="241-the-interaction-protocol">2.4.1 交互时序逻辑 (The Interaction Protocol)</h4>
+<p>引入 <strong>“置信度分级确认机制”</strong>，解决“啰嗦”与“不安全”的矛盾。</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[User Input] --&gt; [LLM Analysis] --&gt; [Confidence Score 计算]</span>
+<span class="w">                                          </span><span class="na">|</span>
+<span class="w">        </span><span class="na">+---------------------------------+--------------------------------+</span>
+<span class="w">        </span><span class="na">| (Score &gt; 90% &amp; Low Risk)        | (Score &lt; 90% OR High Risk)     |</span>
+<span class="w">        </span><span class="na">v                                 v                                v</span>
+<span class="k">[Level 1: 隐式确认]               [Level 2: 倒计时确认]            [Level 3: 显式确认]</span>
+<span class="na">(e.g., &quot;调低音量&quot;)                (e.g., &quot;导航回家&quot;)              (e.g., &quot;去陌生地址&quot;)</span>
+<span class="w">        </span><span class="na">|                                 |                                |</span>
+<span class="na">[TTS]</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;好的&quot; + 立即执行            [UI]: 弹窗 + &quot;5秒后出发&quot;         [UI]: 显示列表</span>
+<span class="w">                                  </span><span class="na">[TTS]</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;准备去公司...&quot;           [TTS]: &quot;找到三个地点...&quot;</span>
+<span class="w">                                          </span><span class="na">|                                |</span>
+<span class="w">                                  </span><span class="na">[User]</span><span class="o">:</span><span class="w"> </span><span class="s">无操作/点X               [User]: &quot;第一个/确定&quot;</span>
+<span class="w">                                          </span><span class="na">|                                |</span>
+<span class="w">                                  </span><span class="na">[Action]</span><span class="o">:</span><span class="w"> </span><span class="s">执行                    [Action]: 执行</span>
+</code></pre></div>
+
+<h4 id="242-context-reference">2.4.2 记忆与指代 (Context &amp; Reference)</h4>
+<p>LLM 必须维护一个 <code>Session State</code>。</p>
+<ul>
+<li><strong>Case 1</strong>: User: "去国贸。" -&gt; Agent: 推荐路线 A/B/C。 -&gt; User: "<strong>走最快的那个</strong>。" (指代上轮的选项)。</li>
+<li><strong>Case 2</strong>: User: "先去接老婆。" -&gt; Agent: "请问去哪里接？" -&gt; User: "<strong>还是老地方</strong>。" (检索 Long-term Memory 中的高频地址)。</li>
+</ul>
+<h3 id="25">2.5 座舱多域融合：从“指令”到“任务编排”</h3>
+<p>座舱不再是孤立的 App 集合，LLM 是调度中心。</p>
+<p><strong>场景：上班通勤模式</strong></p>
+<ul>
+<li><strong>User</strong>: "早安，我去上班，有点困。"</li>
+<li><strong>LLM Task Chain</strong>:<ol>
+<li><strong>Nav</strong>: 设目的地为“公司”（基于时间习惯）。</li>
+<li><strong>Route Preference</strong>: 选择“时间最短”策略。</li>
+<li><strong>Climate</strong>: 调低温度 2度，增大风量（应对“困”）。</li>
+<li><strong>Media</strong>: 播放“新闻/快节奏音乐”收藏夹。</li>
+<li><strong>TTS</strong>: "早安，已规划避堵路线，全程40分钟。帮你开了提神模式。"</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p><strong>Rule of Thumb</strong>: 复合指令执行时，<strong>先执行“即时反馈”类</strong>（如开空调、语音回复），<strong>后执行“长时延”类</strong>（如加载导航、搜索音乐），减少用户等待焦虑。</p>
+</blockquote>
+<h3 id="26-hmi-adaptation">2.6 驾驶状态感知交互 (HMI Adaptation)</h3>
+<p>根据车辆状态（Vehicle State）动态调整 UI/UX。</p>
+<p>| 车辆状态 | UI 布局特征 | 语音策略 | 交互限制 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">车辆状态</th>
+<th style="text-align: left;">UI 布局特征</th>
+<th style="text-align: left;">语音策略</th>
+<th style="text-align: left;">交互限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>P档 / 驻车</strong></td>
+<td style="text-align: left;">内容丰富，大图，允许全键盘输入，支持视频。</td>
+<td style="text-align: left;">被动响应为主，允许详细播报。</td>
+<td style="text-align: left;">无限制。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>D档 + 低速 (&lt;30km/h)</strong></td>
+<td style="text-align: left;">列表模式，字号中等，禁用视频，启用手写板。</td>
+<td style="text-align: left;">简短对话。</td>
+<td style="text-align: left;">禁用设置菜单深层级。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>D档 + 高速 (&gt;80km/h)</strong></td>
+<td style="text-align: left;"><strong>卡片模式</strong>（Card UI），超大字体，仅显示关键信息。</td>
+<td style="text-align: left;"><strong>主动语音引导</strong>（"请看屏幕..."）。</td>
+<td style="text-align: left;">禁用一切复杂触控，强制语音交互。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>AD 领航模式 (NOA)</strong></td>
+<td style="text-align: left;">沉浸式 SR 界面，强调“车辆意图”可视化。</td>
+<td style="text-align: left;">语音作为“副驾驶”汇报决策。</td>
+<td style="text-align: left;">允许部分娱乐功能（视法规L3而定）。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="27-multimodal-output">2.7 多模态呈现规范 (Multimodal Output)</h3>
+<ul>
+<li><strong>视觉 (Visual)</strong>:<ul>
+<li><strong>HMI/中控</strong>: 承载列表、地图详情、设置项。</li>
+<li><strong>HUD (抬头显示)</strong>: 仅显示<strong>下一步动作</strong>（如：右转箭头 + 剩余距离）和<strong>状态确认</strong>（如：麦克风图标闪烁）。<em>切忌在 HUD 显示复杂的餐厅列表。</em></li>
+</ul>
+</li>
+<li><strong>听觉 (Auditory)</strong>:<ul>
+<li><strong>TTS</strong>: 必须口语化，去除 JSON 风格的机械感。</li>
+<li><strong>Sound Cons</strong>: 操作成功/失败/警告必须有差异化的提示音（Earcons），即使用户不看屏幕也能感知结果。</li>
+</ul>
+</li>
+</ul>
+<h3 id="28-graceful-degradation">2.8 失败与兜底体验 (Graceful Degradation)</h3>
+<p>这是产品经理最需关注的“坑”。</p>
+<ol>
+<li><strong>模型幻觉/不支持的意图</strong>：<ul>
+<li>当 LLM 编造了一个不存在的车辆功能（如“开启飞行模式”）。</li>
+<li><strong>兜底</strong>: 检测到 Action 不在白名单 -&gt; 回复通用拒识话术：“抱歉，我现在还不会飞，但我可以帮你切换到运动模式。”</li>
+</ul>
+</li>
+<li><strong>导航不可达</strong>：<ul>
+<li>当 E2E 自驾系统反馈“无法规划路径”（如目的地在军事禁区或未铺装路面）。</li>
+<li><strong>兜底</strong>: LLM 解释原因：“自驾系统反馈该区域无法通行，已为您导航到最近的可停车点，剩余路程建议手动驾驶。”</li>
+</ul>
+</li>
+<li><strong>确认超时</strong>：<ul>
+<li>高风险操（修改目的地）倒计时结束，用户未说话。</li>
+<li><strong>策略</strong>: <strong>默认为取消</strong>。保持当前路线，不做变更，并提示“已保持原路线”。</li>
+</ul>
+</li>
+</ol>
+<h3 id="29-ux-metrics">2.9 指标口径与埋点 (UX Metrics)</h3>
+<p>在 PRD 中需定义以下埋点事件（Event Tracking）：</p>
+<ul>
+<li><code>voice_session_start</code>: 唤醒</li>
+<li><code>intent_classified</code>: 意图分类结果 (Nav/Chat/Control)</li>
+<li><code>slot_filling_rate</code>: 槽位填充率 (是否一次性提取了地点)</li>
+<li><code>confirmation_popup_show</code>: 确认卡片曝光</li>
+<li><code>confirmation_result</code>: 用户点击确定/取消/语音确认/超时</li>
+<li><code>navigation_start_success</code>: 导航成功开启</li>
+<li><code>intervention_after_nav</code>: 开启导航后 1分钟内的人工接管（表征导航不符合预期）</li>
+</ul>
+<hr />
+<h2 id="3">3. 本章小结</h2>
+<p>本章构建了驾舱一体体验的“骨架”。</p>
+<ul>
+<li><strong>核心思想</strong>：大模型负责“理解与建议”，传统规则/自驾域负责“约束与执行”。</li>
+<li><strong>关键机制</strong>：置信度分级确认（Confidence-based Confirmation）是平衡体验与全的关键。</li>
+<li><strong>设计红线</strong>：绝不让 AI 在未经确认的情况下改变车辆的物理运动状态（除非是极低风险的微调，且在自动驾驶能力范围内）。</li>
+</ul>
+<hr />
+<h2 id="4">4. 练习题</h2>
+<h3 id="50">基础题 (50%)</h3>
+<ol>
+<li>
+<p><strong>[选择题]</strong> 车辆处于 <strong>NOA (自动领航)</strong> 模式，时速 100km/h。此时用户通过语音请求“把屏幕亮度调到最亮，并搜索附近的五星级酒店”。以下哪种系统反应是<strong>最不恰当</strong>的？</p>
+<ul>
+<li>A. 调整亮度，并语音播报“亮度已调高”。</li>
+<li>B. 语音回应“已找到 5 家酒店”，并在中控屏弹出包含详细图片、评价文本的复杂可滚动列表。</li>
+<li>C. 语音回应“已找到 5 家酒店，最近的一家是万豪，要导航去吗？”，屏幕仅显示极简卡片。</li>
+<li>D. 调整亮度，并提示“为了安全，请稍后查看酒店详情”或仅推送到手机 App。
+<details markdown="1"><summary>点击查看答案与提示</summary>
+<strong>答案</strong>: B
+<strong>提示</strong>: 高速行驶（即使是NOA）严禁让驾驶员进行复杂的视觉搜索和阅读（Visual Distraction）。详细列表应被“压缩”或“阻断”。
+</details></li>
+</ul>
+</li>
+<li>
+<p><strong>[填空题]</strong> 在驾舱一体的权限设计中，涉及<strong>车辆运动控制</strong>（如变道、导航变更）的指令，必须由 <strong><em>_</em></strong> 发起或授权；而涉及<strong>后排区域空调/娱乐</strong>的指令，可以由 <strong><em>_</em></strong> 独立控制。
+    <details markdown="1"><summary>点击查看答案与提示</summary>
+    <strong>答案</strong>: 驾驶员 (Driver)；后排乘客 (Passenger)
+    <strong>提示</strong>: 权责分明，安全归主驾，舒适归个人。
+    </details></p>
+</li>
+<li>
+<p><strong>[判断题]</strong> 为了体现智能，当用户说“我想去吃火锅”时，系统应当根据用户画像，直接计算出一个最佳地点，并自动静默发起导航，无需用户任何确认。
+    <details markdown="1"><summary>点击查看答案与提示</summary>
+    <strong>答案</strong>: 错误 (False)
+    <strong>提示</strong>: 导航变更属于高风险操作，且饮食偏好主观性强，必须保留“确认”节（哪怕是倒计时确认），给予用户撤销的机会。
+    </details></p>
+</li>
+<li>
+<p><strong>[简答题]</strong> 请解释什么是 <strong>"TTS 与 UI 的多模态一致性"</strong>，并举一个反例。
+    <details markdown="1"><summary>点击查看答案与提示</summary>
+    <strong>答案</strong>: 指语音播报的内容（听觉）与屏幕显示的信息（视觉）在关键信息点上保持同步和一致，避免认知冲突。
+    <strong>反例</strong>: TTS 播报“为您推荐了三条路线，第一条时间最短”，但屏幕上高亮显示的却是“费用最少”的那条路线，或者屏幕列表顺序与语音播报顺序不一致。
+    </details></p>
+</li>
+</ol>
+<h3 id="50_1">挑战题 (50%)</h3>
+<ol start="5">
+<li>
+<p><strong>[场景设计]</strong> 设计一个 <strong>"多意图冲突仲裁"</strong> 的逻辑。</p>
+<ul>
+<li><strong>背景</strong>: 主驾说“太热了”，副驾几乎同时说“太冷了”。</li>
+<li><strong>任务</strong>: 设计 Agent 的处理流程，包括语音识别处理、意图理解、策略仲裁和最终执行反馈。
+<details markdown="1"><summary>点击查看答案与提示</summary>
+<strong>参考答</strong>:</li>
+</ul>
+<ol>
+<li><strong>ASR (声纹分离)</strong>: 识别到两个不同声源（Zone 1 &amp; Zone 2）。</li>
+<li><strong>Intent NLU</strong>: Zone 1 -&gt; <code>Climate_Cool_Down</code>; Zone 2 -&gt; <code>Climate_Heat_Up</code>.</li>
+<li><strong>策略仲裁 (Policy Engine)</strong>:
+   - 检查车辆是否支持<strong>双温区/多温区独立控制</strong>。
+   - <strong>If yes</strong>: 分区执行。主驾出风口调低 2度，副驾出风口调高 2度。
+   - <strong>If no</strong> (单温区): <strong>主驾优先原则</strong>，或者取折中值，或者询问。通常倾向于主驾优先，或提示“正在折中调节”。</li>
+<li><strong>反馈 (TTS)</strong>: “已为主驾调低温度，副驾调高温度。” (若支持分区)。
+<strong>提示</strong>: 硬件能力（是否双温区）决定了软件策略。
+</details></li>
+</ol>
+</li>
+<li>
+<p><strong>[时序图绘制]</strong> 绘制一个包含 <strong>"E2E 自驾执行失败"</strong> 的交互流程。</p>
+<ul>
+<li>用户：“开到前面那个小土坡上去。” (意图：Off-road 模式 / 导航到非道路区域)</li>
+<li>LLM：识别意图，生成坐标。</li>
+<li>AD System：评估地形，返 <code>Unreachable / Risk High</code>。</li>
+<li>请描述后续系统如何反馈。
+<details markdown="1"><summary>点击查看答案与提示</summary>
+<strong>参考思路</strong>:</li>
+</ul>
+<ol>
+<li><strong>User</strong>: "开到那个土坡上去。"</li>
+<li><strong>Agent</strong>: Tool Call <code>Navigate(target='土坡坐标')</code>。</li>
+<li><strong>AD Interface</strong>: 接收坐标 -&gt; 路径规划 -&gt; <strong>Return Error</strong>: <code>Code: TERRAIN_UNSUPPORTED, Msg: Slope too steep</code>.</li>
+<li><strong>Agent</strong>: 捕获错误码，映射到话术。</li>
+<li><strong>TTS/UI</strong>: "自驾系统评估前方坡度过大，无法自动驶入。已切换为手动驾驶模式，请您接管方向盘。"</li>
+<li><strong>HMI</strong>: 仪表盘显示接管提示，自驾指示灯熄灭。
+<strong>提示</strong>: 关键在于 LLM 要能“看懂”AD 系统返回的错误码，并将其翻译成人话。
+</details></li>
+</ol>
+</li>
+<li>
+<p><strong>[开放思考题]</strong> 现在的 E2E 自驾通常是 "Vision -&gt; Action" 黑盒。如果引入驾舱一体，我们需要 LLM 能够解释 AD 的行为（例如车为什么突然停了）。请列出为了实现 <strong>"可解释性 (Explainability)"</strong>，自驾域（AD Domain）至少需要向座舱域（Cockpit Domain）实时共享哪些数据？
+    <details markdown="1"><summary>点击查看答案与提示</summary>
+    <strong>参考答案</strong>:
+    必须共享 <strong>World Model (世界模型)</strong> 的高层语义信息，包括但不限于：</p>
+<ol>
+<li><strong>感知对象</strong>: 识别到的障碍物类型（行人/狗/锥桶/事故车）。</li>
+<li><strong>决策意图</strong>: 接下来 3-5秒的规划动作（准备左转/准备避让/准备停车）。</li>
+<li><strong>状态原因</strong>: <code>Stop_Reason</code> (红灯/斑马线礼让/前车急刹)。
+<em>例子</em>: 车停了 -&gt; LLM 读取 <code>Stop_Reason</code>="Yield to Pedestrian" -&gt; TTS: "正在礼让行人，请稍等。"
+<strong>提示</strong>: 纯端到端模型往往缺乏中间语义，这正是当前技术整合的难点，可能需要一个独立的“解释器模型”。
+</details></li>
+</ol>
+</li>
+</ol>
+<hr />
+<h2 id="5-gotchas">5. 常见陷阱与错误 (Gotchas)</h2>
+<h3 id="51-over-anthropomorphism">5.1 "过度拟人化" (Over-Anthropomorphism)</h3>
+<ul>
+<li><strong>错误</strong>: LLM 模拟过于像人，使用“我累了”、“我不想去等情绪化表达，或者在 AD 接管时开玩笑。</li>
+<li><strong>修正</strong>: 在涉及控车和安全时，保持<strong>专业、冷静、客观</strong>的 "Co-pilot" 人设。虽然是 LLM，但必须展现出机器的可靠性。</li>
+</ul>
+<h3 id="52-voiceprint-drift">5.2 忽略声纹漂移 (Voiceprint Drift)</h3>
+<ul>
+<li><strong>错误</strong>: 假设声纹识别 100% 准确。实际上，噪音、感冒、大声喊叫都可能导致识别错误。</li>
+<li><strong>修正</strong>: 对于<strong>高风险操作（High Stakes）</strong>，即使声纹匹配了，最好还是增加一步<strong>物理确认</strong>（如“请按方向盘确认键”或屏幕点击），形成双因子认证（2FA）。</li>
+</ul>
+<h3 id="53-audio-focus-fighting">5.3 抢占音频焦点 (Audio Focus Fighting)</h3>
+<ul>
+<li><strong>错误</strong>: 导航正在播报关键路口指引，LLM 突然插嘴说“为你推荐一首好听的歌”。</li>
+<li><strong>修正</strong>: 建立严格的 <strong>Audio Focus Manager</strong>。<ul>
+<li><strong>Priority 1 (Safety)</strong>: 碰撞预警、接管提示 (压低所有声音)。</li>
+<li><strong>Priority 2 (Nav)</strong>: 导航播报 (压低媒体音量)。</li>
+<li><strong>Priority 3 (Interaction)</strong>: 用唤醒、语音回复 (压低媒体)。</li>
+<li><strong>Priority 4 (Media)</strong>: 音乐、电台。</li>
+<li><em>LLM 的闲聊/推荐属于 Priority 3，必须给 Nav 让路。</em></li>
+</ul>
+</li>
+</ul>
+<h3 id="54-information-overload">5.4 屏幕信息过载 (Information Overload)</h3>
+<ul>
+<li><strong>错误</strong>: LLM 为了展示自己很聪明，把搜索到的 500 字大众点评评论全部显示在屏幕上。</li>
+<li><strong>修正</strong>: 强制 <strong>Summary (摘要)</strong>。LLM 的输出必须经过一个 formatter，针对车机屏幕尺寸生成摘要版（如不超过 50 字），且支持 TTS 朗读核心点。</li>
+</ul>
+<h3 id="55-acknowledgment-without-action">5.5 "我知道了" 但不做 (Acknowledgment without Action)</h3>
+<ul>
+<li><strong>错误</strong>: 用户说“打开空调”，TTS 说“好的”，但底层 CAN 信号因总线拥堵丢包，实际没开。用户以为开了，体验极差。</li>
+<li><strong>修正</strong>: <strong>闭环检测</strong>。Agent 发出指令后，必须监听车辆状态回执（State Callback）。只有传感器真的反馈“空调已开”，才能说“已打开”；否则应报“指令执行超时，请重试”。</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter1.html" class="nav-link prev">← Chapter 1｜项目概览与北极星目标 (Project Overview & North Star Goals)</a><a href="chapter3.html" class="nav-link next">Chapter 3｜需求体系与范围管理 (Requirements & Scope) →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

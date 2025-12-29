@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>Chapter 13｜项目计划与时间控制节点（Gates）</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">驾舱一体（自动驾驶 × 智能车舱）整体设计与项目流程文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 1｜项目概览与北极星目标 (Project Overview & North Star Goals)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 2｜用户体验蓝图与核心场景 (User Experience Blueprint & Core Scenarios)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 3｜需求体系与范围管理 (Requirements & Scope)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 4｜驾舱一体目标架构总览</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 5｜对话上下文导航升级方案（从对话到路线到执行）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 6｜座舱大模型升级方案（多域融合且稳定可控）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 7｜驾舱一体的“统一代理”与共享状态设计</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 8｜数据、训练与评测闭环（从日志到迭代）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 9｜安全、合规与可控性体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 10｜平台工程与端云协同（部署、成本、可观测）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 12｜组织阵型与协作机制（面向交付）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 13｜项目计划与时间控制节点（Gates）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 14｜风险清单与应对预案 (Risk Management & Contingency)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="chapter-13gates">Chapter 13｜项目计划与时间控制节点（Gates）</h1>
+<h2 id="1">1. 开篇段落</h2>
+<p>在驾舱一体（Driving-Cabin Integration）项目中，项目管理的本质是<strong>管理不确定性</strong>。我们试图将“概率性的生成式AI（座舱LLM）”与“确定性的安全系统（自动驾驶E2E）”融合，同时还要协调“敏捷迭代的软件应用”与“严谨漫长的整车V模型开发”两种截然不同的研发节奏。</p>
+<p>如果缺乏强有力的时间控制和门径管理（Gate Keeping），项目极易陷入“永远在联调，永远有Bug”的泥潭。本章将为 TPM 和 PM 提供一套经实战验证的<strong>双模态项目管理框</strong>。我们将详细拆解从概念到量产的六个阶段（P0-P5），定义六个严苛的质量门（Gates），并重点阐述在关键集成点如何通过“冻结策略”和“Cut Line（裁剪线）”来确保交付。</p>
+<p><strong>本章目标</strong>：</p>
+<ul>
+<li>建立适配“自驾+大模型”特征的混合开发生命周期。</li>
+<li>明确每个 Gate 的<strong>准入（Entry）</strong>与<strong>准出（Exit）</strong>铁律。</li>
+<li>掌握处理跨团队依赖与集成风险的实操工具。</li>
+</ul>
+<h2 id="2">2. 核心论述</h2>
+<h3 id="131">13.1 项目分期方法：双流并进与“齿轮咬合”</h3>
+<p>传统的瀑布流太慢，纯粹的敏捷流对汽车太危险。我们采用 <strong>“主干门径（Stage-Gate）+ 分支敏捷（Scrum/Kanban）”</strong> 的混合模式。</p>
+<ul>
+<li><strong>座舱流 (Cabin Stream)</strong>：以 2 周为 Sprint，快速迭代 Prompt、ASR 模型优化、UI 交互。特点是<strong>快</strong>。</li>
+<li><strong>自驾流 (AD Stream)</strong>：以数据闭环为周期（通常 4-6 周），涉及模型训练、仿真回归、实车验证。特点是<strong>稳</strong>。</li>
+<li><strong>集成合点 (Sync Points)</strong>：这是项目管理的“心跳”。不管分支跑多快，必须在咬合点强制同步。</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="n">Timeline</span><span class="o">:</span><span class="w"> </span><span class="n">Start</span><span class="w"> </span><span class="o">------------------------------------------------------------------------&gt;</span><span class="w"> </span><span class="n">SOP</span>
+<span class="n">Phase</span><span class="o">:</span><span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="n">P0</span><span class="w"> </span><span class="err">探索</span><span class="w"> </span><span class="o">]</span><span class="w">  </span><span class="o">[</span><span class="w"> </span><span class="n">P1</span><span class="w"> </span><span class="err">方案</span><span class="w"> </span><span class="o">]</span><span class="w">  </span><span class="o">[</span><span class="w"> </span><span class="n">P2</span><span class="w"> </span><span class="err">原型</span><span class="w"> </span><span class="o">]</span><span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="n">P3</span><span class="w"> </span><span class="err">集成</span><span class="w"> </span><span class="o">]</span><span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="n">P4</span><span class="w"> </span><span class="err">试点</span><span class="w"> </span><span class="o">]</span><span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="n">P5</span><span class="w"> </span><span class="err">量产</span><span class="w"> </span><span class="o">]</span>
+<span class="w">           </span><span class="o">(</span><span class="mi">2</span><span class="w"> </span><span class="n">months</span><span class="o">)</span><span class="w">   </span><span class="o">(</span><span class="mi">1</span><span class="w"> </span><span class="n">month</span><span class="o">)</span><span class="w">    </span><span class="o">(</span><span class="mi">2</span><span class="w"> </span><span class="n">months</span><span class="o">)</span><span class="w">     </span><span class="o">(</span><span class="mi">3</span><span class="w"> </span><span class="n">months</span><span class="o">)</span><span class="w">     </span><span class="o">(</span><span class="mi">2</span><span class="w"> </span><span class="n">months</span><span class="o">)</span><span class="w">     </span><span class="o">(</span><span class="n">Ongoing</span><span class="o">)</span>
+
+<span class="n">Gate</span><span class="o">:</span><span class="w">     </span><span class="o">&lt;</span><span class="n">G</span><span class="o">-</span><span class="n">A</span><span class="o">&gt;</span><span class="w">        </span><span class="o">&lt;</span><span class="n">G</span><span class="o">-</span><span class="n">B</span><span class="o">&gt;</span><span class="w">        </span><span class="o">&lt;</span><span class="n">G</span><span class="o">-</span><span class="n">C</span><span class="o">&gt;</span><span class="w">          </span><span class="o">&lt;</span><span class="n">G</span><span class="o">-</span><span class="n">D</span><span class="o">&gt;</span><span class="w">          </span><span class="o">&lt;</span><span class="n">G</span><span class="o">-</span><span class="n">E</span><span class="o">&gt;</span><span class="w">          </span><span class="o">&lt;</span><span class="n">G</span><span class="o">-</span><span class="n">F</span><span class="o">&gt;</span>
+<span class="w">            </span><span class="o">|</span><span class="w">            </span><span class="o">|</span><span class="w">            </span><span class="o">|</span><span class="w">              </span><span class="o">|</span><span class="w">              </span><span class="o">|</span><span class="w">              </span><span class="o">|</span>
+<span class="n">AD</span><span class="w"> </span><span class="n">Stream</span><span class="o">:</span><span class="w">  </span><span class="o">|--</span><span class="n">Feasibility</span><span class="o">-|--</span><span class="n">Arch</span><span class="sr">/Sim--|--Model Trn---|--Road Test---|--Cert/</span><span class="n">Fix</span><span class="o">----|</span>
+
+<span class="n">AD</span><span class="w"> </span><span class="n">Stream</span><span class="o">:</span><span class="w">  </span><span class="o">|--</span><span class="n">Feasibility</span><span class="o">-|--</span><span class="n">Arch</span><span class="sr">/Sim--|--Model Trn---|--Road Test---|--Cert/</span><span class="n">Fix</span><span class="o">----|</span>
+<span class="w">            </span><span class="o">|</span><span class="w">            </span><span class="o">|</span><span class="w">            </span><span class="o">|</span><span class="w">              </span><span class="o">|</span><span class="w">              </span><span class="o">|</span><span class="w">              </span><span class="o">|</span>
+<span class="n">Cabin</span><span class="w"> </span><span class="n">Stream</span><span class="o">:|-</span><span class="n">Prompt</span><span class="w"> </span><span class="n">POC</span><span class="o">--|--</span><span class="n">Dev</span><span class="sr">/UI----|--Agent Dev---|--Stability---|--Ops/</span><span class="n">Grey</span><span class="o">----|</span>
+<span class="w">            </span><span class="o">|</span><span class="w">            </span><span class="o">|</span><span class="w">            </span><span class="o">|</span><span class="w">              </span><span class="o">|</span><span class="w">              </span><span class="o">|</span><span class="w">              </span><span class="o">|</span>
+<span class="n">Key</span><span class="w"> </span><span class="n">Actions</span><span class="o">:|</span><span class="w"> </span><span class="n">MRD</span><span class="o">/</span><span class="n">Tech</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">Freeze</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Happy</span><span class="w"> </span><span class="n">Path</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">Corner</span><span class="w"> </span><span class="n">Case</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">Metrics</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="n">Launch</span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">Review</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Safety</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">Demo</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Bug</span><span class="w"> </span><span class="n">Bash</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">Sign</span><span class="o">-</span><span class="n">off</span><span class="w">     </span><span class="o">|</span>
+</code></pre></div>
+
+<h3 id="132-phase-deep-dive">13.2 阶段详细定义 (Phase Deep Dive)</h3>
+<p>每个阶段必须有明确的“战役目标”。</p>
+<h4 id="1321-p0-discovery">13.2.1 P0 探索：需求与可行性 (Discovery)</h4>
+<ul>
+<li><strong>目标</strong>：回答“能不能做”和“值不值得做”。</li>
+<li><strong>核心活动</strong>：<ul>
+<li><strong>自驾侧</strong>：评估现有 E2E 模型是否支持通过 API 注入导航指令？时延多少？</li>
+<li><strong>座舱侧</strong>：LLM 选型（云端 vs 端侧），测试 Intent 识别准确率基线。</li>
+<li><strong>产品侧</strong>：定义“对话导航”的核心场景（如：模糊地点的多轮确认）。</li>
+</ul>
+</li>
+<li><strong>关键产出</strong>：可行性分析报告（T-Feasibility Report）、MRD。</li>
+</ul>
+<h4 id="1322-p1-planning-contract">13.2.2 P1 方案：架构与契约 (Planning &amp; Contract)</h4>
+<ul>
+<li><strong>目标</strong>：<strong>锁定接口</strong>。这是最重要的阶段，省什么时间都不能省这里的时间。</li>
+<li><strong>核心活动</strong>：<ul>
+<li>制定 <strong>IDL (Interface Definition Language)</strong>：定义座舱 Agent 传给自驾 JSON Schema（如 <code>{ "action": "navigate", "target": {"lat":..., "lon":...}, "confirm_status": "confirmed" }</code>）。</li>
+<li><strong>HARA (危害分析与风险评估)</strong>：如果 LLM 传错了坐标，车会不会乱开？设计安全围栏（Safety Guard）。</li>
+</ul>
+</li>
+<li><strong>关键产出</strong>：PRD 冻结版、架构设计文档 (ADD)、接口控制文档 (ICD)、测试策略。</li>
+</ul>
+<h4 id="1323-p2-prototyping">13.2.3 P2 原型：端到端连通 (Prototyping)</h4>
+<ul>
+<li><strong>目标</strong>：跑通主流程（Happy Path）。</li>
+<li><strong>核心活动</strong>：<ul>
+<li><strong>Mock 开发</strong>：座舱团队用自驾 Mock Server 开发；自驾团队用脚本模拟指令开发。</li>
+<li><strong>台架集成 (Bench)</strong>：在实验室台架上，通过真实语音输入，驱动仿真环境中的车辆规划路线。</li>
+</ul>
+</li>
+<li><strong>关键产出</strong>：可演示的 Demo（允许有 Bug，但核心链路必须通）。</li>
+</ul>
+<h4 id="1324-p3-integration-regression">13.2.4 P3 集成：回归与覆盖 (Integration &amp; Regression)</h4>
+<ul>
+<li><strong>目标</strong>：发现 Bug，覆盖长尾。这是“集成地狱”阶段。</li>
+<li><strong>核心活动</strong>：<ul>
+<li><strong>实车路测</strong>：每天上路，收集真实噪音环境下的语音和真实路况下的执行表现。</li>
+<li><strong>Bad Case 挖掘</strong>：专门测试“刁钻”场景（如：快速连续改目的地、弱网环境）。</li>
+<li><strong>性能优化</strong>：死磕端到端时延（Target: &lt; 1.5s）。</li>
+</ul>
+</li>
+<li><strong>关键产出</strong>：Alpha 版本（功能 Feature Complete）。</li>
+</ul>
+<h4 id="1325-p4-pilotbeta">13.2.5 P4 试点：指标与稳定性 (Pilot/Beta)</h4>
+<ul>
+<li><strong>目标</strong>：验证统计学指标。</li>
+<li><strong>核心活动</strong>：<ul>
+<li><strong>内部灰度</strong>：发放给员工车队（100+台）。</li>
+<li><strong>A/B Test</strong>：对比不同 Prompt 或确认策略的转化率。</li>
+<li><strong>压力测试</strong>：连续运行 48 小时无 Crash。</li>
+</ul>
+</li>
+<li><strong>关键产出</strong>：Beta/RC 版本，验收报告。</li>
+</ul>
+<h4 id="1326-p5-sop-launch">13.2.6 P5 量产：SOP 与运营 (Launch)</h4>
+<ul>
+<li><strong>目标</strong>：安全发布。</li>
+<li><strong>核心活动</strong>：OTA 包构建、说明书更新、客服话术培训、监控看板上线。</li>
+</ul>
+<hr />
+<h3 id="133-gate">13.3 Gate 设计：六道“鬼门关”</h3>
+<p>Gate 评审不是汇报会，而是<strong>审判庭</strong>。评审通常由各域 Tech Lead、质量负责人、安全负责人组成。</p>
+<h4 id="1331-gate-a-concept-freeze">13.3.1 Gate A: 立项与范围冻结 (Concept Freeze)</h4>
+<ul>
+<li><strong>Entry</strong>: MRD 完成，核心技术预研 Demo（POC）完成。</li>
+<li><strong>Exit Criteria</strong>:<ol>
+<li><strong>范围清单 (Scope List)</strong> 签字确认：明确哪些做（In-Scope），哪些不做（Out-Scope）。</li>
+<li><strong>资源锁定</strong>：测试车（比如 5 台）、GPU 算力、标注预算已批复。</li>
+<li><strong>北极星指标</strong> 定义完成（如：语音导航任务达成率 &gt; 90%）。</li>
+</ol>
+</li>
+<li><strong>Risk</strong>: 需求过于模糊，导致后期无休止变更。</li>
+</ul>
+<h4 id="1332-gate-b-design-freeze">13.3.2 Gate B: 架构与接口冻结 (Design Freeze)</h4>
+<ul>
+<li><strong>Entry</strong>: 概要设计完成，安全分析完成。</li>
+<li><strong>Exit Criteria</strong>:<ol>
+<li><strong>接口冻结 (API Freeze)</strong>：自驾与座舱的通信协议文档版本号锁定。此后任何修改必须走变更委员会 (CCB)。</li>
+<li><strong>安全评审通过</strong>：确认机制、降级策略（Fallback）已定义并获安全团队认可。</li>
+<li><strong>测试用例 (Test Cases)</strong> 评审通过：QA 知道该怎么测了。</li>
+</ol>
+</li>
+</ul>
+<h4 id="1333-gate-c-mvp-feature-complete">13.3.3 Gate C: 核心场景 MVP (Feature Complete)</h4>
+<ul>
+<li><strong>Entry</strong>: 所有 P0 功能代码开发完成，台架测试通过。</li>
+<li><strong>Exit Criteria</strong>:<ol>
+<li><strong>Happy Path 100% 通过</strong>：在实车静止状态下，语音导航全流程无阻碍。</li>
+<li><strong>无 P0 级 Bug</strong>：没有 Crash，没有严重逻辑错误。</li>
+<li><strong>时延达标</strong>：首字上屏时间、指令下发时延满足基线要求。</li>
+</ol>
+</li>
+<li><strong>Kill Criteria</strong>: 如果此时核心链路仍需 Mock 数据才能跑通，<strong>项目红灯</strong>，立即暂停后续开发，集中攻关。</li>
+</ul>
+<h4 id="1334-gate-d-code-freeze">13.3.4 Gate D: 集成回归通过 (Code Freeze)</h4>
+<ul>
+<li><strong>Entry</strong>: 功能全量集成，P1/P2 Bug 修复率 &gt; 80%。</li>
+<li><strong>Exit Criteria</strong>:<ol>
+<li><strong>代码冻结</strong>：主分支封板，只允许 Cherry-pick 修复严重 Bug。</li>
+<li><strong>稳定性达标</strong>：MTBF (平均故障间隔时间) &gt; 200 小时。</li>
+<li><strong>降级演练通过</strong>：模拟断网、地图服务挂掉、LLM 乱语，系统能安全兜底（如切传统导航或拒绝执行）。</li>
+</ol>
+</li>
+</ul>
+<h4 id="1335-gate-e-release-candidate">13.3.5 Gate E: 试点指标达标 (Release Candidate)</h4>
+<ul>
+<li><strong>Entry</strong>: 内部车队路测里程 &gt; 10,000 km。</li>
+<li><strong>Exit Criteria</strong>:<ol>
+<li><strong>指标达成</strong>：任务完成率、误触发率达到 SOP 标准。</li>
+<li><strong>零严重安全隐患</strong>：所有 High Severity 的安全 Ticket 必须 Close。</li>
+<li><strong>回滚验证</strong>：验证 OTA 失败后的自动回滚机制有效。</li>
+</ol>
+</li>
+</ul>
+<h4 id="1336-gate-f-sop">13.3.6 Gate F: 量产发布评审 (SOP)</h4>
+<ul>
+<li><strong>Entry</strong>: 灰度测试无重大客诉。</li>
+<li><strong>Exit Criteria</strong>:<ol>
+<li><strong>全量包 Ready</strong>。</li>
+<li><strong>合规签署</strong>：法务确认隐私条款、地图测绘合规、数据出境合规。</li>
+<li><strong>运营就绪</strong>：FAQ、用户手册、宣传物料已发布。</li>
+</ol>
+</li>
+</ul>
+<hr />
+<h3 id="134-critical-path-dependencies">13.4 关键路径与依赖 (Critical Path &amp; Dependencies)</h3>
+<p>TPM 需重点监控以下“卡脖子”环节：</p>
+<ol>
+<li><strong>地图 SDK 版本</strong>：<ul>
+<li>座舱用的地图渲染 SDK 和自驾用的高精地图/SD Pro 地图数据必须<strong>同源或坐标系对齐</strong>。地图版本的新往往滞后，需提前 2 个月锁定。</li>
+</ul>
+</li>
+<li><strong>自驾 E2E 模型冻结</strong>：<ul>
+<li>模型训练周期长（采集-&gt;清洗-&gt;训练-&gt;验证需 4-6 周）。座舱的语音指令必须适配<strong>特定版本</strong>的模型能力。如果模型换了，座舱的 Prompt 策略可能要重调。</li>
+</ul>
+</li>
+<li><strong>实车资源 (Mules/VP Cars)</strong>：<ul>
+<li>带有最新传感器和算力板子的车通常极少。需提前 1 个月预订路测时间窗。</li>
+</ul>
+</li>
+<li><strong>第三方服务集成</strong>：<ul>
+<li>大模型云服务、云端语音识别、POI 搜索服务的 SLA 和接口变更。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="135-cut-line">13.5 风险缓冲与 Cut Line (砍需求策略)</h3>
+<p><strong>Rule of Thumb</strong>: 在 Gate C 和 Gate D 之间预留 <strong>20% 的时间缓冲 (Buffer)</strong>。</p>
+<p><strong>Cut Line 策略</strong>（如果进度延期，按以下顺序砍）：</p>
+<ol>
+<li><strong>L3: 锦上添花体验</strong>（砍）：例如“根据天气推荐餐厅”、“复杂的上下文多轮闲聊”。</li>
+<li><strong>L2: 辅助功能</strong>（砍）：例如“途经点智能排序”、“语音修改偏好设置”。</li>
+<li><strong>L1: 心体验</strong>（保）：例如“模糊地点确认”、“途中修改目的地”。</li>
+<li><strong>L0: 安全底线</strong>（死保）：例如“指令确认机制”、“权限校验”、“随时可撤销”。</li>
+</ol>
+<hr />
+<h3 id="136">13.6 进度管理可视化</h3>
+<p>推荐使用 <strong>集成成熟度矩阵 (Integration Maturity Matrix)</strong> 代替简单的百分比。</p>
+<p>| 模块 | 接口定义 | Mock 联调 | 台架通过 | 实车静态 | 实车动态 | 压力测试 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">模块</th>
+<th style="text-align: center;">接口定义</th>
+<th style="text-align: center;">Mock 联调</th>
+<th style="text-align: center;">台架通过</th>
+<th style="text-align: center;">实车静态</th>
+<th style="text-align: center;">实车动态</th>
+<th style="text-align: center;">压力测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">语音识别</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">🟡</td>
+</tr>
+<tr>
+<td style="text-align: left;">意图理解(LLM)</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">🟡</td>
+<td style="text-align: center;">🔴</td>
+</tr>
+<tr>
+<td style="text-align: left;">导航引擎</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">🟡</td>
+<td style="text-align: center;">⚪️</td>
+<td style="text-align: center;">⚪️</td>
+</tr>
+<tr>
+<td style="text-align: left;">自驾规划(Planner)</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">🟡</td>
+<td style="text-align: center;">⚪️</td>
+<td style="text-align: center;">⚪️</td>
+<td style="text-align: center;">⚪️</td>
+</tr>
+</tbody>
+</table>
+<p><em>(图例：✅完成，🟡进行中/有风险，🔴阻塞/延期，⚪️未开始)</em></p>
+<hr />
+<h2 id="3">3. 本章小结</h2>
+<ul>
+<li><strong>双流合一</strong>：PM 必须理解座舱的“快”和自驾的“慢”，利用 Gate 强制同步，避免“快马被慢车绊倒”或“慢车被快马偏”。</li>
+<li><strong>接口即法律</strong>：Gate B 的接口冻结是项目成败的分水岭。前期定义的 Schema 越严谨，后期的集成痛苦越少。</li>
+<li><strong>数据说话</strong>：从 Gate C 开始，不要听“我觉得通了”，要看“路测日志”和“埋点数据”。</li>
+<li><strong>安全一票否决</strong>：无论进度多紧，只要 Gate D 的降级演练不通过，或者 HARA 风险未闭环，绝不发布。</li>
+</ul>
+<hr />
+<h2 id="4">4. 练习题</h2>
+<h3 id="50">基础题 (50%)</h3>
+<p><strong>Q1. (单选) 在驾舱一体项目中，关于“代码冻结 (Code Freeze)”通常发生在哪个阶段？</strong>
+A. Gate B (设计冻结)
+B. Gate C (MVP)
+C. Gate D (集成回归)
+D. Gate F (SOP)</p>
+<details>
+<summary>点击查看答案与提示</summary>
+<p><strong>答案：</strong> C (Gate D)
+<strong>提示：</strong> 代码冻结是为了进行最后的稳定性测试和压测。如果在 SOP (Gate F) 才冻结就太晚了，根本没时间测稳定性。Gate B 冻结的是接口和设计，不是代码实现。</p>
+</details>
+<p><strong>Q2. (多选) 以下哪些是 Gate B (架构与接口结) 必须包含的交付物？</strong>
+A. 完整的 UI 高保真设计图
+B. 自驾与座舱的接口定义文档 (IDL/ICD)
+C. 最终的用户使用手册
+D. 危害分析与风险评估 (HARA) 报告</p>
+<details>
+<summary>点击查看答案与提示</summary>
+<p><strong>答案：</strong> B, D
+<strong>提示：</strong> 接口定义是 Gate B 的核心；HARA 决定了安全架构，必须在开发前完成。UI 设计图通常在 Gate B 前完成，但在 Gate B 必须冻结关键交互逻辑。用户手册是 Gate F 的产物。</p>
+</details>
+<p><strong>Q3. (填空) 在项目时间轴上，为了应对跨团队集成的不可预见性，通常在 <strong><em>_</em></strong> 阶段和 <strong><em>_</em></strong> 阶段之间预留 Buffer（缓冲期），这被称为“集成地狱”时期。</strong></p>
+<details>
+<summary>点击查看答案与提示</summary>
+<p><strong>答案：</strong> Gate C (MVP/Feature Complete)；Gate D (Code Freeze)
+<strong>提示：</strong> 从“功能跑通”到“系统稳定”是 Bug 最密集、扯皮最多的时期。</p>
+</details>
+<p><strong>Q4. (简答) 什么是“Cut Line”？请结合对话导航项目举例说明。</strong></p>
+<details>
+<summary>点击查看答案与提示</summary>
+<p><strong>答案：</strong>
+Cut Line 是在项目进度受阻或风险过高时，预先定义的“功能裁剪线”。
+<strong>举例：</strong> 在对话导航项目中，如果在 Gate D 前性能不达标，我们可以依据 Cut Line 砍掉“多轮复杂闲聊”或“根据心情推荐路线”等 P2 功能，但必须保留“精准导航”、“确认弹窗”等 P0 功能，以确保核心价值交付。</p>
+</details>
+<hr />
+<h3 id="50_1">挑战题 (50%)</h3>
+<p><strong>Q5. (情景题：死锁打破) 项目进入 Gate C (MVP) 前夕，座舱团队声称：“我们已经按接口文档发出了 JSON 指令，是自驾团队不执行。” 自驾团队声称：“我们没收到合法的指令，是座舱发的数据格式不对。” 双方互相推诿，导致进度停滞 3 天。作为 TPM，你该如何打破这个死锁？</strong></p>
+<details>
+<summary>点击查看答案与提示</summary>
+<p><strong>参考答案：</strong></p>
+<ol>
+<li><strong>召开“现场抓包会” (War Room)</strong>：立即两边 Tech Lead 拉到一个房间，禁止口头争论。</li>
+<li><strong>工具介入</strong>：使用抓包工具（如 Wireshark, tcpdump 或中间件自带的 Trace 工具）在通信总线（DDS/SOMEIP）上截取真实数据包。</li>
+<li><strong>对照 ICD</strong>：将抓到的数据包与 Gate B 冻结的接口文档（ICD）逐字段比对。<ul>
+<li>如果是数据发出了但格式错 -&gt; 座舱修。</li>
+<li>如果是格式对但没收到/没反应 -&gt; 自驾修或中间件问题。</li>
+</ul>
+</li>
+<li><strong>建立自动化校验</strong>：以此为契机，强制要求在接口层增加“Schema 校验拦截器”，数据不合规直接报错并记录日志，避免未来扯皮。
+<strong>提示：</strong> 在集成阶段，日志和抓包数据是唯一的真理。</li>
+</ol>
+</details>
+<p><strong>Q6. (风险决策) 在 Gate E (试点) 阶段，由于地图供应商数据更新，导致“去公司”这一指令在 1% 的情况下会导航到公司后门的封闭道路。修复需要地图方发版（需 1 个月），或者自驾端更新 E2E 模型（需 3 周）。SOP 就 2 周后。请制定决策方案。</strong></p>
+<details>
+<summary>点击查看答案与提示</summary>
+<p><strong>参考答案：</strong>
+这是一个“带病上线”还是“延期”的决策。</p>
+<ol>
+<li><strong>评估严重度</strong>：导航到封闭道路属于体验缺陷（Medium/Low），只要车辆能识别封闭道路并停车/掉头，不属于严重安全事故（Safety Critical）。</li>
+<li><strong>短期规避 (Workaround)</strong>：<ul>
+<li><strong>座舱层拦截</strong>：如果该封闭道路坐标已知，可以在座舱云端或端侧建立“黑名单围栏”，当规划终点落在此区域时，强制引导至正门坐标。这通常只需要配置更新（1-2天）。</li>
+</ul>
+</li>
+<li><strong>决策</strong>：<ul>
+<li>采用座舱层 Workaround 方案。</li>
+<li>按期 SOP。</li>
+<li>在 Release Note 中不需提及，但客服需知晓。</li>
+<li>推动地图方和自驾方在 SOP+1 版本修复根因。
+<strong>提示：</strong> 软件工程中，“硬编码（Hardcode）”或“配置补丁”虽然不优雅，却是保交付的重要手段。</li>
+</ul>
+</li>
+</ol>
+</details>
+<p><strong>Q7. (流程化) 团队发现每次 Gate 评审都变成了“批斗大会”，耗时 4 小时且结论模糊。请重新设计 Gate D (Code Freeze) 的评审流程，使其高效且有效。</strong></p>
+<details>
+<summary>点击查看答案与提示</summary>
+<p><strong>参考答案：</strong></p>
+<ol>
+<li><strong>预评审 (Pre-Meeting)</strong>：所有测试报告、Bug 统计、测试视频必须在会议前 24 小时发出。所有评审人必须在会前阅读并填写“关注点”。</li>
+<li><strong>看板驱动</strong>：会议不投 PPT，直接投 Jira/Bug 看板。只看 P0/P1 Bug 清零情况和稳定性测试曲线。</li>
+<li><strong>只做判断题</strong>：会议只讨论“不符合准出标准”的项。<ul>
+<li>“这个 Bug 为什么没修？” -&gt; “风险可控吗？” -&gt; “Accept 还是 Block？”</li>
+</ul>
+</li>
+<li><strong>结论明确</strong>：会议结束只有三个结果：<ul>
+<li><strong>Go</strong>：通过。</li>
+<li><strong>Conditional Go</strong>：有条件通过（如：24小时内修复某具体问题，无需复会）。</li>
+<li><strong>No-Go</strong>：打回，修好后重新约会。
+<strong>提示：</strong> Gate 会是用来做决定的，不是用来汇报工作的。</li>
+</ul>
+</li>
+</ol>
+</details>
+<p><strong>Q8. (开放思考) 你的项目采用了端云结合架构。云端大模型迭代极快（每周一更），而车端软件需要严格的 OTA 周期（3个月）。如何设计版本管理策略，使得云端的新能力（如新学的流行语、新的意图分类）能安全地作用于老版本的车端？</strong></p>
+<details>
+<summary>点击查看答案与提示</summary>
+<p><strong>参考答案：</strong>
+需要设计 <strong>“能力协商”与“向下兼容”</strong> 机制。</p>
+<ol>
+<li><strong>功能标志位 (Feature Flags)</strong>：车端上传状态包含 <code>supported_features: ["nav_v1", "music_v2"]</code>。</li>
+<li><strong>云端适配层</strong>：云端 LLM 输出虽新，但在下发指令前，经过一个“适配器（Adapter）”。<ul>
+<li>如果车端支持新意图 -&gt; 下发新指令。</li>
+<li>如果车端是老版本 -&gt; 将新意图映射（Map）为老版本支持的最接近指令，或降级为纯文本回复。</li>
+</ul>
+</li>
+<li><strong>配置驱动 UI</strong>：车端的 UI 组件设计为由云端发的 JSON 驱动（Server-Driven UI）。云端下发新的卡片布局描述，老车端引擎渲染，从而实现不发 OTA 也能更新部分交互体验。
+<strong>提示：</strong> 解耦是关键。云快端慢，中间必须有“变速箱”（适配层）。</li>
+</ol>
+</details>
+<hr />
+<h2 id="5-gotchas">5. 常见陷阱与错误 (Gotchas)</h2>
+<h3 id="1-the-good-enough-trap">1. "差不多" 先生 (The "Good Enough" Trap)</h3>
+<ul>
+<li><strong>现象</strong>：Gate C 时，PM 说“虽然这个确认弹窗有时候弹不出来，但只要用户说话标准点就行，先过吧”。</li>
+<li><strong>后果</strong>：这个“有时候”在 Gate D 压力测试下会变成“灾难”。<strong>早期放过的小问题，后期是修不完的债。</strong></li>
+<li><strong>对策</strong>：Gate 标准必须是二进制的（0 或 1），没有“差不多”。</li>
+</ul>
+<h3 id="2-ppt-demo-demo">2. 用 PPT 代替 Demo，用 Demo 代替实车</h3>
+<ul>
+<li><strong>现象</strong>：评审会上看了一段精美的视频，觉得做完了。实际上那是两周前录的，现在的代码根本跑不起来。或者只在台架上跑通了，没上过路。</li>
+<li><strong>后果</strong>：上车后现噪音、震动、网络波动让系统完全不可用。</li>
+<li><strong>对策</strong>：Gate C 之后的评审，<strong>必须在实车上进行</strong>，或者查看包含完整时间戳和环境信息的实车日志回放。</li>
+</ul>
+<h3 id="3_1">3. 忽视了 "运营侧" 的准备</h3>
+<ul>
+<li><strong>现象</strong>：技术研发嗨皮地冲到了 Gate F，突然发现客服团队根本不知道怎么回答用户关于“大模型导航”的问题，说明书也没写“可能会有幻觉”。</li>
+<li><strong>后果</strong>：发布后立刻引发客诉危机，甚至因缺乏风险提示被监管约谈。</li>
+<li><strong>对策</strong>：P5 阶段必须将运营、法务、客服纳入核心项目组，他们的 Sign-off 和代码通过一样重要。</li>
+</ul>
+<h3 id="4-plan-a-plan-b">4. 只有 Plan A，没有 Plan B</h3>
+<ul>
+<li><strong>现象</strong>：赌定自驾团队能在 SOP 前优化好 E2E 模型。结果没优化好。</li>
+<li><strong>后果</strong>：项目延期半年。</li>
+<li><strong>对策</strong>：在 Gate B 就必须设计好 <strong>降级方案（Plan B）</strong>。如果 E2E 不行，能不能回退到传统的 API 导航？如果 LLM 挂了，能不能回到规则引擎？<strong>Plan B 是保命的降落伞。</strong></li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter12.html" class="nav-link prev">← Chapter 12｜组织阵型与协作机制（面向交付）</a><a href="chapter14.html" class="nav-link next">Chapter 14｜风险清单与应对预案 (Risk Management & Contingency) →</a></nav>
+        </main>
+    </div>
+</body>
+</html>
