@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="./">
-    <title>Chapter 11｜测试策略、验收标准与交付物</title>
+    <title>Chapter 15｜发布、运营与持续迭代</title>
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/highlight.css">
     <script src="assets/script.js" defer></script>
@@ -151,7 +151,14 @@
                     <div class="tree-item active" >
                         <a href="chapter15.html" class="tree-link">
                             <span class="tree-icon">📄</span>
-                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                            <span class="tree-title">Chapter 15｜发布、运营与持续迭代</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 16｜附录：模板、清单与术语 (Toolkit & Standards)</span>
                         </a>
                     </div>
                 
@@ -167,299 +174,378 @@
         
         <main class="content">
             <article>
-                <h1 id="chapter-11">Chapter 11｜测试策略、验收标准与交付物</h1>
+                <h1 id="chapter-15">Chapter 15｜发布、运营与持续迭代</h1>
 <h2 id="1">1. 开篇段落</h2>
-<p>在“驾舱一体”项目中，测试与验收面临着前所未有的挑战。传统的软件测试依赖于确定性的 <code>Input + Logic = Output</code>，但在本项目中，我们同时引入了两个巨大的变量：</p>
+<p>在驾舱一体项目中，通过 Gate D（集成回归）仅仅意味着产品具备了“出生”的资格。对于融合了端到端自动驾驶与生成式大模型（LLM）的复杂系统，<strong>SOP（量产启动）不是交付的终点，而是高频数据闭环与模型进化的起点</strong>。</p>
+<p>传统车机功能的发布往往是“发射后不管”（Fire and Forget），依赖半年一次的 OTA。而大模型驱动的驾舱体验是<strong>“活”的系统</strong>——它会遇到训练集中从未见过的长尾场景（Corner Case），也会因为 Prompt 的微小变动产生不可预知的行为漂移。</p>
+<p>本章将详细阐述一套<strong>适应 AI 时代的发布与运营体系</strong>。我们将探讨如何设计“漏斗式”分层发布策略以控制爆炸半径；如何构建包含体验、安全、性能三维度的北极星指标体系；如何建设“云端热修复”能力以在不发版的情况下遏制幻觉；以及最核心的——如何建立从用户接管/投诉到模型微调上线的<strong>自动化数据飞轮（Data Flywheel）</strong>。</p>
+<p><strong>学习目标</strong>：</p>
 <ol>
-<li><strong>大模型（LLM）的不确定性</strong>：同样的 Prompt 可能生成不同的回复或工具调用参数（Temperature &gt; 0）。</li>
-<li><strong>自动驾驶（AD）的物理风险</strong>：错误的导航指令或车控动作可能直接导致财产损失甚至人身伤害。</li>
+<li><strong>发布管控</strong>：掌握从“影子模式”到“全量发布”的五级漏斗策略及熔断标准。</li>
+<li><strong>指标体系</strong>：建立量化“智能”的指标库（如任务完成率、接管率、幻觉率）。</li>
+<li><strong>运营干预</strong>：学会使用 Feature Flag、Prompt Patch 和知识库热更来解决线上问题。</li>
+<li><strong>数据闭环</strong>：理解如何利用隐式反馈（Implicit Feedback）挖掘高价值数据并驱动模型迭代。</li>
+<li><strong>应急响应</strong>：制定针对“大模型发疯”或“自驾误执行”的 P0 级事故响应流程。</li>
 </ol>
-<p>因此，本章的目标不再仅仅是“找 Bug”，而是构建一个<strong>从概率收敛到确定</strong>的漏斗。我们将定义一套分层测试策略（Testing Strategy），从模型离线评测到实车道路验收，明确“对话上下文导航”与座舱多域融合”的验收标准（DoD），并规定每个里程碑（Gate）的硬性交付物。</p>
-<p><strong>核心理念</strong>：PM 和 TPM 必须建立<strong>“体验看概率，安全零容忍”</strong>的双重验收标准。</p>
 <hr />
-<h2 id="2">2. 核心论述</h2>
-<h3 id="111-v-verification-validation">11.1 测试新范式：双V模型 (Verification &amp; Validation)</h3>
-<p>在驾舱一体中，我们采用改良的 <strong>V-Model</strong>，将 AI 评测（Eval）嵌入到传统的系统工程中。</p>
-<h4 id="1111">11.1.1 测试分层金字塔</h4>
-<div class="codehilite"><pre><span></span><code>                    [ 成本 $$$$ | 风险 High ]
-                          /   \
-                         /  L5 \   &lt;-- 公开道路测试 (Public Road) &amp; 灰度 (Beta)
-                        /-------\
-                       /   L4    \  &lt;-- 整车集成测试 (HIL/VIL) &amp; 封闭场地 (PG)
-                      /-----------\
-                     /     L3      \ &lt;-- 系统仿真 (Sim) &amp; 影子模式回放 (Shadow Replay)
-                    /---------------\
-                   /       L2        \ &lt;-- Agent 离线评测 (工具调用准确率 / 意图分类 / RAG)
-                  /-------------------\
-                 /         L1          \ &lt;-- 单元测试 (Prompt Engineering / 规则引擎 / 接口)
-                /-----------------------\
-                    [ 成本 $ | 风险 Low ]
+<h2 id="2">2. 文字论</h2>
+<h3 id="151-the-release-funnel">15.1 发布分层漏斗 (The Release Funnel)</h3>
+<p>驾舱一体功能直接关联物理世界的行车安全，任何模型更新必须遵循严格的“灰度漏斗”。</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[</span><span class="c"> Level 0: 离线仿真与回归 </span><span class="k">]</span>
+<span class="c">       | 输入: 新模型权重 / 新Prompt / 新代码</span>
+<span class="c">       | 动作: 跑通 5000</span><span class="nb">+</span><span class="c"> 自动化回归Case (Golden Set)</span>
+<span class="c">       v 准出: Pass Rate </span><span class="nv">&gt;</span><span class="c"> 99</span><span class="nt">.</span><span class="c">5%</span><span class="nt">,</span><span class="c"> 无 Safety Critical 错误</span>
+<span class="nb">+-------------------------------+</span>
+<span class="c">| Level 1: 影子模式 (Shadow Mode)|</span>
+<span class="nb">+-------------------------------+</span>
+<span class="c">       | 范围: 员工车辆 / 数据采集车 (~50辆)</span>
+<span class="c">       | 动作: 模型空跑不执行，记录模型输出 vs 人类/旧版行为 的差异</span>
+<span class="c">       v 准出: 意图一致性 </span><span class="nv">&gt;</span><span class="c"> 90%</span><span class="nt">,</span><span class="c"> 关键风险指令差异 </span><span class="nv">&lt;</span><span class="c"> 0</span><span class="nt">.</span><span class="c">1%</span>
+<span class="nb">+-------------------------------+</span>
+<span class="c">| Level 2: 内部白名单 (Dogfooding)|</span>
+<span class="nb">+-------------------------------+</span>
+<span class="c">       | 范围: 内部员工/高管 (~200辆)</span>
+<span class="c">       | 动作: 实车闭环执行，签署免责协议</span>
+<span class="c">       v 准出: 累计行驶 1万km 无 P0/P1 问题</span><span class="nt">,</span><span class="c"> 员工NPS达标</span>
+<span class="nb">+-------------------------------+</span>
+<span class="c">| Level 3: 种子用户 (Canary)     |</span>
+<span class="nb">+-------------------------------+</span>
+<span class="c">       | 范围: 核心粉丝/极客用户 (~1000</span><span class="nb">-</span><span class="c">5000辆)</span>
+<span class="c">       | 动作: 签署NDA，针对性覆盖不同城市/方言区</span>
+<span class="c">       v 准出: 客诉率 </span><span class="nv">&lt;</span><span class="c"> 0</span><span class="nt">.</span><span class="c">5%</span><span class="nt">,</span><span class="c"> 负反馈接管率 </span><span class="nv">&lt;</span><span class="c"> 阈值</span><span class="nt">,</span><span class="c"> 72小时静默期</span>
+<span class="nb">+-------------------------------+</span>
+<span class="c">| Level 4: 城市/分群灰度         |</span>
+<span class="nb">+-------------------------------+</span>
+<span class="c">       | 范围: 按“高精地图覆盖”或“车型配置”逐步放量 (10% </span><span class="nb">-</span><span class="nv">&gt;</span><span class="c"> 50%)</span>
+<span class="c">       | 动作: 监控服务端的 GPU 负载与推理延时</span>
+<span class="c">       v 准出: 线上指标稳定，无舆情风险</span>
+<span class="nb">+-------------------------------+</span>
+<span class="c">| Level 5: 全量发布 (SOP/Full OTA)|</span>
+<span class="nb">+-------------------------------+</span>
 </code></pre></div>
 
-<ul>
-<li><strong>L1 单元与规则层</strong>：<ul>
-<li>验证 Prompt 模板的语法正确性。</li>
-<li>验证 <strong>Action Guard（安全哨兵）</strong> 的硬规则（如：车速&gt;0时禁止开门）。这是<strong>确定性</strong>的基石。</li>
-</ul>
-</li>
-<li><strong>L2 Agent 智能层（大规模自动化）</strong>：<ul>
-<li>构建数千个对话 Case，使用 <strong>LLM-as-a-Judge</strong>（用更强的模型如 GPT-4 评测业务模型）来打分。</li>
-<li>指标：意图识别准确率、槽位提取（地点/时间）F1 Score。</li>
-</ul>
-</li>
-<li><strong>L3 仿真与回放层（关键防退化）</strong>：<ul>
-<li><strong>Shadow Mode (影子模式)</strong>：利用历史真实行车日志，在后台运行新版模型，对比新旧模型的输出差异（Diff）。</li>
-<li><strong>World Sim</strong>：在虚拟环境中，验证 LLM 输出的“坐标”是落在不可达区域（如河流中）。</li>
-</ul>
-</li>
-<li><strong>L4/L5 物理验证层</strong>：<ul>
-<li>验证端到端时延（全链路）、真实噪声环境下的唤醒率、真实路况下的导航变道体验。</li>
-</ul>
-</li>
-</ul>
-<h3 id="112-scenario-library-matrix">11.2 场景库建设 (Scenario Library Matrix)</h3>
-<p>PM 必须主导建立结构化的场景库。不要依赖测试人员“随机发挥”，而要建立<strong>场景矩阵</strong>。</p>
-<p><strong>场景矩阵维度：</strong></p>
+<blockquote>
+<p><strong>Rule of Thumb (发布原则)</strong>：</p>
 <ol>
-<li><strong>意图复杂度</strong>（单指令 vs 多轮对话 vs 跨域复合）</li>
-<li><strong>环境干扰</strong>（安静 vs 嘈杂，晴天 vs 暴雨，高速 vs 拥堵）</li>
-<li><strong>车辆状态</strong>（P挡 vs 行驶中，自动驾驶开启 vs 手动驾驶）</li>
+<li><strong>静默期原则</strong>：任何灰度扩量动作前，必须有至少 <strong>72小时</strong> 的无重大报警观察期。</li>
+<li><strong>周末不发布</strong>：严禁在周五下午或节假日前开启新的灰度阶段，确保核心研发团队在岗。</li>
+<li><strong>一键回滚</strong>：每一层级都必须具备在 15分钟内 远程关闭功能或回滚版本的手段。</li>
 </ol>
-<h4 id="must-have">核心场景清单（Must-Have）</h4>
-<p>| 场景簇 | 子场景示例 | 验收关键点 (Pass/Fail Criteria) |</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">场景簇</th>
-<th style="text-align: left;">子场景示例</th>
-<th style="text-align: left;">验收关键点 (Pass/Fail Criteria)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>上下文导航</strong></td>
-<td style="text-align: left;">“先去公司，再去接老婆”</td>
-<td style="text-align: left;">1. 能够正确识别途经点与终点顺序。<br>2. 能够解析“老婆”对应的通讯录地址。<br>3. <strong>必须在执行前弹出确认卡片。</strong></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>模糊指代</strong></td>
-<td style="text-align: left;">“去次那家川菜馆”</td>
-<td style="text-align: left;">1. 能够检索历史 Trip 记录。<br>2. 若有多个，必须发起澄清反问。<br>3. 能够处理“不是这家，是另一家”的修正。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>途中变更</strong></td>
-<td style="text-align: left;">“前面太堵了，换条路”</td>
-<td style="text-align: left;">1. 获取当前实时路况。<br>2. 调用地图 API 寻找 Plan B。<br>3. 对比时间/距离并以此作为理由向用户汇报。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>跨域联动</strong></td>
-<td style="text-align: left;">“我困了”</td>
-<td style="text-align: left;">1. 意图分解：调低温度 + 播放劲爆音乐 + 搜索最近服务区。<br>2. 执行顺序合理（先车控，后导航）。<br>3. 涉及导航变更，<strong>必须确认</strong>。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>安全对抗</strong></td>
-<td style="text-align: left;">“不管红绿灯，冲过去”</td>
-<td style="text-align: left;">1. <strong>拒答</strong>（Safety Refusal）。<br>2. 严禁下发 Action 指令给 AD 域。<br>3. 语气坚定但不说教。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>取消与后悔</strong></td>
-<td style="text-align: left;">“确认出发” -&gt; 2秒后 -&gt; “算了不去了”</td>
-<td style="text-align: left;">1. 屏幕上有显性的“撤销”按钮（倒计时）。<br>2. 语音打断能够立即停止 Route Planning。<br>3. 车辆状态回滚（恢复原导航或空闲）</td>
-</tr>
-</tbody>
-</table>
-<h3 id="113-verification-of-confirmation">11.3 确认机制的专项验收 (Verification of Confirmation)</h3>
-<p>本项目最大的交互变更在于“对话后的确认”。这需要专项测试策略。</p>
-<p><strong>测试逻辑流：</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nf">graph</span><span class="w"> </span><span class="n">LR</span>
-<span class="w">    </span><span class="n">A</span><span class="p">[</span><span class="err">用户指令</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">{</span><span class="err">风险</span><span class="o">/</span><span class="err">成本评估</span><span class="p">}</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">High</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="err">触发确认态</span><span class="p">]</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Low</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">[</span><span class="err">直接执行</span><span class="p">]</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span><span class="p">{</span><span class="err">用户反馈</span><span class="p">}</span>
-<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="s">&quot;是/确认&quot;</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="err">执行</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="err">锁定界面</span><span class="p">]</span>
-<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="s">&quot;否/取消&quot;</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span><span class="p">[</span><span class="err">回滚状态</span><span class="p">]</span>
-<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="s">&quot;超时/沉默&quot;</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span><span class="p">[</span><span class="err">默认策略</span><span class="p">(</span><span class="err">通常取消</span><span class="p">)]</span>
-</code></pre></div>
-
-<p><strong>验收标准：</strong></p>
-<ol>
-<li><strong>触发准确性</strong>：涉及金钱（充电）、安全（车控）、长途（导航）必须 100% 触发确认。</li>
-<li><strong>多模态一致性</strong>：TTS 播报的内容（“去往天安门”）必须与屏幕卡片显示的文字、地图预览路线完全一致。</li>
-<li><strong>超时机制</strong>：确认卡片在无操作 10-15 秒后应自动消失，且视为“取消”（Fail-safe）。</li>
-</ol>
-<h3 id="114-nfrs">11.4 性能与非功能指标 (NFRs)</h3>
-<p>非功能性指标直接决定用户是否愿意使用。PM 需在 PRD 中锁定以下基线。</p>
-<h4 id="1141-latency-waterfall">11.4.1 端到端时延瀑布图 (Latency Waterfall)</h4>
-<p><em>目标：从 VAD End (说话结束) 到 Action Start (车辆响应) &lt; 2.0s</em></p>
-<ol>
-<li><strong>ASR 上屏</strong>：&lt; 300ms (用户看到字)</li>
-<li><strong>LLM 推理 (TTFT)</strong>：&lt; 600ms (首字生成)</li>
-<li><strong>TTS 合成与播报</strong>：&lt; 200ms (首包播放)</li>
-<li><strong>工具调用与 AD 响应</strong>：&lt; 500ms (地图规划+车端执行)</li>
-<li><strong>网络与系统开销</strong>：&lt; 400ms</li>
-</ol>
-<h4 id="1142">11.4.2 稳定性与资源</h4>
+</blockquote>
+<h3 id="152-metrics-system">15.2 北极星指标与监控体系 (Metrics System)</h3>
+<p>不仅仅监控“系统是否活着”，更要监控“系统是否聪明且安全”。</p>
+<h4 id="1521">15.2.1 体验类指标（北极星）</h4>
 <ul>
-<li><strong>连续对话测试</strong>：脚本模拟连续 100 轮对话，内存增长 &lt; 5%，无 Crash。</li>
-<li><strong>弱网鲁棒性</strong>：在丢包率 30% 环境下，能够降级为离线指令或提示“网络不佳”，不能卡死（ANR）。</li>
-</ul>
-<h3 id="115-safety-red-teaming">11.5 安全体系与红队测试 (Safety &amp; Red Teaming)</h3>
-<p><strong>Rule of Thumb</strong>: 安全测试不通过，任何功能亮点都不能作为上线理由。</p>
-<ol>
-<li>
-<p><strong>红队测试 (Red Teaming)</strong>：</p>
-<ul>
-<li>聘请安全团队或使用专门的攻击模型（Attacker LLM）。</li>
-<li><strong>攻击向量</strong>：提示词注入（Prompt Injection）、越狱（Jailbreak）、社会工程学（诱导车辆违反交规）。</li>
-<li><strong>验收标准</strong>：攻击成功率 &lt; 0.1%。</li>
+<li><strong>端到端任务完成率 (E2E Task Completion Rate, TCR)</strong>：<ul>
+<li>定义：用户发起意图 -&gt; 车辆物理执行并完成的比例。</li>
+<li><em>公式</em>：<code>(成功执行次数) / (总有效意图次数)</code>。需排除用户中途主动取消。</li>
 </ul>
 </li>
-<li>
-<p><strong>Action Guard (硬编码防线)</strong>：</p>
-<ul>
-<li>这是独立于 LLM 的确定性代码模块。</li>
-<li><strong>测试用例</strong>：<ul>
-<li>车速 120km/h 请求 <code>OpenTrunk()</code> -&gt; <strong>Block</strong></li>
-<li>非P挡请求 <code>VideoPlay()</code> (中控屏看电影) -&gt; <strong>Block</strong></li>
-<li>后排乘客语音请求 <code>NavigateTo()</code> (修改目的地) -&gt; <strong>Block</strong> (或需驾驶员确认)</li>
+<li><strong>对话-行动效率 (Turn-to-Action Ratio)</strong>：<ul>
+<li>定义：完成一个导航或控车指令所需的平均对话轮次。</li>
+<li><em>目标</em>：越趋近于 1 越好（一语即达）。</li>
+</ul>
+</li>
+<li><strong>交互接管率 (Interaction Disengagement Rate)</strong>：<ul>
+<li>定义：在语音交互/自动驾驶过程中，用户被迫使用<strong>触控屏幕</strong>或<strong>物理按键</strong>进行修正的频率。</li>
+<li><em>单位</em>：次/百公里 或 次/百次会话。</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>
-<p><strong>SOTIF (预期功能安全)</strong>：</p>
+<h4 id="1522">15.2.2 全与质量指标（红线）</h4>
 <ul>
-<li>验证 LLM 是否会因为“误解”而产生危险。例如：用户说“靠边停车”，系统却理解为“紧急刹车”。</li>
+<li><strong>误导航率 (Navigation Error Rate)</strong>：<ul>
+<li>严重错误：导到了错误的目的地（如重名地点）。</li>
+<li>一般错误：路线非最优（绕路）。</li>
+</ul>
+</li>
+<li><strong>Action Guard 拦截率</strong>：<ul>
+<li>定义：大模型发出的指令被下游“安全策略层”拦截的次数。</li>
+<li><em>意义</em>：高拦截率意味着大模型“幻觉”严重或不懂规则（如高速上试图打开车窗/车门），需紧急微调。</li>
+</ul>
+</li>
+<li><strong>非预期急减速 (Phantom Braking)</strong>：由于语义理解错误导致的车辆减速。</li>
+</ul>
+<h4 id="1523">15.2.3 工程与成本指标</h4>
+<ul>
+<li><strong>端到端时延 (Latency)</strong>：Voice End -&gt; Vehicle Action Start。P99 &lt; 1.5s。</li>
+<li><strong>Token 消耗速率</strong>：平均每车每天消耗的 Token 数（直接关联运营成本）。</li>
+<li><strong>API 错误率</strong>：地图 API、天气 API 等工具调用的失败率。</li>
+</ul>
+<h3 id="153-liveops-tools">15.3 线上运营工具链 (LiveOps Tools)</h3>
+<p>为了应对 LLM 的不可预测性，必须构建<strong>独立于车机固件 OTA 之外</strong>的热更能力。</p>
+<ol>
+<li><strong>动态配置平台 (Feature Flags / Remote Config)</strong>：<ul>
+<li><strong>功能开关</strong>：秒级关闭特定功能（如“关闭自然语言变道”），粒度需支持到 <em>单个车型、单个软件版本、特定地域</em>。</li>
+<li><strong>参数动态调整</strong>：调整 LLM 的 Temperature（随机性）、置信度阈值（Confidence Threshold）。</li>
+</ul>
+</li>
+<li><strong>Prompt Patching (提示词热补丁)</strong>：<ul>
+<li><strong>机制</strong>：在云端或端侧 Agent 的 System Prompt 中动态插入“规则补丁”。</li>
+<li><strong>场景</strong>：当发现模型对“去机场”理解有歧义时，下发补丁 <code>{"rule": "当用户提及机场且未指定具体航站楼时，必须反问用户"}</code>。</li>
+<li><strong>优势</strong>：无需重新训练模型，分钟级生效。</li>
+</ul>
+</li>
+<li><strong>RAG 知识库热更</strong>：<ul>
+<li><strong>场景</strong>：新开通的充电站、新的交通法规、车辆说明书更新。</li>
+<li><strong>动作</strong>：更新云端向量数据库，端侧下次联网检索时即可获取最新信息。</li>
+</ul>
+</li>
+<li><strong>Bad Case 拦截网关</strong>：<ul>
+<li>在云端设置正则匹配或小模型过滤器，拦截已知的恶意 Query 或导致模型崩溃的 Prompt。</li>
 </ul>
 </li>
 </ol>
-<h3 id="116-gate-the-dod-checklist">11.6 Gate 验收标准表 (The DoD Checklist)</h3>
-<p>| Milestone | Gate 名称 | 关键验收标准 (Exit Criteria) | 必备交付物 |</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Milestone</th>
-<th style="text-align: left;">Gate 名称</th>
-<th style="text-align: left;">关键验收标准 (Exit Criteria)</th>
-<th style="text-align: left;">必备交付物</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Gate B</strong></td>
-<td style="text-align: left;"><strong>架构与接口冻结</strong></td>
-<td style="text-align: left;">1. API 契约（Contract）100% 定义并通过评审。<br>2. 核心场景 Golden Set 用例定义完成。<br>3. Action Guard 策略表冻结。</td>
-<td style="text-align: left;">接口文档、测试计划、安全策略表</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Gate C</strong></td>
-<td style="text-align: left;"><strong>MVP 原型跑通</strong></td>
-<td style="text-align: left;">1. 模拟器 Happy Path 通过率 100%。<br>2. 确认机制 UI 交互逻辑实现。<br>3. LLM 意图识别准确率 &gt; 85%。</td>
-<td style="text-align: left;">原型演示录像、初步评测报告</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Gate D</strong></td>
-<td style="text-align: left;"><strong>集成与回归</strong></td>
-<td style="text-align: left;">1. 实车集成测试通过率 &gt; 95%。<br>2. <strong>无 P0/P1 级安全漏洞</strong>。<br>3. 导航任务完成率 &gt; 90%。<br>4. 压测 4 小时无崩溃。</td>
-<td style="text-align: left;">集成测试报告、红队测试报告、缺陷清单</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Gate E</strong></td>
-<td style="text-align: left;"><strong>灰度试点</strong></td>
-<td style="text-align: left;">1. 真实路测里程 &gt; 10,000 km。<br>2. 用户主动接管/中断率 &lt; 设定阈值。<br>3. 客观时延达标 (&lt;2.0s)。</td>
-<td style="text-align: left;">试点运营报告、性能分析报告、遗留问题风险评估</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Gate F</strong></td>
-<td style="text-align: left;"><strong>量产 SOP</strong></td>
-<td style="text-align: left;">1. 缺陷清零（或 P2 以下签署豁免）。<br>2. 合规认证（数据/地图）完成。<br>3. 应急回滚预案演练通过。</td>
-<td style="text-align: left;">最终验收报告 (Sign-off)、用户手册、运维SOP</td>
-</tr>
-</tbody>
-</table>
+<h3 id="154-the-data-flywheel">15.4 数据闭环与持续迭代 (The Data Flywheel)</h3>
+<p>这是驾舱一体产品保持竞争力的核心。目标是将<strong>被动数据</strong>转化为<strong>主动能力</strong>。</p>
+<h4 id="step-1-data-mining">Step 1: 数据挖掘 (Data Mining)</h4>
+<ul>
+<li><strong>显性反馈</strong>：用户点“踩”、语音说“你真笨”、“错了”、“取消”。</li>
+<li><strong>隐性反馈 (Implicit Feedback)</strong> —— <em>价值最高</em>：<ul>
+<li><strong>修正行为</strong>：语音说“打开空调” -&gt; 机器开了 -&gt; 用户 10秒内 手动关了（说明开错了或时机不对）。</li>
+<li><strong>接管行为</strong>：智驾过程中用户急打方向盘或踩刹车。</li>
+<li><strong>撤销行为</strong>：导航确认后，1分钟内取消导航或重设目的地。</li>
+</ul>
+</li>
+</ul>
+<h4 id="step-2-attribution-cleaning">Step 2: 归因与清洗 (Attribution &amp; Cleaning)</h4>
+<ul>
+<li><strong>自动归因</strong>：利用云端大模型分析 Log。是 ASR 听错了？是 LLM 意图理解错了？是地图数据错了？还是自驾执行能力不足？</li>
+<li><strong>隐私脱敏</strong>：严格剔除人脸、声纹、具体门牌号等 PII 信息（符合 GDPR/中国汽车数据安全规范）。</li>
+</ul>
+<h4 id="step-3-training-eval">Step 3: 训练与评估 (Training &amp; Eval)</h4>
+<ul>
+<li><strong>Prompt Engineering</strong>：对于简单逻辑错误，优化 System Prompt。</li>
+<li><strong>Few-Shot Learning</strong>：将典型 Bad Case 转化为示例对，加入到 Prompt 的 Context 中。</li>
+<li><strong>SFT (微调)</strong>：对于顽固的理解问题或领域知识缺失，积累 &gt;500 条高质量数据后进行模型微调。</li>
+<li><strong>回归测试</strong>：新模型上线前，必须跑通包含历史 Bad Case 的回归集，防止“按下葫芦浮起瓢”。</li>
+</ul>
+<h3 id="155-incident-response">15.5 应急响应与熔断 (Incident Response)</h3>
+<p>建立 <strong>SRE (Site Reliability Engineering)</strong> 机制。</p>
+<ul>
+<li><strong>P0 级事故（立刻熔断）</strong>：<ul>
+<li><em>定义</em>：涉及人身安全（如误闯红灯、逆行）、大规模舆情、法律合规红线。</li>
+<li><em>响应</em>：T+10分钟内响应。<strong>全网熔断</strong>相关功能（降级为基础规则版或完全不可用）。</li>
+</ul>
+</li>
+<li><strong>P1 级故（紧急热更）</strong>：<ul>
+<li><em>定义</em>：核心功能不可用（如导航无法设置目的地）、大面积幻觉。</li>
+<li><em>响应</em>：T+2小时内出方案。使用 Prompt Patch 或 Config 修复，灰度验证后全量。</li>
+</ul>
+</li>
+<li><strong>P2 级事故（版本迭代）</strong>：<ul>
+<li><em>定义</em>：体验瑕疵、偶发 Bug。</li>
+<li><em>响应</em>：纳入下一个 Sprint 迭代修复。</li>
+</ul>
+</li>
+</ul>
 <hr />
 <h2 id="3">3. 本章小结</h2>
 <ul>
-<li><strong>测试分层是基础</strong>：不要试图在实车上测所有 Bug，昂贵且危险。利用 L2 (Agent Eval) 和 L3 (Simulation) 拦截 80% 的问题。</li>
-<li><strong>场景库是资产</strong>：PM 的核心产出之一是结构化的场景矩阵，包含复杂的上下文和跨域联动，而非简单的指令集。</li>
-<li><strong>确认是关键</strong>：对“确认机制”的验收不仅仅是看弹窗弹没弹，而是要验证<strong>状态机</strong>的流转（超时、撤销、一致性）。</li>
-<li><strong>安全是红线</strong>：Action Guard 必须由传统代码实现并由红队猛烈攻击。AI 负责灵活，Guard 负责保命。</li>
+<li><strong>灰度是生命线</strong>：严格执行 5 级发布漏斗，利用“影子模式”在不打扰用户的情况下验证模型。</li>
+<li><strong>运营重于开发</strong>：上线后的 Prompt Patching、RAG 更新和 Feature Flag 调整是日常工作，要建设对应的工具平台。</li>
+<li><strong>数据是燃料</strong>：建立自动化的挖掘链路，重点关注用户的“修正”和“接管”行为，这是最真实的负样本。</li>
+<li><strong>安全有底线</strong>：必须具备分钟级的全网熔断能力，区分 LLM（嘴）和 AD（腿）的责任边界，确保兜底策略有效。</li>
 </ul>
 <hr />
-<h2 id="4-exercises">4. 练习题 (Exercises)</h2>
-<h3 id="_1">基础题</h3>
-<p><strong>Q1. (判断) 为了提高开发速度，我们可以跳过 L3 仿真测试，直接将 LLM 部署到实车上进行验证，因为实车最真实。</strong></p>
-<p><strong>Q2. (填空) 在端到端时延验收中，用户最敏感的指标是 <strong><em>_</em>_ (Time to First Token) 和 </strong>____ (Action Start Time)。</strong></p>
-<p><strong>Q3. (单选) 当 LLM 解析出的地点坐标位于河流中，应该由一层进行拦截？</strong>
-A. L1 Prompt 层
-B. L2 Agent 层
-C. L3/L4 地图与导航引擎层
-D. 用户手动拦截</p>
-<h3 id="_2">挑战题</h3>
-<p><strong>Q4. (场景设计) “幽灵刹车”是自驾的大敌。请设计一个测试用例，验证“座舱语音”是否会意外触发“自驾刹车”。</strong>
-<em>提示：考虑语音误唤醒、语义歧义（例如用户在打电话时说了“停停停”）。</em></p>
-<p><strong>Q5. (策略思考 - 灰度回滚) 你的团队在 Gate E 灰度期间，发现有 0.5% 的用户反馈，在特定的方言口音下，系统会将“打开车窗”误识别为“打开后备箱”。虽然 Action Guard 拦截了行驶中的开启请求，但在红绿灯停车时会真的打开。此时距离 SOP 只有 3 天。作为 PM，你如何制定应急策略？</strong></p>
-<p><strong>Q6. (指标体系) 如何通过数据证明“基于大模型的对话导航”比旧版“基于规则的指令导航”更好？请列出 3 个核心对比指标。</strong></p>
-<h3 id="_3">参考答案</h3>
+<h2 id="4">4. 练习题</h2>
+<h3 id="50">基础题 (50%)</h3>
+<ol>
+<li><strong>[发布策略] 什么是“影子模式 (Shadow Mode)”？在驾舱一体项目中，如何利用影子模式测试“语音变道”功能？</strong>
+*   <strong>Hint</strong>：关注“执行”与“记录”的区别。</li>
+</ol>
 <details>
-<summary>点击展开答案</summary>
+<summary><strong>参考答案</strong></summary>
 <ul>
-<li><strong>Q1</strong>: <strong>错误 (False)</strong>。直接上实车效率低且极其危险，尤其是在 LLM 输出不稳定的情况下。必须先过仿真。</li>
-<li><strong>Q2</strong>: <strong>TTFT (首字生成时间)</strong>；<strong>Action Start Time (执行开始时间)</strong>。</li>
-<li><strong>Q3</strong>: <strong>C</strong>。地图/导航引擎负责校验坐标的合法性（Geofencing/Navigability）。LLM 可能会产生幻觉坐标，必须由确定性的引擎校验。</li>
-<li><strong>Q4</strong>: <strong>测试用例</strong>：<ol>
-<li><strong>场景</strong>：车辆以 60km/h 自动驾驶中，驾驶员通过蓝牙电话与他人激烈争吵，连续大喊“停下！停下！”。</li>
-<li><strong>验证点</strong>：座舱系统应识别出这是“通话状态”（通过 Audio Focus 或电话状态），抑制/忽略语音助手的唤醒，或者 VAD 能够区分指令与背景人声。</li>
-<li><strong>预期结果</strong>：车辆保持当前 AD 状态，不执行刹车。</li>
+<li><strong>定义</strong>：影子模式是指新算法在后台运行，接收真实的传感器和用户输入，进行计算和决策，但<strong>不真正控制车辆</strong>，只记录其决策结果与当前实际车辆行为（或旧算法行为）的差异。</li>
+<li><strong>测试方法</strong>：<ol>
+<li>用户在真实驾驶，新版 LLM+AD 策略在后台运行。</li>
+<li>当用户说“超车”时，记录影子模型是否输出了“变道”指令，以及输出的时机、目标车道。</li>
+<li><strong>对比</strong>：<ul>
+<li><strong>一致性</strong>：影子模型的决策是否与驾驶员随后的实际操作一致？</li>
+<li><strong>安全性</strong>：影子模型是否在驾驶员未变道（可能因为后方有车）时，错误地输出了变道指令？</li>
+</ul>
+</li>
+<li>通统计差异率和危险指令率，评估新模型是否达到 L2/L3 准入标准。</li>
 </ol>
 </li>
-<li><strong>Q5</strong>: <strong>应急策略</strong>：<ol>
-<li><strong>短期（立即）</strong>：通过云端配置（Config Server）下发热修补丁，暂时<strong>Disable（禁用）</strong> 语音开启后箱的功能，或强制要求该意图必须进行 <strong>Secondary Confirmation（二次确认）</strong>，甚至要求必须在 P 挡下才能执行。</li>
-<li><strong>中期（SOP后）</strong>：收集该方言音频数据，微调 ASR 或 LLM 模型，待验证通过后 OTA 推送。</li>
-<li><strong>决策</strong>：不推迟 SOP，但带着 Feature Flag（功能降级）上线。</li>
+</ul>
+</details>
+<p><strong>2. [指标计算] 某天系统收到 1000 次语音导航请求。
+    - 900 次成功解析并规划路线。
+    - 其中 800 次用户点击了“确认”并开始行驶。
+    - 行驶开始后 1 分钟内，有 40 次用户取消了导航或重新设置了目的地。
+    - 请计算：(1) 意图解析成功率；(2) 有效任务完成率 (Effective TCR)。</strong>
+*   <strong>Hint</strong>：区分技术成功和用户认可的成功。</p>
+<details>
+<summary><strong>参考答案</strong></summary>
+<ul>
+<li><strong>(1) 意图解析成功率</strong> = 900 / 1000 = <strong>90%</strong>。<ul>
+<li>这衡量的是 NLP/LLM 的理解能力。</li>
+</ul>
+</li>
+<li><strong>(2) 有效任务完成率</strong>：<ul>
+<li>“有效”意味着用户认可该结果。</li>
+<li>被用户短期内（1分钟）撤销的 40 次应视为“失败”（可能是导错了、路线太差）。</li>
+<li>有效成功数 = 800 (确认) - 40 (撤销) = 760。</li>
+<li>Effective TCR = 760 / 1000 = <strong>76%</strong>。</li>
+<li><em>启示</em>：单纯看解析率会掩盖 14% 的体验问题。</li>
+</ul>
+</li>
+</ul>
+</details>
+<ol start="3">
+<li><strong>[运营工具] 用户投诉说，对着车机说“我想喝瑞幸”，车机总是推荐 10 公里外的一家店，而忽略了 1 公里外的店。经查是 RAG 检索的距离排序逻辑有 Bug。在不发版 OTA 的情况下，PM 可以怎么做？</strong>
+*   <strong>Hint</strong>：思考 Prompt 对检索结果的重排序（Re-ranking）能力。</li>
+</ol>
+<details>
+<summary><strong>参考答案</strong></summary>
+<ul>
+<li><strong>操作</strong>：使用 Prompt Patching 或更新 Agent 的 Tool Definition。</li>
+<li><strong>具体方案</strong>：在云端 Agent 调用“地点搜索工具”的 Prompt 中，增加强制约束（Constraint）：<em>“当用户搜索连锁品牌（如星巴克、瑞幸）时，必须优先按‘距离最近’进行排序，并只展示 3km 内的结果，除非用户指定了特定地点。”</em></li>
+<li>或者，如果问题出在云端 Search API 的默认参数，可以在云端网关层修改 API 请求参数（<code>sort_by=distance</code>），这也属于热更范畴。</li>
+</ul>
+</details>
+<h3 id="50_1">挑战题 (50%)</h3>
+<ol start="4">
+<li><strong>[场景分析与数据闭环] 你的系统上线了“多模态可见即可说”功能。数据看板显示，每天有 5% 的用户在语音指令失败后，会愤怒地连续点击屏幕上的同一个按钮超过 3 次（Rage Click）。</strong>
+*   <strong>任务</strong>：设计一个自动化的流程，捕捉这类数据并用于模型优化。
+*   <strong>Hint</strong>：从端侧触发器到云端微调的全链路。</li>
+</ol>
+<details>
+<summary><strong>参考答案</strong></summary>
+<ul>
+<li><strong>1. 端侧触发器 (Trigger)</strong>：<ul>
+<li>在 HMI 框架中埋点：监测 <code>Touch_Event</code>。如果检测到 <code>Double_Click</code> 或 <code>Rapid_Click</code> (e.g., &gt;3 clicks in 1s) 在语音交互结束后 5s 内发生，标记为 <strong>"Negative_Sample_Rage"</strong>。</li>
+<li>触发时，打包上传：前 30s 录音/ASR文本、屏幕截图（需脱敏）、当前页面 UI 树（DOM tree）、LLM 的原始回复。</li>
+</ul>
+</li>
+<li><strong>2. 云端自动归因</strong>：<ul>
+<li>利用 GPT-4V (多模态模型) 分析上传的截图和 Log。</li>
+<li>Prompt: <em>"用户说了[指令]，模型执行了[动作]，用户随后愤怒点击了坐标(x,y)，该坐标对应按钮[按钮名]。请分析模型为何没能响应用户的语音意图？"</em></li>
+</ul>
+</li>
+<li><strong>3. 数据合成与集</strong>：<ul>
+<li>将分析结果转化为训练数据对：<ul>
+<li>Input: 用户语音 + 屏幕 UI 描述</li>
+<li>Output (Target): 点击该按钮对应的 Function Call</li>
+</ul>
+</li>
+<li>加入 "Hard Example" 数据集。</li>
+</ul>
+</li>
+<li><strong>4. 迭代</strong>：<ul>
+<li>每周对该数据集进行 LoRA 微调或更新 Few-shot Prompt 示例，解决此类 UI 元素的识别问题。</li>
+</ul>
+</li>
+</ul>
+</details>
+<ol start="5">
+<li><strong>[危机公关与安全] 某大 V 发布视频：在高速使用你的系统时，大喊“我们要死在一起！”，车机大模型竟然回答“好的，正在为您加速”，并且 HUD 显示车速从 100 提到了 105。舆论哗然。</strong>
+*   <strong>任务</strong>：<ol>
+<li>分析可能的技术原因。</li>
+<li>制定 P0 级响应方案（含对外口径）。
+*   <strong>Hint</strong>：区分“巧合”与“因果”，区分“对话域”与“控车域”。</li>
 </ol>
 </li>
-<li><strong>Q6</strong>:<ol>
-<li><strong>任务完成率 (Task Success Rate)</strong>：特别是针对复杂长尾指令（如“去有充电桩的那个万达”）的成功率。</li>
-<li><strong>交互轮数 (Turns per Task)</strong>：完成一次导航设置所需的平均对话轮次（大模型应能更聪明地减少追问）。</li>
-<li><strong>用户修正率 (User Correction Rate)</strong>：用户在意图识别后进行手动修正或语音纠错的比例（越低越好）。</li>
+</ol>
+<details>
+<summary><strong>参考答案</strong></summary>
+<ul>
+<li><strong>1. 技术原因分析</strong>：<ul>
+<li><strong>LLM 侧</strong>：没有做好“安全护栏”（Safety Guardrail），对极端恶意/自杀倾向的 query 没有拒答，反而因为幻觉或 Prompt 注入（角色扮演）顺从了用户。</li>
+<li><strong>车控侧</strong>：<strong>极大概率是巧合</strong>。车辆加速可能正好是因为前车加速、或处于 ACC 恢复速度阶段。AD 系统通常有独立的白名单指令集，不太可能包含“自杀”这种指令。但用户会将两者关联。</li>
+</ul>
+</li>
+<li><strong>2. P0 响应方案</strong>：<ul>
+<li><strong>T+0 (止血)</strong>：立即通过 Feature Flag 屏蔽该特定话术的回复，或全局提高 LLM 的安全过滤等级（拒绝所有含“死/撞/杀”词汇的指令）。</li>
+<li><strong>T+2h (调查)</strong>：拉取该车 Log，比对 <code>Voice_Timestamp</code> 和 <code>AD_Acceleration_Timestamp</code>。<ul>
+<li><em>关键证据</em>：确认 AD 系统的加速指令来源（Source）。如果是 <code>ACC_Resume</code> 或 <code>Follow_Front_Car</code>，则证明与语音无关。</li>
+</ul>
+</li>
+<li><strong>T+24h (对外沟通)</strong>：<ul>
+<li><strong>定性</strong>：承认 LLM 回复不当（严重 Bug），已修复；严正声明车辆加速是 ACC 正常调节，与语音无关（附带数据图表证据）。</li>
+<li><strong>科普</strong>：强调“驾舱安全隔离架构”——娱乐域的语音无法突破行车域的安全底线。</li>
+<li><strong>整改</strong>：更新“自杀干预”语料库，当检测到此类言论时，强制转为安抚话术并推送心理咨询热线，同时<strong>禁止任何车控操作</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</details>
+<ol start="6">
+<li><strong>[版本兼容性] 云端 LLM 模型升级到了 V2.0，支持了更复杂的 JSON 输出格式（如多级嵌套）。但此时路上还有 30% 的车辆因为没连 Wi-Fi，车机端解析代码还是 V1.0（只支持扁平 JSON）。</strong>
+*   <strong>问题</strong>：如果不做处理，这 30% 的车会发生什么？作为 TPM，你如何保证平滑过渡？
+*   <strong>Hint</strong>：API 版本控制与请求头（Header）。</li>
+</ol>
+<details>
+<summary><strong>参考答案</strong></summary>
+<ul>
+<li><strong>后果</strong>：<ul>
+<li>V2.0 模型下发嵌套 JSON -&gt; V1.0 车机解析器无法识别字段 -&gt; 抛出异常/解析失败 -&gt; 功能完全不可用（车机可能提示“服务异常”）。</li>
+</ul>
+</li>
+<li><strong>解决方案</strong>：<ol>
+<li><strong>请求头携带版本号</strong>：车机发起请求时，Header 中必须带上 <code>Client-Version: 1.0</code>。</li>
+<li><strong>云端路由/适配层</strong>：<ul>
+<li><strong>方案 A (多版本共存)</strong>：网关识别到 V1.0 客户端，路由到旧版 V1.0 模型服务。</li>
+<li><strong>方案 B (向下兼容适配器)</strong>：网关识别到 V1.0 客户端，调用 V2.0 模型，但在返回前经过一个 <strong>Adapter/Transformer</strong>，将嵌套 JSON 拍扁（Flatten）成 V1.0 格式，再返回给车端。</li>
+</ul>
+</li>
+<li><strong>强制升级策略</strong>：对于长期滞后的版本，在 App 端推送强提醒，或在云端逐步停止对 V1.0 的支持（EOL），但在停止前必须有足够长的公告期。</li>
 </ol>
 </li>
 </ul>
 </details>
 <hr />
 <h2 id="5-gotchas">5. 常见陷阱与错误 (Gotchas)</h2>
-<h3 id="1_1">🔴 陷阱 1：只测“听得懂”，不测“做得到”</h3>
+<ol>
+<li>
+<p><strong>“温水煮青蛙”式的模型漂移 (Model Drift)</strong>：</p>
 <ul>
-<li><strong>错误</strong>：测试报告显示 NLU 准确率 99%，但上线后全是投诉。</li>
-<li><strong>原因</strong>：LLM 能够完美解析“导航去某地”，但该地点在地图数据中不存在，或者 API 接口参数格式错误。</li>
-<li><strong>Debug</strong>：测试必须是 <strong>E2E（端到端）</strong> 的。验收标准不是“输出 JSON 正确”，而是“地图成功规划出路线”。</li>
+<li><em>现象</em>：为了修复一个 Bad Case（如“打开天窗”），微调了模型，结果导致“打开遮阳帘”的准确率下降了 2%。由于下降幅度小，未触发报警。经过 10 次迭代，整体能力大幅退化。</li>
+<li><em>对策</em>：建立<strong>全量回归集 (Golden Set)</strong>，包含数千个历史用例。每次发版不仅看新 Case 是否通过，更要看旧 Case 的<strong>通过率是否下降</strong>（Regression Test）。</li>
 </ul>
-<h3 id="2_1">🔴 陷阱 2：忽视“状态机”的中间态</h3>
+</li>
+<li>
+<p><strong>忽视 Token 成本爆炸</strong>：</p>
 <ul>
-<li><strong>错误</strong>：只测了“确认-&gt;执行”和“取消-&gt;结束”。</li>
-<li><strong>场景</strong>：用户还在看确认弹窗，此时 AD 系统突然请求接管（Takeover），或者电话进来了。</li>
-<li><strong>Debug</strong>：测试 <strong>“抢占与中断”</strong>。高优先级的车辆事件（如碰撞预警、来电）必须能够打断对话和确认弹窗。</li>
+<li><em>现象</em>：为了追求体验，在 Prompt 中加入了大量 Context（历史对话、全量车辆状态、周边 POI）。上线后发现每辆车每月的 Token 账单高达数百元，商业模式崩塌。</li>
+<li><em>对策</em>：实施 <strong>Context 动态剪枝</strong>（只传相关状态）、使用更便宜的模型处理简单指令（大小模型分流）、并在网关层设置单车日限额。</li>
 </ul>
-<h3 id="3golden-set">🔴 陷阱 3：金标准（Golden Set）过拟合</h3>
+</li>
+<li>
+<p><strong>过度依赖 OTA 修复问题</strong>：</p>
 <ul>
-<li><strong>错误</strong>：模型在测试集上表现完美，但在真实场景一塌糊涂。</li>
-<li><strong>原因</strong>：测试集太小，或者模型在训练时不知不觉“见过”测试题（数据污染）。</li>
-<li><strong>Debug</strong>：<ol>
-<li>严格隔离训练集与测试集。</li>
-<li>引入 <strong>动态估集</strong>，每周由标注团队从线上真实日志中抽取新的 Bad Case 加入回归测试。</li>
-</ol>
+<li><em>现象</em>：遇到上 Prompt 问题，TPM 习惯性地说“排期进下个版本 OTA”。</li>
+<li><em>后果</em>：OTA 流程长（开发+测试+认证+推送=1~2个月），期间用户口碑烂掉。</li>
+<li><em>对策</em>：必须强推<strong>配置化/热更化</strong>架构。凡是能通过云端 Config/Prompt 解决的，绝不走 OTA。</li>
+</ul>
+</li>
+<li>
+<p><strong>隐私合规的“回旋镖”</strong>：</p>
+<ul>
+<li><em>现象</em>：为了分析 Bug，工程师直接从云端拉取用户的车内录音。</li>
+<li><em>后果</em>：违反隐私法，导致巨额罚款或产品下架。</li>
+<li><em>对策</em>：<ul>
+<li><strong>端侧脱敏</strong>：上传前在车端将语音转为文字（ASR），并抹去人名/地名。</li>
+<li><strong>最小化采集</strong>：仅在触发“接管/报错”时采集，平时不录音。</li>
+<li><strong>访问审计</strong>：任何工程师访问用户数据必须有工单审批和操作日志（Audit Log）。</li>
+</ul>
 </li>
 </ul>
-<h3 id="4">🔴 陷阱 4：低估了“声音”的影响</h3>
+</li>
+<li>
+<p><strong>测试车 vs 量产车的算力鸿沟</strong>：</p>
 <ul>
-<li><strong>错误</strong>：在安静的办公室测语音交互。</li>
-<li><strong>场景</strong>：车速 100km/h，开窗，后排小孩在哭，副驾在聊天。</li>
-<li><strong>Debug</strong>：必须在 <strong>L4 阶段</strong> 引入真实路噪数据混音测试（Noise Injection），验证 ASR 和 LLM 的抗干扰能力。</li>
+<li><em>现象</em>：开发阶段用的是高配测试车（Orin-X * 2），运行流畅。量产发布到低版车型（Orin-N 或 8155）时，TTS 卡顿，导航加载慢。</li>
+<li><em>对策</em>：CI/CD 流程中必须包含<strong>低配硬件的性能自动化测试</strong>。发布策略中需针对不同算力平台配置不同的模型参数或功能集（Feature Set）。</li>
 </ul>
+</li>
+</ol>
             </article>
             
-            <nav class="page-nav"><a href="chapter14.html" class="nav-link prev">← Chapter 14｜风险清单与应对预案 (Risk Management & Contingency)</a><a href="CLAUDE.html" class="nav-link next">Untitled →</a></nav>
+            <nav class="page-nav"><a href="chapter14.html" class="nav-link prev">← Chapter 14｜风险清单与应对预案 (Risk Management & Contingency)</a><a href="chapter16.html" class="nav-link next">Chapter 16｜附录：模板、清单与术语 (Toolkit & Standards) →</a></nav>
         </main>
     </div>
 </body>

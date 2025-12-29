@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>Chapter 16｜附录：模板、清单与术语 (Toolkit & Standards)</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">驾舱一体（自动驾驶 × 智能车舱）整体设计与项目流程文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 1｜项目概览与北极星目标 (Project Overview & North Star Goals)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 2｜用户体验蓝图与核心场景 (User Experience Blueprint & Core Scenarios)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 3｜需求体系与范围管理 (Requirements & Scope)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 4｜驾舱一体目标架构总览</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 5｜对话上下文导航升级方案（从对话到路线到执行）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 6｜座舱大模型升级方案（多域融合且稳定可控）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 7｜驾舱一体的“统一代理”与共享状态设计</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 8｜数据、训练与评测闭环（从日志到迭代）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 9｜安全、合规与可控性体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 10｜平台工程与端云协同（部署、成本、可观测）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 11｜测试策略、验收标准与交付物</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 12｜组织阵型与协作机制（面向交付）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 13｜项目计划与时间控制节点（Gates）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 14｜风险清单与应对预案 (Risk Management & Contingency)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 15｜发布、运营与持续迭代</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Chapter 16｜附录：模板、清单与术语 (Toolkit & Standards)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="chapter-16-toolkit-standards">Chapter 16｜附录：模板、清单与术语 (Toolkit &amp; Standards)</h1>
+<h2 id="1">1. 开篇段落</h2>
+<p>在“驾舱一体”项目中，最大的挑战往往不是技术本身，而是跨团队（自动驾驶算法、座舱应用、云端大模型、车辆工程）的<strong>语义对齐</strong>与<strong>交付标准统一</strong>。当产品经理描述“智能导航”时，算法工程师可能理解为路径规划，而交互设计师理解为语音动效。</p>
+<p>本章汇编了经过验证的标准化工具，包括<strong>术语表（Glossary）</strong>、<strong>PRD 标准模板</strong>、<strong>技术方案架构模板</strong>、<strong>工具调用契约（Schema）</strong>、<strong>里程碑验收清单（Gate Checklists）</strong> 以及 <strong>RACI 权责矩阵</strong>。</p>
+<p><strong>本章目标</strong>：</p>
+<ol>
+<li><strong>消除歧义</strong>：通过统一定义，确保所有人在同一个频道对话。</li>
+<li><strong>强制规范</strong>：通过模板中的必填项，强制思考“降级策略”、“确认机制”与“安全边界”。</li>
+<li><strong>落地执行</strong>：提供可直接复制粘贴的 JSON Schema 和 Excel 表头，减少从理论到落地的摩擦。</li>
+</ol>
+<hr />
+<h2 id="2">2. 文字论述与标准模板</h2>
+<h3 id="161-the-driving-cabin-glossary">16.1 术语表与缩写 (The "Driving-Cabin" Glossary)</h3>
+<p>为了弥合自动驾驶（硬实时/强安全）与大模型（概率性/强交互）的鸿沟，必须严格定义以下术语。</p>
+<h4 id="211">2.1.1 核心业务术语</h4>
+<p>| 术语/缩写 | 全称 | 定义与业务含义 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">术语/缩写</th>
+<th style="text-align: left;">全称</th>
+<th style="text-align: left;">定义与业务含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Trip Agent</strong></td>
+<td style="text-align: left;">Trip Agent</td>
+<td style="text-align: left;"><strong>行程代理</strong>。本项目核心逻辑单元，负责维护“从出发到到达”全周期的状态，协调导航、电量、偏好与POI推荐。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Contextual Nav</strong></td>
+<td style="text-align: left;">Contextual Navigation</td>
+<td style="text-align: left;"><strong>上下文导航</strong>。区别于传统指令式导航，指具备记忆（“去上次那家”）、理解隐喻（“找个方便停车的吃饭地”）能力的导航体验。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Confirmation</strong></td>
+<td style="text-align: left;">Explicit Confirmation</td>
+<td style="text-align: left;"><strong>显式确认</strong>。系统在执行高风险或高成本动作前，强制要求用户进行二次确认（语音“是/否”或点击屏幕）的机制。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Clarification</strong></td>
+<td style="text-align: left;">Ambiguity Clarification</td>
+<td style="text-align: left;"><strong>歧义澄清</strong>。当用户意图模糊（如“去万达”但同城有3个）时，系统主动反问的过程。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>One-Shot</strong></td>
+<td style="text-align: left;">One-Shot Command</td>
+<td style="text-align: left;"><strong>一语直达</strong>。无需唤醒词，或将唤醒词与指令连读（“HiX去公司”）的交互方式。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>HMI Handover</strong></td>
+<td style="text-align: left;">Human-Machine Handover</td>
+<td style="text-align: left;"><strong>人机共驾接管</strong>。自动驾驶与人工驾驶权限切换的时刻，驾舱一体需在此刻提供关键提示（视觉+语音+触觉）。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="212">2.1.2 技术与架构术语</h4>
+<p>| 术语/缩写 | 全称 | 定义与业务含义 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">术语/缩写</th>
+<th style="text-align: left;">全称</th>
+<th style="text-align: left;">定义与业务含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tool Calling</strong></td>
+<td style="text-align: left;">Tool/Function Calling</td>
+<td style="text-align: left;"><strong>工具调用</strong>。LLM 输出特定 JSON 结构以触发外部 API（如控车、调地图）的能力。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Slot Filling</strong></td>
+<td style="text-align: left;">Slot Filling</td>
+<td style="text-align: left;"><strong>槽位填充</strong>。从非结构化语言中提取结构化参数（如 <code>Dest=天安门</code>, <code>Time=明天</code>）的过程。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Guardrails</strong></td>
+<td style="text-align: left;">Safety Guardrails</td>
+<td style="text-align: left;"><strong>安全护栏</strong>。独立于 LLM 之外的确定性代码层（规则引擎），用于拦截不安全指令（如“倒车时开尾门”）。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>RAG</strong></td>
+<td style="text-align: left;">Retrieval-Augmented Generation</td>
+<td style="text-align: left;"><strong>检索增强生成</strong>。将车辆手册、实时路况或用户历史作为上下文注入 Prompt 的技术。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Shadow Mode</strong></td>
+<td style="text-align: left;">Shadow Mode</td>
+<td style="text-align: left;"><strong>影子模式</strong>。新模型在后台运行但不控车，仅记录其决策与实际驾驶员行为的差异，用于评测。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>TTFT</strong></td>
+<td style="text-align: left;">Time To First Token</td>
+<td style="text-align: left;"><strong>首字时延</strong>。用户说完话到屏幕显示第一个文字或听到第一个音节的时间。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SSOT</strong></td>
+<td style="text-align: left;">Single Source of Truth</td>
+<td style="text-align: left;"><strong>单一事实来源</strong>。指车辆状态（如车速、位置）必须有唯一的读取接，避免座舱和智驾读取的数据不一致。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="162-prd-enhanced-prd-template">16.2 驾舱一体 PRD 模板 (Enhanced PRD Template)</h3>
+<blockquote>
+<p><strong>Rule of Thumb</strong>: 每一个 AI 功能需求，都必须包含“Prompt 约束”、“确认策略”和“失败兜底”三要素，否则不予评审。</p>
+</blockquote>
+<h4 id="_1">[文档头部]</h4>
+<ul>
+<li><strong>Feature Name</strong>: 基于上下文的智能改航</li>
+<li><strong>PRD ID</strong>: PRD-NAV-2025-001</li>
+<li><strong>Complexity</strong>: High (涉及 LLM + Map + AD)</li>
+<li><strong>Target Version</strong>: OTA v2.1</li>
+</ul>
+<h4 id="1-business-goal">1. 业务目标与价值 (Business Goal)</h4>
+<ul>
+<li><strong>User Value</strong>: 解决驾驶途中无法通过模糊指令（“想喝咖啡”）顺路修改行程的痛点。</li>
+<li><strong>Success Metrics</strong>:<ul>
+<li>改航任务达成率 &gt; 90%</li>
+<li>对话交互轮次 Avg &lt; 2.5 轮</li>
+<li>误导航率（导航到错误地点） &lt; 1%</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-interaction-flow">2. 核心交互流程 (Interaction Flow)</h4>
+<p><em>(此处应插入泳道图：User -&gt; ASR -&gt; LLM Agent -&gt; Policy Engine -&gt; Map Service -&gt; TTS/Screen)</em></p>
+<h4 id="3-functional-requirements">3. 详细功能需求 (Functional Requirements)</h4>
+<p>| ID | 功能点 | 用户故事 (User Story) | 输入上下文 (Context Inputs) | 系统逻辑 (System Logic) | 确认策略 (Confirmation) | 输出/反馈 (Output) |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">功能点</th>
+<th style="text-align: left;">用户故事 (User Story)</th>
+<th style="text-align: left;">输入上下文 (Context Inputs)</th>
+<th style="text-align: left;">系统逻辑 (System Logic)</th>
+<th style="text-align: left;">确认策略 (Confirmation)</th>
+<th style="text-align: left;">输出/反馈 (Output)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">F1</td>
+<td style="text-align: left;"><strong>模糊地点搜索</strong></td>
+<td style="text-align: left;">"途中想找个<strong>评分高</strong>且<strong>好停车</strong>的火锅店"</td>
+<td style="text-align: left;">1. 当前位置<br>2. 剩余路线<br>3. 大众点评API<br>4. 停车场数据</td>
+<td style="text-align: left;">1. 沿途搜(Route Search)<br>2. 过滤: 评分&gt;4.5 &amp; 停车标签=True<br>3. 排序: 综合推荐</td>
+<td style="text-align: left;"><strong>必须确认</strong> (因为偏离原路线)</td>
+<td style="text-align: left;">语音: "沿途找到两家，推荐X店，评分4.8且有专属车位，去这里吗？"<br>屏幕: 显示卡片列表</td>
+</tr>
+<tr>
+<td style="text-align: left;">F2</td>
+<td style="text-align: left;"><strong>代词指代</strong></td>
+<td style="text-align: left;">"就去<strong>那家</strong>"</td>
+<td style="text-align: left;">1. 上一轮对话结果列表</td>
+<td style="text-align: left;">1. 解析"那家"=列表第一项/高亮项</td>
+<td style="text-align: left;">无需确认 (紧接上文)</td>
+<td style="text-align: left;">直接发起导航请求</td>
+</tr>
+<tr>
+<td style="text-align: left;">F3</td>
+<td style="text-align: left;"><strong>驾驶模式联动</strong></td>
+<td style="text-align: left;">"我有点累了"</td>
+<td style="text-align: left;">1. 当前 AD 状态<br>2. 车辆配置</td>
+<td style="text-align: left;">1. 判断是否具备智驾功能<br>2. 意图=开启辅助驾驶 or 寻找服务区</td>
+<td style="text-align: left;"><strong>强确认</strong> (涉及控车)</td>
+<td style="text-align: left;">音: "已为您打开座椅按摩。建议开启辅助驾驶或导航至最近服务区休息，需要吗？"</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4-non-functional-req">4. 非功能需求 (Non-Functional Req)</h4>
+<ul>
+<li><strong>Latency</strong>: 端到端响应 &lt; 1.5s (Wifi/5G), &lt; 3s (4G)。</li>
+<li><strong>Availability</strong>: 弱网下自动降级为离线指令模式（不支持模糊搜索，仅支持明确指令）。</li>
+<li><strong>Concurrency</strong>: 支持主驾与副驾同时发出指令（副驾权限受限，详见权限表）。</li>
+</ul>
+<h4 id="5-safety-compliance">5. 安全与合规 (Safety &amp; Compliance)</h4>
+<ul>
+<li><strong>Data Privacy</strong>: 搜索记录仅在本地存储，云端处理需脱敏。</li>
+<li><strong>Content Safety</strong>: 屏蔽黄赌毒相关地点的搜索与导航。</li>
+<li><strong>AD Safety</strong>: 在 AD 紧急接管（MRM）状态下，<strong>强制静默</strong>座舱语音，优先播放 AD 警报。</li>
+</ul>
+<h4 id="6-tracking">6. 埋点需求 (Tracking)</h4>
+<ul>
+<li><code>event: intent_recognized</code>: {intent: "search_food", confidence: 0.95}</li>
+<li><code>event: tool_execution</code>: {tool: "map_api", status: "success", latency: 400ms}</li>
+<li><code>event: user_confirmation</code>: {type: "voice", value: "positive"}</li>
+</ul>
+<hr />
+<h3 id="163-tool-calling-schema-registry">16.3 工具调用定义表 (Tool Calling Schema &amp; Registry)</h3>
+<p>这是连接大模型与物理世界的<strong>法律契约</strong>。定义不清会导致“大模型乱按按钮”。</p>
+<p><strong>Schema 定义规范 (JSON format)</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;set_navigation_destination&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;设置车辆导航的目的地。仅在用户明确表达出行意图时调用。&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;poi_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;地点的具体名称，如&#39;北京朝阳大悦城&#39;。&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;poi_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;enum&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;gas_station&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;charging_station&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;restaurant&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;parking&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;地点类别，用于地图引擎优化搜索权重。&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;enum&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;fastest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;avoid_highway&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;economic&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;路线偏好策略。&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;poi_name&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;risk_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;mutex_conditions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;vehicle_status.is_reversing&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;system.is_updating&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>工具注册表 (Tool Registry Table)</strong></p>
+<p>| 工具 ID | 功能名称 | 关键参数 | 风险等级 | 权限要求 | 互斥/前置条件 | 失败话术模板 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">工具 ID</th>
+<th style="text-align: left;">功能名称</th>
+<th style="text-align: left;">关键参数</th>
+<th style="text-align: left;">风险等级</th>
+<th style="text-align: left;">权限要求</th>
+<th style="text-align: left;">互斥/前置条件</th>
+<th style="text-align: left;">失败话术模板</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>nav_set_dest</code></td>
+<td style="text-align: left;">设目的地</td>
+<td style="text-align: left;">POI, 策略</td>
+<td style="text-align: left;"><strong>High</strong></td>
+<td style="text-align: left;">驾驶员/副驾</td>
+<td style="text-align: left;">倒车时禁用</td>
+<td style="text-align: left;">"正在倒车，请稍后设置导航。"</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>veh_win_ctrl</code></td>
+<td style="text-align: left;">车窗控制</td>
+<td style="text-align: left;">目标窗, 开度</td>
+<td style="text-align: left;">Medium</td>
+<td style="text-align: left;">全员</td>
+<td style="text-align: left;">儿童锁开启时禁用</td>
+<td style="text-align: left;">"后排儿童锁已开启，无法操作车窗。"</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>media_play</code></td>
+<td style="text-align: left;">媒体播放</td>
+<td style="text-align: left;">歌名, 歌手</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">全员</td>
+<td style="text-align: left;">电话会议中禁用</td>
+<td style="text-align: left;">"通话中无法播放音乐。"</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ad_mode_on</code></td>
+<td style="text-align: left;">开启智驾</td>
+<td style="text-align: left;">模式ID</td>
+<td style="text-align: left;"><strong>Critical</strong></td>
+<td style="text-align: left;"><strong>仅驾驶员</strong></td>
+<td style="text-align: left;">车速&gt;30, 车道线清晰</td>
+<td style="text-align: left;">"当前路况不满足辅助驾驶开启条件。"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="164-gate-checklists">16.4 验收里程碑清单 (Gate Checklists)</h3>
+<p>项目经理（TPM）使用此表控制项目生命周期。</p>
+<h4 id="gate-b-design-freeze">Gate B: 架构与设计冻结 (Design Freeze)</h4>
+<p><em>入场条件：PRD 评审通过，UX 稿定稿。</em></p>
+<p>| 检查项 | 验收标准 | 必须证据 (Deliverables) | 负责人 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">检查项</th>
+<th style="text-align: left;">验收标准</th>
+<th style="text-align: left;">必须证据 (Deliverables)</th>
+<th style="text-align: left;">负责人</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>接口契约</strong></td>
+<td style="text-align: left;">车云、驾舱接口文档（API/Proto）已发布并锁定。</td>
+<td style="text-align: left;">Swagger/Proto 文件链接</td>
+<td style="text-align: left;">架构师</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>安全策略</strong></td>
+<td style="text-align: left;">完成威胁建模（STRIDE），定义好所有 Policy Engine 拦截规则。</td>
+<td style="text-align: left;">安全评审报告</td>
+<td style="text-align: left;">安全官</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>模型选型</strong></td>
+<td style="text-align: left;">确定基座模型版本，完成 Prompt 初始版本设计。</td>
+<td style="text-align: left;">模型评估报告 (Benchmark)</td>
+<td style="text-align: left;">算法TL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>测试方案</strong></td>
+<td style="text-align: left;">定义好测试集来源（仿真/实车/录音），准备好测试数据。</td>
+<td style="text-align: left;">综合测试计划书</td>
+<td style="text-align: left;">QA经理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>隐私合规</strong></td>
+<td style="text-align: left;">法务审核通过数据采集与上传方案。</td>
+<td style="text-align: left;">合规审批邮件</td>
+<td style="text-align: left;">PM</td>
+</tr>
+</tbody>
+</table>
+<h4 id="gate-d-integration-complete">Gate D: 集成测试通过 (Integration Complete)</h4>
+<p><em>入场条件：各模块单元测试通过，代码合并。</em></p>
+<p>| 检查项 | 验收标准 | 必须证据 (Deliverables) | 负责人 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">检查项</th>
+<th style="text-align: left;">验收标准</th>
+<th style="text-align: left;">必须证据 (Deliverables)</th>
+<th style="text-align: left;">负责人</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>功能闭</strong></td>
+<td style="text-align: left;">核心链路（Vision-&gt;Action）在实车环境跑通，无阻塞性 Bug。</td>
+<td style="text-align: left;">实车演示视频</td>
+<td style="text-align: left;">研发TL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>性能达标</strong></td>
+<td style="text-align: left;">端到端时延 &lt; 1.5s (P90)，GPU/CPU 占用率符合预算。</td>
+<td style="text-align: left;">性能测试报告</td>
+<td style="text-align: left;">QA</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>稳定性</strong></td>
+<td style="text-align: left;">连续运行 48 小时无 Crash，无内存泄漏。</td>
+<td style="text-align: left;">稳定性压测报告</td>
+<td style="text-align: left;">QA</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>降级演练</strong></td>
+<td style="text-align: left;">拔网线、屏蔽 GPS 信号，系统能正确触发降级提示。</td>
+<td style="text-align: left;">故障注入测试日志</td>
+<td style="text-align: left;">架构师</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>确认机制</strong></td>
+<td style="text-align: left;">所有 High 风险操作均正确触发了二次确认。</td>
+<td style="text-align: left;">用例执行记录</td>
+<td style="text-align: left;">PM</td>
+</tr>
+</tbody>
+</table>
+<h4 id="gate-f-sop-ready">Gate F: 量产发布 (SOP Ready)</h4>
+<p><em>入场条件：Pilot 试点无重大事故，遗留 Bug 归零或 Waiver。</em></p>
+<p>| 检查项 | 验收标准 | 必须证据 (Deliverables) | 负责人 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">检查项</th>
+<th style="text-align: left;">验收标准</th>
+<th style="text-align: left;">必须证据 (Deliverables)</th>
+<th style="text-align: left;">负责人</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>红队测试</strong></td>
+<td style="text-align: left;">完成对抗性攻击测试（Prompt Injection），无高危漏洞。</td>
+<td style="text-align: left;">安全渗透测试报告</td>
+<td style="text-align: left;">安全团队</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>路测验收</strong></td>
+<td style="text-align: left;">累积路测里程 &gt; X万公里，接管率 &lt; Y次/千公里。</td>
+<td style="text-align: left;">路测统看板</td>
+<td style="text-align: left;">测试总监</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>舆情/客服</strong></td>
+<td style="text-align: left;">客服话术培训完成，FAQ 已更新。</td>
+<td style="text-align: left;">培训签到表</td>
+<td style="text-align: left;">客服接口人</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>回滚预案</strong></td>
+<td style="text-align: left;">具备“一键熔断”开关（关闭 LLM 仅保留规则），并在生产环境验证过通路。</td>
+<td style="text-align: left;">熔断演练记录</td>
+<td style="text-align: left;">运维/SRE</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="165-raci">16.5 RACI 详细权责矩阵</h3>
+<p>明确“谁做（R）”、“谁拍板（A）”、“谁提供支持（C）”、“通知谁（I）”。</p>
+<p>| 任务领域 | 细分任务 | PM (产品) | TPM (项目) | Dev-Cockpit (座舱) | Dev-AD (智驾) | Dev-Algo (模型) | QA (测试) | Safety (安全) |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">任务领域</th>
+<th style="text-align: left;">细分任务</th>
+<th style="text-align: left;">PM (产品)</th>
+<th style="text-align: left;">TPM (项目)</th>
+<th style="text-align: left;">Dev-Cockpit (座舱)</th>
+<th style="text-align: left;">Dev-AD (智驾)</th>
+<th style="text-align: left;">Dev-Algo (模型)</th>
+<th style="text-align: left;">QA (测试)</th>
+<th style="text-align: left;">Safety (安全)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>需求阶段</strong></td>
+<td style="text-align: left;">场景定义与 PRD</td>
+<td style="text-align: left;"><strong>R/A</strong></td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">I</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">确认机制与交互设计</td>
+<td style="text-align: left;"><strong>R</strong></td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;"><strong>A</strong> (安全审核)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>开发阶段</strong></td>
+<td style="text-align: left;">Tool Schema 定义</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;"><strong>R</strong></td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;"><strong>R</strong></td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">A</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Prompt 编写与调优</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;"><strong>R/A</strong></td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">C</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">策略引擎(Guardrail)配置</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;"><strong>R</strong></td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;"><strong>A</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">智驾状态接口(State API)</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;"><strong>R</strong></td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">C</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>测试阶段</strong></td>
+<td style="text-align: left;">仿真/回放测试</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;"><strong>R/A</strong></td>
+<td style="text-align: left;">I</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">实车路测</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;"><strong>R</strong></td>
+<td style="text-align: left;">C</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">红队攻击 (Red Teaming)</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;"><strong>R/A</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>发布运营</strong></td>
+<td style="text-align: left;">灰度放量策略</td>
+<td style="text-align: left;"><strong>R</strong></td>
+<td style="text-align: left;"><strong>A</strong></td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">I</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">线上事故熔断/回滚</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;"><strong>A</strong></td>
+<td style="text-align: left;">R</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">C</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="166-test-case-template">16.6 场景用例标准模板 (Test Case Template)</h3>
+<p>用于 QA 编写用例和自动化脚本开发。</p>
+<ul>
+<li><strong>Case ID</strong>: TC-NAV-008</li>
+<li><strong>Case Name</strong>: 导航中途修改目的地（含费用确认）</li>
+<li><strong>Priority</strong>: P0</li>
+<li><strong>Pre-condition</strong>: 车辆在高速公路智驾模式（NOA）下，已设置目的地A。</li>
+<li><strong>Test Data</strong>: 模拟高德地图 API 返回“目的地B 有高速费 50元”。</li>
+</ul>
+<p>| 步骤 | 角色 | 动作/输入 | 预期结果 (Expected Result) | 检查点 (Checkpoints) |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">步骤</th>
+<th style="text-align: left;">角色</th>
+<th style="text-align: left;">动作/输入</th>
+<th style="text-align: left;">预期结果 (Expected Result)</th>
+<th style="text-align: left;">检查点 (Checkpoints)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">User</td>
+<td style="text-align: left;">唤醒并说：“换个地方，去最近的机场。”</td>
+<td style="text-align: left;">系统识别意图 <code>nav_dest</code>，Slot=<code>机场</code>，Strategy=<code>nearest</code>。</td>
+<td style="text-align: left;">Log 中 Intent 是否正确？</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">System</td>
+<td style="text-align: left;">(后台处理)</td>
+<td style="text-align: left;">调用地图API搜索，计算发现需要切路且产生费用。判断需确认。</td>
+<td style="text-align: left;"><code>Needs_Confirm=True</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">System</td>
+<td style="text-align: left;">语音+屏幕反馈</td>
+<td style="text-align: left;">TTS：“好的，去首都机场。这将改变当前路线并产生高速费，确认吗？”<br>屏幕显示路线对比卡片。</td>
+<td style="text-align: left;"><strong>关键点</strong>：AD 状态未改变，车辆保持原路线行驶。</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">User</td>
+<td style="text-align: left;">说：“确认。”</td>
+<td style="text-align: left;">系统下发新路线给 AD 域。</td>
+<td style="text-align: left;">确认后，AD 域接收新 Route。</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">System</td>
+<td style="text-align: left;">执行</td>
+<td style="text-align: left;">AD 域规划变道，语音播报“正在前往...”。</td>
+<td style="text-align: left;">观察车辆是否平滑变道。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 本章小结</h2>
+<p>本附录是项目执行的<strong>“度量衡”</strong>。</p>
+<ul>
+<li><strong>术语表</strong>防止了“鸡同鸭讲”。</li>
+<li><strong>PRD 模板</strong>强行植入了“AI 容错”基因。</li>
+<li><strong>Tool Schema</strong> 是大模型与车辆安全的防火墙。</li>
+<li><strong>Gate 清单</strong> 确保了我们不会病上线。</li>
+<li><strong>RACI 矩阵</strong> 杜绝了“三不管”地带。</li>
+</ul>
+<p><strong>Rule of Thumb</strong>: 如果你在开发中遇到文档未定义的模糊地带，<strong>不要猜测</strong>，请立即发起 CR（Change Request）更新本附录。文档的厚度代表了我们对安全的敬畏程度。</p>
+<hr />
+<h2 id="4">4. 练习题</h2>
+<details>
+<summary><strong>习题 1（基础）：Schema 设计</strong></summary>
+<p><strong>题目</strong>：你需要为“座椅调节”功能设计一个 Tool Schema。考虑到安全，请问 <code>parameters</code> 中应该包含哪些字段？为什么不能只给一个 <code>description: "adjust seat"</code> 让 LLM 自己生成指令？</p>
+<p><strong>提示</strong>：考虑具体的座椅位置（主驾/副驾）、调节方向、以及 LLM 可能产生的幻觉。</p>
+<blockquote>
+<p><strong>参考答案</strong>：</p>
+<ol>
+<li><strong>必须包含的字段</strong>：<ul>
+<li><code>seat_id</code>: Enum ["driver", "passenger", "rear_left", "rear_right"]（明确调节哪个椅子）。</li>
+<li><code>action</code>: Enum ["move_forward", "move_back", "recline", "heat_level"]（限制动作范围）。</li>
+<li><code>value</code>: Integer/Range（限制调节幅度，防止一下子调到底）。</li>
+</ul>
+</li>
+<li><strong>原因</strong>：如果让 LLM 自由生成，它可能生成 <code>{"action": "eject"}</code>（弹射，虽然车没这功能）或者 <code>{"seat": "roof"}</code> 等无效或危险指令。强类型的 Schema 配合 Enums 能在入口处拦截 99% 的非法参数，确保发给底层 ECU 的指令是合法的。</li>
+</ol>
+</blockquote>
+</details>
+<details>
+<summary><strong>习题 2（进阶）：Gate 决策</strong></summary>
+<p><strong>题目</strong>：在 Gate F（量产发布）评审会上，发现一个 P2 级 Bug：在地下车库（无网）时，用户说“打开车窗”，响应时间长达 5 秒（因为系统在尝试联网超时后才切回离线规则）。
+作为 TPM，你应该：
+A. 延期发布，修复后再上线。
+B. 忽略此问题，直接上线。
+C. 签署 Waiver（豁免），带病上线但承诺 OTA 修复。
+请选择并阐述理由。</p>
+<p><strong>提示</strong>：考虑 P2 的定义、场景频次以及用户体验的恶劣程度。</p>
+<blockquote>
+<p><strong>参考答案</strong>：
+<strong>推荐选择 A (延期) 或 极严格条件下的 C。</strong></p>
+<ul>
+<li><strong>分析</strong>：地下车库是极高频场景，且“打开车窗”是极其基础的控车指令。5秒延迟给用户的感觉是“死机”或“失灵”，这会严重摧毁用户对“智能座舱”的信任感，甚至导致用户在慌乱中重复操作引发安全隐患。</li>
+<li><strong>决策</strong>：这虽然标记为 P2，但对体验杀伤力等同于 P0。除非有极其紧迫的商业承诺且能通过 UI 提示缓解（如显示“正在尝试连接...”），否则应 Fix 后上线。如果是 5秒 缩短到 2秒，可以选 C；如果是 5秒，建议选 A。</li>
+</ul>
+</blockquote>
+</details>
+<details>
+<summary><strong>习题 3（场景）：RACI 应用</strong></summary>
+<p><strong>题目</strong>：线上发生了一起客诉：用户在高速上对车机说“我想睡觉”，结果车机自动把座椅放平了（导致驾驶员无法看路），险些酿成事故。
+请根据 RACI 矩阵分析：</p>
+<ol>
+<li>谁对“座椅放平”这个功能的<strong>安全性</strong>负责？</li>
+<li>谁对“别出睡觉意图”负责？</li>
+<li>这是一个 Feature 还是一个 Bug？</li>
+</ol>
+<p><strong>提示</strong>：区分意图识别（NLP）和策略控制（Policy）。</p>
+<blockquote>
+<p><strong>参考答案</strong>：</p>
+<ol>
+<li><strong>安全性负责</strong>：<strong>Safety 团队 (A) 和 Dev-Cockpit (R)</strong>。策略引擎应该配置一条规则：<code>IF speed &gt; 0 THEN disable seat_recline_fully</code>。这是硬安全逻辑的缺失。</li>
+<li><strong>意图识别负责</strong>：<strong>Dev-Algo (R)</strong>。LLM 正确识别了用户想睡觉，并调用了放平座椅工具，从 NLP 角度它工作“正常”。</li>
+<li><strong>定性</strong>：这是一个 <strong>Critical Safety Bug（设计缺陷）</strong>。系统正确执行了指令，但执行了错误的（不安全的）决策。根本原因在于<strong>策略引擎（Guardrails）</strong>未能拦截高速行驶下的危险动作。</li>
+</ol>
+</blockquote>
+</details>
+<details>
+<summary><strong>习题 4（实战）：PRD 撰写</strong></summary>
+<p><strong>题目</strong>：在撰写“语音调整巡航车速”的 PRD 时，你需要定义“确认策略”。
+情景 1：用户说“车速调高一点”。
+情景 2：用户说“车速设为 120”。当前限速 80。
+请分别给出确认策略。</p>
+<p><strong>提示</strong>：区分“微调”和“绝对值设定”，以及“合法性校验”。</p>
+<blockquote>
+<p><strong>参考答案</strong>：</p>
+<ul>
+<li><strong>情景 1 (微调)</strong>：<strong>弱确认或无确认</strong>。<ul>
+<li>策略：直接执行（通常 +5km/h），伴随语音反馈“已调速至 XX”。因为风险可控，用户可随时踩刹车接管。</li>
+</ul>
+</li>
+<li><strong>情景 2 (越界/高风险)</strong>：<strong>拒绝执行或强确认</strong>。<ul>
+<li>策略：系统检测到 120 &gt; 当前道路限速 80。</li>
+<li>反馈：<strong>拒绝</strong>。TTS：“当前道路限速 80，无法设定为 120。”</li>
+<li><em>（注：如果是在不限速路段大幅提速，如从 60 提至 120，则需要</em><em>强确认</em><em>：“即将加速至 120，请确认。”）</em></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</details>
+<hr />
+<h2 id="5-gotchas">5. 常见陷阱与错误 (Gotchas)</h2>
+<ol>
+<li>
+<p><strong>“Prompt 依赖症”</strong>：</p>
+<ul>
+<li><em>错误</em>：试图用 Prompt（提示词）来解决所有安全问题（如“请不要在高速时打开后备箱”）。</li>
+<li><em>真相</em>：LLM 永远有概率失效。<strong>必须</strong>使用确定性的代码（If-Else 策略引擎）来做最后一道防线。Prompt 只是软约束，代码才是硬约束。</li>
+</ul>
+</li>
+<li>
+<p><strong>Schema 定义过松</strong>：</p>
+<ul>
+<li><em>错误</em>：参数定义为 <code>String</code> 类型且无枚举限制。</li>
+<li><em>后果</em>：用户说“打开左边那个窗”，LLM 传参 <code>{"window": "left_one"}</code>，但代码只认识 <code>FL</code> 或 <code>RL</code>，导致执行失败。</li>
+<li><em>修正</em>：在 Schema 中使用 <code>Enum</code> 严格枚举所有可能值，强迫 LLM 做映射。</li>
+</ul>
+</li>
+<li>
+<p><strong>忽略 TTS 的延迟</strong>：</p>
+<ul>
+<li><em>错误</em>：测试时只看 log 觉得处理很快，但真车上 TTS 播报太慢（“好的，正在为您查找...由于网络原因...”），导致用户在播报结束前已经不耐烦地发起了第二次指令，造成指令堆叠。</li>
+<li><em>修正</em>：设计简短、干练的 TTS，支持<strong>打断（Barge-in）</strong>，并在检测到新指令时立即停止上一条播报。</li>
+</ul>
+</li>
+<li>
+<p><strong>把“不知道”当“错误”</strong>：</p>
+<ul>
+<li><em>误</em>：强迫模型必须回答所有问题。</li>
+<li><em>真相</em>：对于 LLM 不确定的意图，<strong>拒答</strong>或<strong>澄清</strong>（“您是想去南京路还是南京西路？”）远比<strong>瞎猜</strong>（直接导航去南京路）要好。在 PRD 中要明确定义“低置信度”时的澄清行为。</li>
+</ul>
+</li>
+<li>
+<p><strong>缺乏“撤销”入口</strong>：</p>
+<ul>
+<li><em>错误</em>：语音改了目的地后，屏幕上没有显眼的“恢复原路线”按钮。</li>
+<li><em>真相</em>：语音交互是瞬时的，用户很容易反悔。每次由语音触发的关键状态变更，屏幕上都应保留 5-10 秒的 <strong>Undo（撤销）</strong> 浮窗。</li>
+</ul>
+</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter15.html" class="nav-link prev">← Chapter 15｜发布、运营与持续迭代</a><a href="CLAUDE.html" class="nav-link next">Untitled →</a></nav>
+        </main>
+    </div>
+</body>
+</html>
